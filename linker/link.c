@@ -1,6 +1,6 @@
 /* Output from p2c 2.00.Oct.15, the Pascal-to-C translator */
 
-#include "p2c/src/p2c.h"
+#include "p2c.h"
 
 #define vermsg          "V1.44"
 
