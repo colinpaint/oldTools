@@ -1,0 +1,1206 @@
+
+Compiling and running t6p1p7d15
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.7-15, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 1} 
+     2      -32  
+     3      -32 {: This program checks that the required string-characters 
+     4      -32    are provided. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p1p7d15(output); 
+     8      -32 const 
+     9      -32    reqstr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/=<>.,:;^() '''; 
+    10      -32 var 
+    11      -32    st: packed array [1 .. 52] of char; 
+    12      -32    i, j: 1 .. 52; 
+    13      -32    fail: boolean; 
+    14      -32 begin 
+    15        3    fail := false; 
+    16        8    st := reqstr; 
+    17       11    for i := 1 to 52 do 
+    18       22    for j := 1 to 52 do 
+    19       33       begin 
+    20       33       if (i <> j) and (st[i] = st[j]) then 
+    21       51          fail := true; 
+    22       54       end; 
+    23       76    if fail then 
+    24       78       writeln(' FAIL...6.1.7-15') 
+    25       84    else 
+    26       87       writeln(' IMPLEMENTATION DEFINED...6.1.7-15') 
+    27       93 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ IMPLEMENTATION DEFINED...6.1.7-15
+
+program complete
+
+Compiling and running t6p1p9d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.9-5, CLASS=IMPLEMENTATIONDEFINED, NUMBER=16} 
+     2      -32  
+     3      -32 {: This program checks whether the required equivalent 
+     4      -32    symbols can be used instead of the reference representation. } 
+     5      -32 {  The required alternative representations are for curly comment 
+     6      -32    brackets and square subscript brackets. These must be provided 
+     7      -32    since the necessary characters *, ), and . are available. } 
+     8      -32 {V3.1: Changed to test required alternatives, not just comments. } 
+     9      -32  
+    10      -32 program t6p1p9d5(output); 
+    11      -32 (* Test of alternate comment delimiters *) 
+    12      -32 var 
+    13      -32    x: array (. 1 .. 10 .) of boolean; 
+    14      -32    y: array [ 1 .. 10.) of boolean; 
+    15      -32 begin 
+    16        3    x(.1] := true; 
+    17       13    y[1.) := x[1]; 
+    18       26  (* test of alternate comment delimiters. If these delimiters 
+    19       26    are not implemented a syntax error will result. *) 
+    20       26    writeln(' OUTPUT FROM TEST...6.1.9-5'); 
+    21       34    writeln(' ALTERNATE SUBSCRIPT BRACKETS IMPLEMENTED'); 
+    22       42    writeln(' ALTERNATE COMMENT DELIMITERS IMPLEMENTED'); 
+    23       50    writeln(' IMPLEMENTATION DEFINED...6.1.9-5') 
+    24       56 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.1.9-5
+ ALTERNATE SUBSCRIPT BRACKETS IMPLEMENTED
+ ALTERNATE COMMENT DELIMITERS IMPLEMENTED
+ IMPLEMENTATION DEFINED...6.1.9-5
+
+program complete
+
+Compiling and running t6p4p2p2d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.4.2.2-10, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 6} 
+     2      -32  
+     3      -32 {: This program prints out the implementation defined value 
+     4      -32    of maxint. } 
+     5      -32 {V3.0: Was previously 6.4.2.2-7. } 
+     6      -32  
+     7      -32 program t6p4p2p2d10(output); 
+     8      -32 begin 
+     9        3    writeln(' OUTPUT FROM TEST...6.4.2.2-10'); 
+    10       13    writeln(' THE VALUE OF MAXINT IS ', maxint); 
+    11       24    writeln(' IMPLEMENTATION DEFINED...6.4.2.2-10') 
+    12       30 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.4.2.2-10
+ THE VALUE OF MAXINT IS  2147483647
+ IMPLEMENTATION DEFINED...6.4.2.2-10
+
+program complete
+
+Compiling and running t6p4p2p2d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.4.2.2-11, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 2} 
+     2      -32  
+     3      -32 {: This program observes the approximate accuracy of real 
+     4      -32    values around 1.0. It prints the precision in decimal 
+     5      -32    digits up to 30 places. } 
+     6      -32 {V3.1: new test. } 
+     7      -32  
+     8      -32 program t6p4p2p2d11(output); 
+     9      -32 label 
+    10      -32    1; 
+    11      -32 var 
+    12      -32    i: integer; 
+    13      -32    x, y: array [ 1 .. 30 ] of real; 
+    14      -32 begin 
+    15        3 x[1] := 1.1;  x[2] := 1.01;  x[3] := 1.001; x[4] := 1.0001; 
+    16       33 x[5] := 1.00001;  x[6] := 1.000001;  x[7] := 1.0000001; 
+    17       54 x[8] := 1.00000001;  x[9] := 1.000000001;  x[10] := 1.0000000001; 
+    18       75 x[11] := 1.00000000001;  x[12] := 1.000000000001; 
+    19       89 x[13] := 1.0000000000001;  x[14] := 1.00000000000001; 
+    20      103 x[15] := 1.000000000000001;  x[16] := 1.0000000000000001; 
+    21      117 x[17] := 1.00000000000000001;  x[18] := 1.000000000000000001; 
+    22      131 x[19] := 1.0000000000000000001;  x[20] := 1.00000000000000000001; 
+    23      145 x[21] := 1.000000000000000000001; 
+    24      152 x[22] := 1.0000000000000000000001; 
+    25      159 x[23] := 1.00000000000000000000001; 
+    26      166 x[24] := 1.000000000000000000000001; 
+    27      173 x[25] := 1.0000000000000000000000001; 
+    28      180 x[26] := 1.00000000000000000000000001; 
+    29      187 x[27] := 1.000000000000000000000000001; 
+    30      194 x[28] := 1.0000000000000000000000000001; 
+    31      201 x[29] := 1.00000000000000000000000000001; 
+    32      208 x[30] := 1.000000000000000000000000000001; 
+    33      215 y[1] := 0.9;  y[2] := 0.99;  y[3] := 0.999; y[4] := 0.9999; 
+    34      243 y[5] := 0.99999;  y[6] := 0.999999;  y[7] := 0.9999999; 
+    35      264 y[8] := 0.99999999;  y[9] := 0.999999999;  y[10] := 0.9999999999; 
+    36      285 y[11] := 0.99999999999;  y[12] := 0.999999999999; 
+    37      299 y[13] := 0.9999999999999;  y[14] := 0.99999999999999; 
+    38      313 y[15] := 0.999999999999999;  y[16] := 0.9999999999999999; 
+    39      327 y[17] := 0.99999999999999999;  y[18] := 0.999999999999999999; 
+    40      341 y[19] := 0.9999999999999999999;  y[20] := 0.99999999999999999999; 
+    41      355 y[21] := 0.999999999999999999999; 
+    42      362 y[22] := 0.9999999999999999999999; 
+    43      369 y[23] := 0.99999999999999999999999; 
+    44      376 y[24] := 0.999999999999999999999999; 
+    45      383 y[25] := 0.9999999999999999999999999; 
+    46      390 y[26] := 0.99999999999999999999999999; 
+    47      397 y[27] := 0.999999999999999999999999999; 
+    48      404 y[28] := 0.9999999999999999999999999999; 
+    49      411 y[29] := 0.99999999999999999999999999999; 
+    50      418 y[30] := 0.999999999999999999999999999999; 
+    51      425 i := 1; 
+    52      427 while (x[i] > x[i+1]) and (y[i] < y[i+1]) do 
+    53      459    begin 
+    54      459    if i=29 then 
+    55      463       goto 1 
+    56      464    else 
+    57      465       i := i + 1 
+    58      466    end; 
+    59      470 1: 
+    60      470 writeln(' OUTPUT FROM TEST...6.4.2.2-11'); 
+    61      478 writeln(' ACCURACY OF UNSIGNED-REAL IS'); 
+    62      486 if i=29 then 
+    63      490    writeln(' GREATER THAN 29 DECIMAL PLACES') 
+    64      496 else 
+    65      499    writeln(' ', i:1, ' DECIMAL PLACES'); 
+    66      513 writeln(' IMPLEMENTATION DEFINED...6.4.2.2-11') 
+    67      519 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.4.2.2-11
+ ACCURACY OF UNSIGNED-REAL IS
+ 16 DECIMAL PLACES
+ IMPLEMENTATION DEFINED...6.4.2.2-11
+
+program complete
+
+Compiling and running t6p4p2p2d12
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.4.2.2-12, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 4} 
+     2      -32  
+     3      -32 {: This program provides the implementation-defined 
+     4      -32    ordinal values of the required string-characters. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p4p2p2d12(output); 
+     8      -32 const 
+     9      -32    reqstr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/=<>.,:;^() '''; 
+    10      -32    lower  = 'abcdefghijklmnopqrstuvwxyz0123456789+-*/=<>.,:;^() '''; 
+    11      -32 var 
+    12      -32    st: packed array [1 .. 52] of char; 
+    13      -32    i, j: 1 .. 52; 
+    14      -32 begin 
+    15        3    st := reqstr; 
+    16        8    writeln(' OUTPUT FROM TEST...6.4.2.2-12'); 
+    17       16    writeln(' ORDINAL VALUES OF CHARACTERS'); 
+    18       24    writeln(' VALUE    CHAR BETWEEN DECIMAL POINTS'); 
+    19       32    for i := 1 to 52 do 
+    20       43       begin 
+    21       43       write(ord(st[i]), '  .', st[i], '. '); 
+    22       71       case i of 
+    23       73       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+    24       73       11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+    25       73       21, 22, 23, 24, 25, 26: 
+    26       73            writeln('UPPER CASE LETTER'); 
+    27       82       27, 28, 29, 30, 31, 32, 33, 34, 35, 36: 
+    28       82            writeln('DIGIT'); 
+    29       91       37:  writeln('PLUS'); 
+    30      100       38:  writeln('MINUS'); 
+    31      109       39:  writeln('MULTIPLY'); 
+    32      118       40:  writeln('DIVIDE'); 
+    33      127       41:  writeln('EQUALS'); 
+    34      136       42:  writeln('LESS THAN'); 
+    35      145       43:  writeln('GREATER THAN'); 
+    36      154       44:  writeln('DECIMAL POINT'); 
+    37      163       45:  writeln('COMMA'); 
+    38      172       46:  writeln('COLON'); 
+    39      181       47:  writeln('SEMICOLON'); 
+    40      190       48:  writeln('UP-ARROW OR COMMERCIAL AT'); 
+    41      199       49:  writeln('OPEN ROUND BRACKET'); 
+    42      208       50:  writeln('CLOSED ROUND BRACKET'); 
+    43      217       51:  writeln('SPACE'); 
+    44      226       52:  writeln('APOSTROPHE') 
+    45      232       end; 
+    46      291       end; 
+    47      302    if 'a' = 'A' then 
+    48      306       writeln(' ONLY ONE ALPHABET') 
+    49      312    else 
+    50      315       begin 
+    51      315       st := lower; 
+    52      318       for i := 1 to 26 do 
+    53      329          writeln( ord(st[i]), ' .', st[i], 
+    54      352                   '. LOWER CASE LETTER'); 
+    55      369       end; 
+    56      369    writeln(' IMPLEMENTATION DEFINED...6.4.2.2-12') 
+    57      375 end. 
+j          unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.4.2.2-12
+ ORDINAL VALUES OF CHARACTERS
+ VALUE    CHAR BETWEEN DECIMAL POINTS
+         65  .A. UPPER CASE LETTER
+         66  .B. UPPER CASE LETTER
+         67  .C. UPPER CASE LETTER
+         68  .D. UPPER CASE LETTER
+         69  .E. UPPER CASE LETTER
+         70  .F. UPPER CASE LETTER
+         71  .G. UPPER CASE LETTER
+         72  .H. UPPER CASE LETTER
+         73  .I. UPPER CASE LETTER
+         74  .J. UPPER CASE LETTER
+         75  .K. UPPER CASE LETTER
+         76  .L. UPPER CASE LETTER
+         77  .M. UPPER CASE LETTER
+         78  .N. UPPER CASE LETTER
+         79  .O. UPPER CASE LETTER
+         80  .P. UPPER CASE LETTER
+         81  .Q. UPPER CASE LETTER
+         82  .R. UPPER CASE LETTER
+         83  .S. UPPER CASE LETTER
+         84  .T. UPPER CASE LETTER
+         85  .U. UPPER CASE LETTER
+         86  .V. UPPER CASE LETTER
+         87  .W. UPPER CASE LETTER
+         88  .X. UPPER CASE LETTER
+         89  .Y. UPPER CASE LETTER
+         90  .Z. UPPER CASE LETTER
+         48  .0. DIGIT
+         49  .1. DIGIT
+         50  .2. DIGIT
+         51  .3. DIGIT
+         52  .4. DIGIT
+         53  .5. DIGIT
+         54  .6. DIGIT
+         55  .7. DIGIT
+         56  .8. DIGIT
+         57  .9. DIGIT
+         43  .+. PLUS
+         45  .-. MINUS
+         42  .*. MULTIPLY
+         47  ./. DIVIDE
+         61  .=. EQUALS
+         60  .<. LESS THAN
+         62  .>. GREATER THAN
+         46  ... DECIMAL POINT
+         44  .,. COMMA
+         58  .:. COLON
+         59  .;. SEMICOLON
+         94  .^. UP-ARROW OR COMMERCIAL AT
+         40  .(. OPEN ROUND BRACKET
+         41  .). CLOSED ROUND BRACKET
+         32  . . SPACE
+         39  .'. APOSTROPHE
+         97 .a. LOWER CASE LETTER
+         98 .b. LOWER CASE LETTER
+         99 .c. LOWER CASE LETTER
+        100 .d. LOWER CASE LETTER
+        101 .e. LOWER CASE LETTER
+        102 .f. LOWER CASE LETTER
+        103 .g. LOWER CASE LETTER
+        104 .h. LOWER CASE LETTER
+        105 .i. LOWER CASE LETTER
+        106 .j. LOWER CASE LETTER
+        107 .k. LOWER CASE LETTER
+        108 .l. LOWER CASE LETTER
+        109 .m. LOWER CASE LETTER
+        110 .n. LOWER CASE LETTER
+        111 .o. LOWER CASE LETTER
+        112 .p. LOWER CASE LETTER
+        113 .q. LOWER CASE LETTER
+        114 .r. LOWER CASE LETTER
+        115 .s. LOWER CASE LETTER
+        116 .t. LOWER CASE LETTER
+        117 .u. LOWER CASE LETTER
+        118 .v. LOWER CASE LETTER
+        119 .w. LOWER CASE LETTER
+        120 .x. LOWER CASE LETTER
+        121 .y. LOWER CASE LETTER
+        122 .z. LOWER CASE LETTER
+ IMPLEMENTATION DEFINED...6.4.2.2-12
+
+program complete
+
+Compiling and running t6p6p6p2d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.2-11, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 2} 
+     2      -32  
+     3      -32 {: This program determines some of the characteristics of the 
+     4      -32    floating-point arithmetic system of the host machine. } 
+     5      -32 {  If the program fails or the printed results do not agree 
+     6      -32    with the known data for the machine then the program 
+     7      -32    should be checked because some of the assumptions made 
+     8      -32    about floating-point arithmetic may be invalid for that 
+     9      -32    machine. In particular, underflow must not be an error. } 
+    10      -32 {V3.1: Updated to take into account IEEE standard. } 
+    11      -32  
+    12      -32 program t6p6p6p2d11(output); 
+    13      -32  
+    14      -32 {  If the results from this test are not in conformity with 
+    15      -32    the known data for the implementation,  then the quality tests 
+    16      -32    using MACHAR will not obtain the correct results. 
+    17      -32    The tests using MACHAR are 6.1.5-11, 6.1.5-12, 
+    18      -32    6.6.6.2-6 to 6.6.6.2-10, 6.6.6.2-11 (this test), 
+    19      -32    6.7.2.2-14, 6.7.2.2-15, 6.9.1-6, 6.9.1-8 and 6.9.3.5.2-2. 
+    20      -32    The exponent range may not agree with the machine manual due to 
+    21      -32    the definition of minexp and maxexp, see below. 
+    22      -32    The reasons why MACHAR does not achieve the correct results 
+    23      -32    should be communicated to the suppliers of the suite. } 
+    24      -32  
+    25      -32 var 
+    26      -32  
+    27      -32    eps , epsneg , xmax , xmin : real; 
+    28      -32  
+    29      -32    ibeta , iexp , irnd , it , machep , maxexp , minexp , negep , ngrd : 
+    30      -32    integer; 
+    31      -32  
+    32      -32 procedure machar (var ibeta , it , irnd , ngrd , machep , negep , iexp, 
+    33      -32   minexp , maxexp : integer; var eps , epsneg , xmin , xmax : real ); 
+    34      -84  
+    35      -84 var 
+    36      -84  
+    37      -84 { For FORTRAN version, see 'Software Manual for the Elementary 
+    38      -84   Functions' W J Cody and W Waite, Prentice-Hall 1980, pp259-264 } 
+    39      -84  
+    40      -84 {     This subroutine is intended to determine the characteristics 
+    41      -84       of the floating-point arithmetic system that are specified 
+    42      -84       below.  The first three are determined according to an 
+    43      -84       algorithm due to M. Malcolm, CACM 15 (1972), pp. 949-951, 
+    44      -84       incorporating some, but not all, of the improvements 
+    45      -84       suggested by M. Gentleman and S. Marovich, CACM 17 (1974), 
+    46      -84       pp. 276-277. 
+    47      -84  
+    48      -84       Latest revision - 1 July, 1982. 
+    49      -84  
+    50      -84       Author - W. J. Cody 
+    51      -84                Argonne National Laboratory 
+    52      -84  
+    53      -84       Revised for Pascal - R. A. Freak 
+    54      -84                            University of Tasmania 
+    55      -84                            Hobart 
+    56      -84                            Tasmania 
+    57      -84                      and 
+    58      -84                            B. A. Wichmann 
+    59      -84                            National Physical Laboratory 
+    60      -84                            Teddington Middx. 
+    61      -84                            TW11 OLW  UK 
+    62      -84  
+    63      -84       This revision for Pascal uses an extra function st to 
+    64      -84       ensure that a machine with an overlength accumulator will 
+    65      -84       give the correct result (ie that for stored values, not 
+    66      -84       that for the accumulator). 
+    67      -84       The July 1982 revision ensures the correct value for maxexp 
+    68      -84       on IEEE implementations (both single and double), and also 
+    69      -84       uses a different value so that round to even is not reported 
+    70      -84       as chopping. 
+    71      -84  
+    72      -84       ibeta    -  The radix of the floating-point representation 
+    73      -84       it       -  The number of base ibeta digits in the floating-point 
+    74      -84                   significand 
+    75      -84       irnd     -  0 if floating-point addition chops, 
+    76      -84                   1 if floating-point addition rounds 
+    77      -84                                  (or rounds to even) 
+    78      -84       ngrd     -  The number of guard digits for multiplication. It is 
+    79      -84                   0 if  irnd=1, or if  irnd=0  and only  it  base ibeta 
+    80      -84                     digits participate in the post normalization shift 
+    81      -84                     of the floating-point significand in multiplication 
+    82      -84                   1 if  irnd=0  and more than  it  base  ibeta  digits 
+    83      -84                     participate in the post normalization shift of the 
+    84      -84                     floating-point significand in multiplication 
+    85      -84       machep   -  The largest negative integer such that 
+    86      -84                   1.0 + ibeta ** machep <> 1.0, except that 
+    87      -84                   machep is bounded below by -(it+3) 
+    88      -84       negep    -  The largest negative integer such that 
+    89      -84                   1.0 - ibeta ** negep <> 1.0, except that 
+    90      -84                   negep is bounded below by -(it+3) 
+    91      -84       iexp     -  The number of bits (decimal places if ibeta = 10) 
+    92      -84                   reserved for the representation of the exponent 
+    93      -84                   (including the bias or sign) of a floating-point 
+    94      -84                   number 
+    95      -84       minexp   -  The largest in magnitude negative integer such that 
+    96      -84                   ibeta ** minexp is a positive floating-point 
+    97      -84                   number, still having it digits. 
+    98      -84       maxexp   -  The largest positive integer exponent for a finite 
+    99      -84                   floating-point number 
+   100      -84       eps      -  The smallest positive floating-point number such 
+   101      -84                   that  1.0+eps <> 1.0. In particular, if either 
+   102      -84                   ibeta = 2 or irnd = 0, eps = ibeta ** machep 
+   103      -84                   otherwise, eps = (ibeta ** machep)/2 
+   104      -84       epsneg   -  A small positive floating-point number such that 
+   105      -84                   1.0-epsneg <> 1.0. In particular, if ibeta = 2 
+   106      -84                   or irnd = 0, epsneg = ibeta ** negep. 
+   107      -84                   otherwise, epsneg = (ibeta**negep)/2. Because 
+   108      -84                   negep is bounded below by -(it+3), epsneg may not 
+   109      -84                   be the smallest number which can alter 1.0 by 
+   110      -84                   subtraction. 
+   111      -84       xmin     -  The smallest non-vanishing floating-point power of 
+   112      -84                   the radix. In particular,  xmin = ibeta ** minexp 
+   113      -84       xmax     -  The largest finite floating-point number.  In 
+   114      -84                   particular   xmax = (1.0-epsneg) * ibeta ** maxexp 
+   115      -84                   Note - on some machines  xmax  will be only the 
+   116      -84                   second, or perhaps third, largest number, being 
+   117      -84                   too small by 1 or 2 units in the last digit of 
+   118      -84                   the significand.   } 
+   119      -84  
+   120      -84  
+   121      -84    i , iz , j , k , mx : integer; 
+   122     -104    a , b , beta , betain , betam1 , one , y , z , zero : real; 
+   123     -176    underflo : boolean; 
+   124     -177  
+   125     -177    function st( x: real) : real; 
+   126      -40       { This function is the identity written so that an 
+   127      -40         overlength accumulator will not stop the algorithm 
+   128      -40         of Cody from giving the correct result. In principle, 
+   129      -40         this function needs to be made complex enough to 
+   130      -40         defeat an optimizing compiler. } 
+   131      -40       var 
+   132      -40          y: array[ 1 .. 3 ] of real; 
+   133      -64       begin 
+   134        3       y[1] := x; 
+   135       12       y[2] := 0.0; 
+   136       19       y[3] := y[1] + y[2]; 
+   137       38       y[1] := y[3]; 
+   138       50       st := y[1] + y[2] 
+   139       61       end;  {st} 
+   140       65  
+   141       65 begin 
+   142       65    one := 1.0; 
+   143       69    zero := 0.0; 
+   144       71  
+   145       71    {   determine ibeta,beta ala Malcolm   } 
+   146       71  
+   147       71    a := one + one; 
+   148       75    while st(st( st(a + one) - a) - one) = zero do 
+   149       91       a := a + a; 
+   150       96    b := one + one; 
+   151      100    while st(st(a + b) - a) = zero do 
+   152      112       b := b + b; 
+   153      117    ibeta := trunc ( st(a + b) - a); 
+   154      127    beta := ibeta; 
+   155      131  
+   156      131    {   determine it,irnd   } 
+   157      131  
+   158      131    it := 0; 
+   159      134    b := one; 
+   160      136    repeat begin 
+   161      136       it := it + 1; 
+   162      142       b := b * beta; 
+   163      146    end until st(st( st(b + one) - b) - one) <> zero; 
+   164      162    irnd := 0; 
+   165      165    betam1 := beta - one; 
+   166      169    if st(st((a + beta) + betam1) - (a + beta)) <> zero then 
+   167      185       irnd := 1; 
+   168      188  
+   169      188    {   determine negep, epsneg   } 
+   170      188  
+   171      188    negep := it + 3; 
+   172      194    betain := one/beta; 
+   173      198    a := one; 
+   174      200  
+   175      200    for i := 1 to negep do 
+   176      211       a := a * betain; 
+   177      225  
+   178      225    b := a; 
+   179      227    while st(st(one - a) - one) = zero do 
+   180      239       begin 
+   181      239       a := a * beta; 
+   182      243       negep := negep - 1; 
+   183      249       end; 
+   184      250    negep := - negep; 
+   185      255    epsneg := a; 
+   186      258    if (ibeta <> 2) and (irnd <> 0) then 
+   187      268       begin 
+   188      268       a := a * st(one + a)/(one + one); 
+   189      280       if st(st(one - a) - one) <> zero then 
+   190      292          epsneg := a; 
+   191      295       end; 
+   192      295  
+   193      295    {   determine machep, eps   } 
+   194      295  
+   195      295    machep := - it - 3; 
+   196      302    a := b; 
+   197      304    while st(st(one + a) - one) = zero do 
+   198      316       begin 
+   199      316       a := a * beta; 
+   200      320       machep := machep + 1; 
+   201      326       end; 
+   202      327    eps := a; 
+   203      330    if (ibeta <> 2) and (irnd <> 0) then 
+   204      340       begin 
+   205      340       a := a * st(one + a) / (one + one); 
+   206      352       if st(st(one + a) - one) <> zero then 
+   207      364          eps := a; 
+   208      367       end; 
+   209      367  
+   210      367    {   determine ngrd   } 
+   211      367  
+   212      367    ngrd := 0; 
+   213      370    if (irnd = 0) and ( st( st(one + eps) * one - one) <> zero) then 
+   214      390       ngrd := 1; 
+   215      393  
+   216      393    {  determine iexp, minexp, xmin 
+   217      393  
+   218      393       loop to determine largest i and k = 2**i such that 
+   219      393           (1/beta) ** (2**(i)) 
+   220      393       does not underflow 
+   221      393       exit from loop is signaled by an underflow   } 
+   222      393  
+   223      393    i := 0; 
+   224      395    k := 1; 
+   225      397    z := betain; 
+   226      399    underflo := false; 
+   227      402    repeat begin 
+   228      402       y := z; 
+   229      404       z := y * y; 
+   230      408  
+   231      408       {   check for underflow   } 
+   232      408  
+   233      408       a := z * one; 
+   234      412       if ( st(a + a) = zero) or (abs(z) >= y) then 
+   235      425          underflo := true 
+   236      425       else 
+   237      429          begin 
+   238      429          i := i + 1; 
+   239      433          k := k + k; 
+   240      437          end; 
+   241      437    end until underflo; 
+   242      439    if ibeta <> 10 then 
+   243      444       begin 
+   244      444       iexp := i + 1; 
+   245      449       mx := k + k; 
+   246      453       end 
+   247      453    else 
+   248      454       begin 
+   249      454  
+   250      454       {  for decimal machines only   } 
+   251      454       iexp := 2; 
+   252      457       iz := ibeta; 
+   253      460       while k >= iz do 
+   254      464          begin 
+   255      464          iz := iz * ibeta; 
+   256      469          iexp := iexp + 1; 
+   257      475          end; 
+   258      476       mx := iz + iz - 1; 
+   259      482       end; 
+   260      482    underflo := false; 
+   261      485    repeat begin 
+   262      485  
+   263      485       {   loop to determine minexp, xmin 
+   264      485           exit from loop is signalled by an underflow    } 
+   265      485  
+   266      485       xmin := y; 
+   267      488       y := y * betain; 
+   268      492       { check for underflow here } 
+   269      492       a := y * one; 
+   270      496       if ( st(a + a) = zero) or (abs(y) >= xmin) or 
+   271      509          (st(y*st(one+eps)) <= y) then 
+   272      523          underflo := true 
+   273      523       else 
+   274      527          k := k + 1; 
+   275      531    end until underflo; 
+   276      533    minexp := - k; 
+   277      537  
+   278      537    {  determine maxexp, xmax   } 
+   279      537  
+   280      537    if (mx <= k + k - 3) and (ibeta <> 10) then 
+   281      550       begin 
+   282      550       mx := mx + mx; 
+   283      554       iexp := iexp + 1; 
+   284      560       end; 
+   285      560    maxexp := mx + minexp; 
+   286      566    {  adjust for machines with implicit leading 
+   287      566       bit in binary significand and machines with 
+   288      566       radix point at extreme right of significand   } 
+   289      566  
+   290      566    i := maxexp + minexp; 
+   291      572    if ibeta = 2 then 
+   292      577       begin 
+   293      577       if (iexp=8) and (it=24) and (i=4) then 
+   294      591          maxexp := maxexp - 2  { IEEE single length } 
+   295      594       else if (iexp=11) and (it=53) and (i=4) then 
+   296      612          maxexp := maxexp - 2  { IEEE double length } 
+   297      615       else if i=0 then 
+   298      623          maxexp := maxexp - 1; 
+   299      629       end; 
+   300      629    if i > 20 then 
+   301      633       maxexp := maxexp - 1; 
+   302      639    if a <> y then 
+   303      643       maxexp := maxexp - 2; 
+   304      649    xmax := one - epsneg; 
+   305      655    if st(xmax * one) <> xmax then 
+   306      665       xmax := one - st(beta * epsneg); 
+   307      675    xmax := xmax / (beta * beta * beta * xmin); 
+   308      688    i := maxexp + minexp + 3; 
+   309      696    for j := 1 to i do 
+   310      706       begin 
+   311      706       if ibeta = 2 then 
+   312      711          xmax := xmax + xmax 
+   313      714       else 
+   314      719          xmax := xmax * beta; 
+   315      725       end; 
+   316      735  
+   317      735 end;   {machar} 
+   318      736  
+   319      736  
+   320      736  
+   321      736 begin 
+   322      736    machar ( ibeta , it , irnd , ngrd , machep , negep , iexp , minexp , 
+   323      747       maxexp , eps , epsneg , xmin , xmax ); 
+   324      753    writeln(' OUTPUT FROM TEST...6.6.6.2-11'); 
+   325      761    writeln('   BETA =',ibeta:5); 
+   326      772    writeln('      T =',it:5); 
+   327      783    writeln('    RND =',irnd:5); 
+   328      794    writeln('   NGRD =',ngrd:5); 
+   329      805    writeln(' MACHEP =',machep:5); 
+   330      816    writeln('  NEGEP =',negep:5); 
+   331      827    writeln('   IEXP =',iexp:5); 
+   332      838    writeln(' MINEXP =',minexp:5); 
+   333      849    writeln(' MAXEXP =',maxexp:5); 
+   334      860    writeln('    EPS =',eps); 
+   335      871    writeln(' EPSNEG =',epsneg); 
+   336      882    writeln('   XMIN =',xmin); 
+   337      893    writeln('   XMAX =',xmax); 
+   338      904    writeln(' IMPLEMENTATION DEFINED...6.6.6.2-11'); 
+   339      912  
+   340      912 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.6.6.2-11
+   BETA =    2
+      T =   53
+    RND =    1
+   NGRD =    0
+ MACHEP =  -52
+  NEGEP =  -53
+   IEXP =   11
+ MINEXP =-1024
+ MAXEXP = 1023
+    EPS = 2.220446049250313e-16
+ EPSNEG = 1.110223024625157e-16
+   XMIN = 5.56268464626800e-309
+   XMAX = 8.98846567431158e+307
+ IMPLEMENTATION DEFINED...6.6.6.2-11
+
+program complete
+
+Compiling and running t6p7p2p2d17
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-17, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 7} 
+     2      -32  
+     3      -32 {: This program observes the approximate accuracy of real 
+     4      -32    operations giving results  around 1.0. It prints the precision 
+     5      -32    in decimal digits up to 30 places. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p7p2p2d17(output); 
+     9      -32 var 
+    10      -32    min: integer; 
+    11      -32    x, y: array [ 1 .. 30 ] of real; 
+    12      -32 procedure nearone( v: real ); 
+    13      -40    label 
+    14      -40       1; 
+    15      -40    var 
+    16      -40       i: integer; 
+    17      -44    begin 
+    18        3    i := 1; 
+    19        7    while (x[i] > v) and (y[i] < v) do 
+    20       25       begin 
+    21       25       if i=30 then 
+    22       29          goto 1 
+    23       30       else 
+    24       31          i := i + 1 
+    25       32    end; 
+    26       36    1: 
+    27       36    if i < min then 
+    28       40       min := i 
+    29       40    end; {nearone} 
+    30       43 begin 
+    31       43 x[1] := 1.1;  x[2] := 1.01;  x[3] := 1.001; x[4] := 1.0001; 
+    32       73 x[5] := 1.00001;  x[6] := 1.000001;  x[7] := 1.0000001; 
+    33       94 x[8] := 1.00000001;  x[9] := 1.000000001;  x[10] := 1.0000000001; 
+    34      115 x[11] := 1.00000000001;  x[12] := 1.000000000001; 
+    35      129 x[13] := 1.0000000000001;  x[14] := 1.00000000000001; 
+    36      143 x[15] := 1.000000000000001;  x[16] := 1.0000000000000001; 
+    37      157 x[17] := 1.00000000000000001;  x[18] := 1.000000000000000001; 
+    38      171 x[19] := 1.0000000000000000001;  x[20] := 1.00000000000000000001; 
+    39      185 x[21] := 1.000000000000000000001; 
+    40      192 x[22] := 1.0000000000000000000001; 
+    41      199 x[23] := 1.00000000000000000000001; 
+    42      206 x[24] := 1.000000000000000000000001; 
+    43      213 x[25] := 1.0000000000000000000000001; 
+    44      220 x[26] := 1.00000000000000000000000001; 
+    45      227 x[27] := 1.000000000000000000000000001; 
+    46      234 x[28] := 1.0000000000000000000000000001; 
+    47      241 x[29] := 1.00000000000000000000000000001; 
+    48      248 x[30] := 1.000000000000000000000000000001; 
+    49      255 y[1] := 0.9;  y[2] := 0.99;  y[3] := 0.999; y[4] := 0.9999; 
+    50      283 y[5] := 0.99999;  y[6] := 0.999999;  y[7] := 0.9999999; 
+    51      304 y[8] := 0.99999999;  y[9] := 0.999999999;  y[10] := 0.9999999999; 
+    52      325 y[11] := 0.99999999999;  y[12] := 0.999999999999; 
+    53      339 y[13] := 0.9999999999999;  y[14] := 0.99999999999999; 
+    54      353 y[15] := 0.999999999999999;  y[16] := 0.9999999999999999; 
+    55      367 y[17] := 0.99999999999999999;  y[18] := 0.999999999999999999; 
+    56      381 y[19] := 0.9999999999999999999;  y[20] := 0.99999999999999999999; 
+    57      395 y[21] := 0.999999999999999999999; 
+    58      402 y[22] := 0.9999999999999999999999; 
+    59      409 y[23] := 0.99999999999999999999999; 
+    60      416 y[24] := 0.999999999999999999999999; 
+    61      423 y[25] := 0.9999999999999999999999999; 
+    62      430 y[26] := 0.99999999999999999999999999; 
+    63      437 y[27] := 0.999999999999999999999999999; 
+    64      444 y[28] := 0.9999999999999999999999999999; 
+    65      451 y[29] := 0.99999999999999999999999999999; 
+    66      458 y[30] := 0.999999999999999999999999999999; 
+    67      465 min := 30; 
+    68      467 nearone(1.0 + 0.1 - 0.1); 
+    69      474 nearone(0.1 * 10.0); 
+    70      479 nearone(15.0 / 3.0 / 5.0); 
+    71      486 nearone(0.6 + 0.4); 
+    72      491 nearone( -(-1.1 + 0.1) ); 
+    73      498 nearone( abs(-2.1) / 2.1 ); 
+    74      505 nearone( sqrt(1.0/3.0) * sqrt(3.0) ); 
+    75      514 nearone( sqr( sqrt(2.0)) / 2.0 ); 
+    76      521 nearone( exp( ln(2.1) )/2.1 ); 
+    77      528 nearone( exp(ln(3.0)/2.0) / sqrt(3.0) ); 
+    78      538 nearone( exp(ln(sqr(0.1))/2.0) * 10.0 ); 
+    79      548 nearone( sin(arctan(0.75)) * 5.0 / 3.0 ); 
+    80      557 nearone( cos(arctan(4.0/3.0)) * 5.0 / 3.0 ); 
+    81      568 writeln(' OUTPUT FROM TEST...6.7.2.2-17'); 
+    82      576 writeln(' ACCURACY OF REAL OPERATIONS IS'); 
+    83      584 if min=30 then 
+    84      588    writeln(' GREATER THAN 30 DECIMAL PLACES') 
+    85      594 else 
+    86      597    writeln(' ABOUT ', min:2, ' DECIMAL PLACES'); 
+    87      612 writeln(' IMPLEMENTATION DEFINED...6.7.2.2-17') 
+    88      618 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.2.2-17
+ ACCURACY OF REAL OPERATIONS IS
+ ABOUT 16 DECIMAL PLACES
+ IMPLEMENTATION DEFINED...6.7.2.2-17
+
+program complete
+
+Compiling and running t6p9p3p2d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.2-4, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 9} 
+     2      -32  
+     3      -32 {: This program determines the implementation defined default 
+     4      -32    field width for writing reals. } 
+     5      -32 {V3.1: Test separated from that for integers and booleans. } 
+     6      -32  
+     7      -32 program t6p9p3p2d4(output); 
+     8      -32 var 
+     9      -32    f:text; 
+    10      -32    c:char; 
+    11      -32    i,j:integer; 
+    12      -32  
+    13      -32    function readfield:integer; 
+    14      -32    var 
+    15      -32       i:integer; 
+    16      -36    begin 
+    17        3    i:=0; 
+    18        7    repeat 
+    19        7       read(f,c); 
+    20       13       i:=i+1 
+    21       14    until (c='Z'); 
+    22       21    readfield:=i-1 
+    23       22 end; 
+    24       26  
+    25       26 begin 
+    26       26    rewrite(f); 
+    27       30    write(f,0.001,'Z',100.0,'Z'); 
+    28       44    writeln(f); 
+    29       47    reset(f); 
+    30       49    writeln(' OUTPUT FROM TEST...6.9.3.2-4'); 
+    31       57    writeln(' DEFAULT OUTPUT WIDTH FOR REALS'); 
+    32       65    i:=readfield; 
+    33       68    j:=readfield; 
+    34       71    if (i=j) then 
+    35       75       writeln(' TOTALWIDTH DEFAULT VALUE =',i:5,' CHARACTERS') 
+    36       88    else 
+    37       91       writeln(' FAIL...6.9.3.2-4'); 
+    38       99    writeln(' IMPLEMENTATION DEFINED...6.9.3.2-4') 
+    39      105 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.2-4
+ DEFAULT OUTPUT WIDTH FOR REALS
+ TOTALWIDTH DEFAULT VALUE =   22 CHARACTERS
+ IMPLEMENTATION DEFINED...6.9.3.2-4
+
+program complete
+
+Compiling and running t6p9p3p2d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.2-5, CLASS=IMPLEMENTATIONDEFINED, NUMBER=10} 
+     2      -32  
+     3      -32 {: This program determines the implementation defined default 
+     4      -32    field width for writing booleans. } 
+     5      -32 {V3.1: Test separated from that for integers and reals. } 
+     6      -32  
+     7      -32 program t6p9p3p2d5(output); 
+     8      -32 var 
+     9      -32    f:text; 
+    10      -32    c:char; 
+    11      -32    i,j:integer; 
+    12      -32  
+    13      -32    function readfield:integer; 
+    14      -32    var 
+    15      -32       i:integer; 
+    16      -36    begin 
+    17        3    i:=0; 
+    18        7    repeat 
+    19        7       read(f,c); 
+    20       13       i:=i+1 
+    21       14    until (c='Z'); 
+    22       21    readfield:=i-1 
+    23       22 end; 
+    24       26  
+    25       26 begin 
+    26       26    rewrite(f); 
+    27       30    write(f,true,'Z',false,'Z'); 
+    28       44    writeln(f); 
+    29       47    reset(f); 
+    30       49    writeln(' OUTPUT FROM TEST...6.9.3.2-5'); 
+    31       57    writeln(' DEFAULT OUTPUT WIDTH FOR BOOLEANS'); 
+    32       65    i:=readfield; 
+    33       68    j:=readfield; 
+    34       71    if (i=j) then 
+    35       75       writeln(' TOTALWIDTH DEFAULT VALUE =',i:5,' CHARACTERS') 
+    36       88    else 
+    37       91       writeln(' FAIL...6.9.3.2-5'); 
+    38       99    writeln(' IMPLEMENTATION DEFINED...6.9.3.2-5') 
+    39      105 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.2-5
+ DEFAULT OUTPUT WIDTH FOR BOOLEANS
+ TOTALWIDTH DEFAULT VALUE =    5 CHARACTERS
+ IMPLEMENTATION DEFINED...6.9.3.2-5
+
+program complete
+
+Compiling and running t6p9p3p2d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.2-6, CLASS=IMPLEMENTATIONDEFINED, NUMBER= 8} 
+     2      -32  
+     3      -32 {: This program determines the implementation defined default 
+     4      -32    field width for writing integers. } 
+     5      -32 {  The test fails if the width is not constant. } 
+     6      -32 {V3.1: Rewritten to test just integer width. } 
+     7      -32  
+     8      -32 program t6p9p3p2d6(output); 
+     9      -32 var 
+    10      -32    f:text; 
+    11      -32    c:char; 
+    12      -32    i,j:integer; 
+    13      -32  
+    14      -32    function readfield:integer; 
+    15      -32    var 
+    16      -32       i:integer; 
+    17      -36    begin 
+    18        3    i:=0; 
+    19        7    repeat 
+    20        7       read(f,c); 
+    21       13       i:=i+1 
+    22       14    until (c='Z'); 
+    23       21    readfield:=i-1 
+    24       22 end; 
+    25       26  
+    26       26 begin 
+    27       26    rewrite(f); 
+    28       30    write(f,1,'Z',maxint,'Z'); 
+    29       44    writeln(f); 
+    30       47    reset(f); 
+    31       49    writeln(' OUTPUT FROM TEST...6.9.3.2-6'); 
+    32       57    writeln(' DEFAULT OUTPUT WIDTH FOR INTEGERS'); 
+    33       65    i:=readfield; 
+    34       68    j:=readfield; 
+    35       71    if (i=j) then 
+    36       75       writeln(' TOTALWIDTH DEFAULT VALUE =',i:5,' CHARACTERS') 
+    37       88    else 
+    38       91       writeln(' FAIL...6.9.3.2-6'); 
+    39       99    writeln(' IMPLEMENTATION DEFINED...6.9.3.2-6') 
+    40      105 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.2-6
+ DEFAULT OUTPUT WIDTH FOR INTEGERS
+ TOTALWIDTH DEFAULT VALUE =   11 CHARACTERS
+ IMPLEMENTATION DEFINED...6.9.3.2-6
+
+program complete
+
+Compiling and running t6p9p3p4p1d1
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.4.1-1, CLASS=IMPLEMENTATIONDEFINED, NUMBER=11} 
+     2      -32  
+     3      -32 {: This program determines the implementation defined value which 
+     4      -32    represents the number of digit characters written in an exponent. } 
+     5      -32 {V3.1: Renumbered from 6.9.3.5.1-2. } 
+     6      -32  
+     7      -32 program t6p9p3p4p1d1(output); 
+     8      -32 var 
+     9      -32    f:text; 
+    10      -32    c:char; 
+    11      -32    i:integer; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    write(f,1.0:10,'ABC'); 
+    15       16    writeln(f); 
+    16       19    reset(f); 
+    17       21    repeat 
+    18       21       read(f,c) 
+    19       26    until (c='+'); 
+    20       31    i:=-1; 
+    21       34    repeat 
+    22       34       read(f,c); 
+    23       40       i:=i+1 
+    24       41    until (c='A'); 
+    25       48    writeln(' OUTPUT FROM TEST...6.9.3.4.1-1'); 
+    26       56    writeln(' NUMBER OF DIGITS IN AN EXPONENT'); 
+    27       64    writeln(' EXPDIGITS IS',i:5); 
+    28       75    writeln(' IMPLEMENTATION DEFINED...6.9.3.4.1-1') 
+    29       81 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.4.1-1
+ NUMBER OF DIGITS IN AN EXPONENT
+ EXPDIGITS IS    2
+ IMPLEMENTATION DEFINED...6.9.3.4.1-1
+
+program complete
+
+Compiling and running t6p9p3p4p1d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.4.1-2, CLASS=IMPLEMENTATIONDEFINED, NUMBER=12} 
+     2      -32  
+     3      -32 {: This program determines the implementation defined 
+     4      -32    exponent character. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p9p3p4p1d2(output); 
+     8      -32 var 
+     9      -32    f:text; 
+    10      -32    c:char; 
+    11      -32    i:integer; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    write(f,1.0:10,'ABC'); 
+    15       16    writeln(f); 
+    16       19    reset(f); 
+    17       21    repeat 
+    18       21       read(f,c) 
+    19       26    until (c='e') or (c='E'); 
+    20       35    writeln(' OUTPUT FROM TEST...6.9.3.4.1-2'); 
+    21       43    writeln(' IMPLEMENTATION DEFINED EXPONENT CHARACTER'); 
+    22       51    writeln(' IS ', c); 
+    23       62    if 'e' = 'E' then 
+    24       66       writeln(' ONLY ONE CASE IMPLEMENTED'); 
+    25       74    if c <> 'E' then 
+    26       78       writeln(' LOWER CASE') 
+    27       84    else 
+    28       87       writeln(' UPPER CASE'); 
+    29       95    writeln(' IMPLEMENTATION DEFINED...6.9.3.4.1-2') 
+    30      101 end. 
+i          unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.4.1-2
+ IMPLEMENTATION DEFINED EXPONENT CHARACTER
+ IS e
+ LOWER CASE
+ IMPLEMENTATION DEFINED...6.9.3.4.1-2
+
+program complete
+
+Compiling and running t6p9p3p5d1
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.5-1, CLASS=IMPLEMENTATIONDEFINED, NUMBER=13} 
+     2      -32  
+     3      -32 {: This test checks that boolean variables are correctly written 
+     4      -32    to textfiles, and determines the case of the characters used.} 
+     5      -32 {V3.1: revised to indicate case of characters, 
+     6      -32    also renumbered from 6.9.3.6-1. } 
+     7      -32  
+     8      -32 program t6p9p3p5d1(output); 
+     9      -32 var 
+    10      -32    f:text; 
+    11      -32    pass:boolean; 
+    12      -32    c   :char; 
+    13      -32    upper,lower,caseb:packed array[1..11] of char; 
+    14      -32    i:integer; 
+    15      -32 begin 
+    16        3    rewrite(f); 
+    17        7    upper:='TRUE, FALSE'; 
+    18       10    lower:='true, false'; 
+    19       13    caseb := upper; 
+    20       16    pass:=true; 
+    21       19    write(f,pass,not pass); 
+    22       28    writeln(f); 
+    23       31    reset(f); 
+    24       33    while f^=' ' do 
+    25       40       read(f,c); 
+    26       47    for i:=1 to 4 do 
+    27       57       begin 
+    28       57       read(f,c); 
+    29       63       if c = upper[i] then 
+    30       72          caseb[i] := 'U' 
+    31       77       else if c = lower[i] then 
+    32       90          caseb[i] := 'L' 
+    33       95       else 
+    34       99          pass:=false 
+    35       99       end; 
+    36      112    while f^=' ' do 
+    37      119       read(f,c); 
+    38      126    for i:=7 to 11 do 
+    39      136       begin 
+    40      136       read(f,c); 
+    41      142       if c = upper[i] then 
+    42      151          caseb[i] := 'U' 
+    43      156       else if c = lower[i] then 
+    44      169          caseb[i] := 'L' 
+    45      174       else 
+    46      178          pass:=false 
+    47      178       end; 
+    48      191    if pass then 
+    49      193       begin 
+    50      193       writeln(' OUTPUT FROM TEST...6.9.3.5-1'); 
+    51      201       writeln(' CASE OF BOOLEAN VALUES'); 
+    52      209       if lower = upper then 
+    53      213          writeln(' ONLY ONE CASE OF CHARACTERS IMPLEMENTED') 
+    54      219       else 
+    55      222          begin 
+    56      222          writeln(' ', upper); 
+    57      233          writeln(' ', caseb); 
+    58      244          end; 
+    59      244       writeln(' IMPLEMENTATION DEFINED...6.9.3.5-1') 
+    60      250       end 
+    61      252    else 
+    62      253       writeln(' FAIL...6.9.3.5-1') 
+    63      259 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.3.5-1
+ CASE OF BOOLEAN VALUES
+ TRUE, FALSE
+ ULLL, ULLLL
+ IMPLEMENTATION DEFINED...6.9.3.5-1
+
+program complete

@@ -1,0 +1,33 @@
+Test report
+
+conf - Conformance, tests of actions that should be performed.
+
+PASS complete.
+
+dev - Programs that should be rejected for various compile errors.
+
+PASS complete
+
+lex - Programs that should be rejected for lexical errors.
+
+PASS complete
+
+err - Programs that should be rejected for runtime errors.
+
+FAIL - Looks like a couple of undetected errors
+
+idef - Implementation defined.
+
+t6p6p6p2d11.pas - Does not run, xmax appears to be calculated as a NAN, since it
+is failing with out of range exponent in paslib.
+
+idep - Implementation dependent
+
+PASS complete
+
+cap - Conformat array parameters. We don't do this test.
+
+NOT performed
+
+Overall result is PASS, since conf and dev pass. err and idef are both optional,
+but should be corrected later.

@@ -1,0 +1,53 @@
+IDEP report file 
+ 
+Examine file for files with errors 
+the end. 
+ 
+Run for program t6p5p3p2d6.pas 
+program complete
+ 
+Run for program t6p6p5p2d16.pas 
+program complete
+ 
+Run for program t6p6p5p2d17.pas 
+program complete
+ 
+Run for program t6p6p5p4d8.pas 
+program complete
+ 
+Run for program t6p6p5p4d9.pas 
+program complete
+ 
+Run for program t6p7p1d11.pas 
+program complete
+ 
+Run for program t6p7p1d12.pas 
+program complete
+ 
+Run for program t6p7p1d13.pas 
+program complete
+ 
+Run for program t6p7p1d14.pas 
+program complete
+ 
+Run for program t6p7p2p3d3.pas 
+program complete
+ 
+Run for program t6p7p2p3d4.pas 
+program complete
+ 
+Run for program t6p7p3d2.pas 
+program complete
+ 
+Run for program t6p8p2p2d1.pas 
+program complete
+ 
+Run for program t6p8p2p2d2.pas 
+program complete
+ 
+Run for program t6p8p2p3d2.pas 
+program complete
+ 
+Run for program t6p9p5d3.pas 
+program complete
+ 

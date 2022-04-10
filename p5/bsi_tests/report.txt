@@ -1,0 +1,102 @@
+============================== Test report =====================================
+
+Compiler:       Pascal-P5
+Machine:        Mach
+Date performed: 2020-07-20
+
+cap - Conformant array parameters. 
+
+   Completed.
+   
+   We don't do this test, since it is out of the ISO 7185 level 0 standard.
+
+   NOT performed
+   
+conf - Conformance, tests of actions that should be performed.
+
+   Completed.
+   
+   Program error:
+   
+   t6p6p5p3d1  This test fails on line 38:
+   
+                 36 new(ptrthree,a,b); 
+                 37 ptrthree^.tagfield:=a; 
+                 38 ptrthree^.tagfeeld:=a;
+      
+                The problem is the new() allocation specifies tagfield = a, 
+                and tagfeeld = b, then actually sets the values of 
+                tagfield := a, then tagfield := a. This is an invalid and 
+                is rejected. I believe the test is incorrect. It would only
+                be caught on a processor that checks tags at runtime.
+   
+                This was made to work by correcting the offending line. 
+                
+dev - Programs that should be rejected for various compile errors.
+
+   Completed.
+   
+   PASS complete
+
+err - Programs that should be rejected for runtime errors.
+
+   Completed.
+   
+   test not relevant: 
+   
+   t6p6p6p2d12  Floating point overflow, this ends in INV number (infinity). 
+                This is allowed as an alternative to overflow error.
+   
+ext - Tests for implementation of certain common extensions.
+
+   Completed.
+
+   PASS complete
+
+idef - Implementation defined.
+
+   Completed.
+   
+   PASS complete
+
+idep - Implementation dependent
+
+   Completed.
+   
+   PASS complete
+
+lex - Programs that should be rejected for lexical errors.
+
+   Completed.
+   
+   Quality:
+   
+   t6p1p8d6	Does not throw a warning for comment inside of other comment. In 
+            practice, I found this warning to be easy to have false positives.
+
+qua - Quality
+
+   Completed.
+
+   Quality:
+   
+   t6p1p5d9  Pascal-P5 does not implement large integers or "super" large reals.
+             Note the comments on the program indicate that this is expected.
+              
+   t6p7p1d15 Construct a set of [maxint..-maxint], while this is an invalid 
+             range, the elements are out of range of a reasonable 
+             installation, and so gives error.
+               
+Summary:
+   
+We have classified all deviations from what the BSI tests expect as "fails",
+in most cases the BSI does not classify the error as such. Thus there are 
+things in the test set that I have no intention on fixing.
+   
+There are several deviation issues that I intend on fixing. The conf or 
+conformance is BSI's main or "positive" tests, and we pass all of these 
+tests.
+   
+The other catagory of failures are DEV and ERR, which are the compile time
+tests and runtime tests, respectively. I plan to not only fix these, but
+also create a parallel test in the PRT for these.

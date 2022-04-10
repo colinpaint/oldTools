@@ -1,0 +1,73 @@
+Message-Id: <9508281437.AA02767@delta.threel.co.uk>
+X-Sender: smcg@delta.threel.co.uk
+X-Mailer: Windows Eudora Version 1.4.4
+Mime-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Aug 1995 15:38:23 -0100
+To: devinfo
+From: smcg@threel.co.uk (Stuart McGarrity)
+Subject: Parallel C V2.0 now shipping
+Sender: owner-devinfo@threel.co.uk
+Precedence: list
+
+                           Parallel C V2.0
+                           ---------------
+
+3L Ltd is pleased to announce a new version of Parallel C
+for the C4x: Version 2.0.  Two years of development and extensive
+field testing have resulted in the most robust C4x development
+software available and a software product that is a requirement
+for all C4x systems.
+
+
+New Functionality
+-----------------
+
+A number of major enhancements have been added to V2.0:
+
+* Virtual Channels, allowing any number of logical communication
+  channels over each comport and through-routing of data via
+  intervening processors
+
+* Version 4.60 of the TI Compiler and Assembler code generation tools
+
+* Support for the C44 extensions to the TIM standard
+
+* New memory block alignment functions
+
+* New dynamic control of multi-tasking process priority
+
+* Bug fixes
+
+
+Ordering information
+--------------------
+
+* Available Now. The list price of Parallel C stays unchanged.
+
+* Upgrades from previous versions (V1.0 or V1.1) are 300 pounds
+  /500 dollars list for PC systems or 500 pounds/750 dollars list
+  for Sun systems. End users can purchase either
+  via a distributor or direct from 3L. End users known to 3L will
+  be informed of the new version. Kits bought since June 1st 1995
+  will be upgraded for just the cost of carriage.
+
+* The Debugger Support Kit does not need to be upgraded.
+
+
+Technical details
+-----------------
+
+The release note for V2.0 describes in detail the changes from the
+previous version.  You can retrieve a copy of this release note
+electronically by sending the following message:
+
+      To: majordomo@ThreeL.co.uk
+      Subject:
+
+      get devinfo c40-relnote
+
+
+
+3L Ltd

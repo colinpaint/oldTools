@@ -1,0 +1,841 @@
+
+Compiling and running t6p5p3p2d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.5.3.2-6, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 1} 
+     2      -32  
+     3      -32 {: This program determines the evaluation order of 
+     4      -32    indexed-expressions of an indexed-variable. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p5p3p2d6(output); 
+     8      -32 var 
+     9      -32    st: packed array [ 1 .. 3 ] of char; 
+    10      -32    count: 1 .. 4; 
+    11      -32    v: array [ 1..1, 1..1, 1..1 ] of integer; 
+    12      -32  
+    13      -32 function sideeffect(c: char; i: integer): integer; 
+    14      -40    begin 
+    15        3    st[count] := c; 
+    16       13    count := count + 1; 
+    17       18    sideeffect := i; 
+    18       20    end; 
+    19       21 begin 
+    20       21    st := '   '; 
+    21       26    count := 1; 
+    22       29    writeln(' OUTPUT FROM TEST...6.5.3.2-6'); 
+    23       37    write(' EVALUATION ORDER OF V(.A,B,C.) IS '); 
+    24       44    v[sideeffect('A',1),sideeffect('B',1),sideeffect('C',1)] := 1; 
+    25       71    writeln( st ); 
+    26       79    writeln(' IMPLEMENTATION DEPENDENT...6.5.3.2-6') 
+    27       85 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.5.3.2-6
+ EVALUATION ORDER OF V(.A,B,C.) IS ABC
+ IMPLEMENTATION DEPENDENT...6.5.3.2-6
+
+program complete
+
+Compiling and running t6p6p5p2d16
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-16, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER=10} 
+     2      -32  
+     3      -32 {: This program determines the number of evaluations of the 
+     4      -32    file parameter of the procedure read. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d16(output); 
+     8      -32 type 
+     9      -32    chfile = file of char; 
+    10      -32 var 
+    11      -32    count: integer; 
+    12      -32    x: array [ 1 .. 1 ] of chfile; 
+    13      -32    ch: char; 
+    14      -32  
+    15      -32 function sideeffect(i: integer): integer; 
+    16      -36    begin 
+    17        3    count := count + 1; 
+    18        9    sideeffect := i; 
+    19       11    end; 
+    20       12 begin 
+    21       12    count := 0; 
+    22       16    writeln(' OUTPUT FROM TEST...6.6.5.2-16'); 
+    23       24    write(' NUMBER OF EVALUATIONS OF F IN READ(F,A,B,C) IS '); 
+    24       31    rewrite( x[1] ); 
+    25       37    write( x[1], 'A', 'B', 'C' ); 
+    26       52    reset( x[1] ); 
+    27       58    read( x[sideeffect(1)], ch, ch, ch); 
+    28       81    writeln(count:2); 
+    29       88    writeln(' IMPLEMENTATION DEPENDENT...6.6.5.2-16') 
+    30       94 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.6.5.2-16
+ NUMBER OF EVALUATIONS OF F IN READ(F,A,B,C) IS  1
+ IMPLEMENTATION DEPENDENT...6.6.5.2-16
+
+program complete
+
+Compiling and running t6p6p5p2d17
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-17, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER=10} 
+     2      -32  
+     3      -32 {: This program determines the number of evaluations of the 
+     4      -32    file parameter of the procedure write. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d17(output); 
+     8      -32 type 
+     9      -32    chfile = file of char; 
+    10      -32 var 
+    11      -32    count: integer; 
+    12      -32    x: array [ 1 .. 1 ] of chfile; 
+    13      -32    ch: char; 
+    14      -32  
+    15      -32 function sideeffect(i: integer): integer; 
+    16      -36    begin 
+    17        3    count := count + 1; 
+    18        9    sideeffect := i; 
+    19       11    end; 
+    20       12 begin 
+    21       12    count := 0; 
+    22       16    writeln(' OUTPUT FROM TEST...6.6.5.2-17'); 
+    23       24    write(' NUMBER OF EVALUATIONS OF F IN WRITE(F,A,B,C) IS '); 
+    24       31    rewrite( x[1] ); 
+    25       37    write( x[sideeffect(1)], 'A', 'B', 'C' ); 
+    26       54    writeln(count:2); 
+    27       61    writeln(' IMPLEMENTATION DEPENDENT...6.6.5.2-17') 
+    28       67 end. 
+ch         unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.6.5.2-17
+ NUMBER OF EVALUATIONS OF F IN WRITE(F,A,B,C) IS  1
+ IMPLEMENTATION DEPENDENT...6.6.5.2-17
+
+program complete
+
+Compiling and running t6p6p5p4d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-8, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER=11} 
+     2      -32  
+     3      -32 {: This program determines the order and number of evaluations 
+     4      -32    of the parameters of the procedure pack. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p4d8(output); 
+     8      -32 type 
+     9      -32    str = packed array [ 1 .. 3 ] of char; 
+    10      -32 var 
+    11      -32    st: packed array [ 1 .. 7 ] of char; 
+    12      -32    count: 1 .. 7; 
+    13      -32    a: array [ 1 .. 1 ] of array [ 1 .. 3 ] of char; 
+    14      -32    z: array [ 1 .. 1 ] of str; 
+    15      -32  
+    16      -32 function sideeffect(c: char; i: integer): integer; 
+    17      -40    begin 
+    18        3    st[count] := c; 
+    19       13    if count < 7 then 
+    20       17       count := count + 1; 
+    21       22    sideeffect := i; 
+    22       24    end; 
+    23       25 begin 
+    24       25    count := 1; 
+    25       30    a[1][1] := 'X'; a[1][2] := 'Y'; a[1][3] := 'Z'; 
+    26       66    st := '       '; 
+    27       69    writeln(' OUTPUT FROM TEST...6.6.5.4-8'); 
+    28       77    write(' ORDER OF EVALUATION OF PACK(A,I,Z) IS '); 
+    29       84    pack(a[sideeffect('A',1)], sideeffect('I',1), 
+    30      103         z[sideeffect('Z',1)] ); 
+    31      113    writeln( st ); 
+    32      121    writeln(' IMPLEMENTATION DEPENDENT...6.6.5.4-8') 
+    33      127 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.6.5.4-8
+ ORDER OF EVALUATION OF PACK(A,I,Z) IS AIZ    
+ IMPLEMENTATION DEPENDENT...6.6.5.4-8
+
+program complete
+
+Compiling and running t6p6p5p4d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-9, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER=11} 
+     2      -32  
+     3      -32 {: This program determines the order and number of evaluations 
+     4      -32    of the parameters of the procedure unpack. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p4d9(output); 
+     8      -32 type 
+     9      -32    str = packed array [ 1 .. 3 ] of char; 
+    10      -32 var 
+    11      -32    st: packed array [ 1 .. 7 ] of char; 
+    12      -32    count: 1 .. 7; 
+    13      -32    a: array [ 1 .. 1 ] of array [ 1 .. 3 ] of char; 
+    14      -32    z: array [ 1 .. 1 ] of str; 
+    15      -32  
+    16      -32 function sideeffect(c: char; i: integer): integer; 
+    17      -40    begin 
+    18        3    st[count] := c; 
+    19       13    if count < 7 then 
+    20       17       count := count + 1; 
+    21       22    sideeffect := i; 
+    22       24    end; 
+    23       25 begin 
+    24       25    count := 1; 
+    25       30    z[1] := 'XYZ'; 
+    26       37    st := '       '; 
+    27       40    writeln(' OUTPUT FROM TEST...6.6.5.4-9'); 
+    28       48    write(' ORDER OF EVALUATION OF UNPACK(Z,A,I) IS '); 
+    29       55    unpack(z[sideeffect('Z',1)], a[sideeffect('A',1)], 
+    30       73         sideeffect('I',1) ); 
+    31       84    writeln( st ); 
+    32       92    writeln(' IMPLEMENTATION DEPENDENT...6.6.5.4-9') 
+    33       98 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.6.5.4-9
+ ORDER OF EVALUATION OF UNPACK(Z,A,I) IS ZAI    
+ IMPLEMENTATION DEPENDENT...6.6.5.4-9
+
+program complete
+
+Compiling and running t6p7p1d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.1-11, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 2} 
+     2      -32  
+     3      -32 {: This program determines the order of evaluation of the 
+     4      -32    expressions of a member-designator. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p7p1d11(output); 
+     8      -32 var 
+     9      -32    st: packed array [ 1 .. 3 ] of char; 
+    10      -32    count: 1 .. 4; 
+    11      -32    x: set of 0 .. 2; 
+    12      -32  
+    13      -32 function sideeffect(c: char; i: integer): integer; 
+    14      -40    begin 
+    15        3    st[count] := c; 
+    16       13    count := count + 1; 
+    17       18    sideeffect := i; 
+    18       20    end; 
+    19       21 begin 
+    20       21    count := 1; 
+    21       26    st := '   '; 
+    22       29    writeln(' OUTPUT FROM TEST...6.7.1-11'); 
+    23       37    write(' ORDER OF EVALUATION OF (. A, B, C .) IS '); 
+    24       44    x := [sideeffect('A',0),sideeffect('B',1),sideeffect('C',2)]; 
+    25       66    writeln( st ); 
+    26       74    writeln(' IMPLEMENTATION DEPENDENT...6.7.1-11') 
+    27       80 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.1-11
+ ORDER OF EVALUATION OF (. A, B, C .) IS ABC
+ IMPLEMENTATION DEPENDENT...6.7.1-11
+
+program complete
+
+Compiling and running t6p7p1d12
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.1-12, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 3} 
+     2      -32  
+     3      -32 {: This test contains an implementation-dependency in the order of 
+     4      -32    evaluation of expressions in a member-designator of a 
+     5      -32    set-constructor. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p7p1d12(output); 
+     9      -32 type 
+    10      -32    ET      = (A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P); 
+    11      -32 var 
+    12      -32    evar : set of ET; 
+    13      -32    seed : ET; 
+    14      -32  
+    15      -32    function nasty:ET; 
+    16      -32    begin seed:=pred(seed); nasty:=seed end; 
+    17       14  
+    18       14    function horrible:ET; 
+    19       14    begin seed:=succ(succ(seed)); horrible:=seed end; 
+    20       27  
+    21       27 begin 
+    22       27    seed:=F; 
+    23       32    evar:=[nasty..horrible]; 
+    24       41    { Values could be [E..G]    text order 
+    25       41                      [G..H]    reverse order 
+    26       41                      [E..H]    simultaneous 
+    27       41                      or other or not defined } 
+    28       41    writeln(' OUTPUT FROM TEST...6.7.1-12'); 
+    29       49    write(' ORDER OF EVALUATION OF (. A..B .) IS '); 
+    30       56    if evar = [E..G] then 
+    31       60       writeln('AB') 
+    32       66    else if evar = [G..H] then 
+    33       73       writeln('BA') 
+    34       79    else if evar = [E..H] then 
+    35       86       writeln('SIMULTANEOUS') 
+    36       92    else 
+    37       95       writeln('UNKNOWN'); 
+    38      103    writeln(' IMPLEMENTATION DEPENDENT...6.7.1-12') 
+    39      109 end. 
+D          unreferenced
+C          unreferenced
+B          unreferenced
+A          unreferenced
+P          unreferenced
+O          unreferenced
+N          unreferenced
+M          unreferenced
+L          unreferenced
+K          unreferenced
+J          unreferenced
+I          unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.1-12
+ ORDER OF EVALUATION OF (. A..B .) IS AB
+ IMPLEMENTATION DEPENDENT...6.7.1-12
+
+program complete
+
+Compiling and running t6p7p1d13
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.1-13, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 3} 
+     2      -32  
+     3      -32 {: This test contains an implementation-dependency in the order of 
+     4      -32    evaluation of member-designators of a set-constructor. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p7p1d13(output); 
+     8      -32 const min=0; max=15; 
+     9      -32 type 
+    10      -32    IT      = min..max; 
+    11      -32 var 
+    12      -32    evar : set of IT; 
+    13      -32    seed,i : IT; 
+    14      -32    etab : array[IT] of IT; 
+    15      -32  
+    16      -32    function horrible:IT; 
+    17      -32    begin horrible:=succ(seed); seed:=pred(seed) end; 
+    18       14  
+    19       14 begin 
+    20       14    for i:=min to max do etab[i]:=i; 
+    21       45    seed:=7; 
+    22       48    evar:=[seed,etab[horrible]]; 
+    23       60    { Values could be [7,8]    text order 
+    24       60                      [6,8]    reverse order 
+    25       60                      or other or not defined. } 
+    26       60    writeln(' IMPLEMENTATION DEPENDENT...6.7.1-13') 
+    27       66 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ IMPLEMENTATION DEPENDENT...6.7.1-13
+
+program complete
+
+Compiling and running t6p7p1d14
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.1-14, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 3} 
+     2      -32  
+     3      -32 {: This program determines the order of evaluation of the 
+     4      -32    expressions of a set-constructor. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p7p1d14(output); 
+     8      -32 var 
+     9      -32    st: packed array [ 1 .. 2 ] of char; 
+    10      -32    count: 1 .. 3; 
+    11      -32    x: set of 0 .. 2; 
+    12      -32  
+    13      -32 function sideeffect(c: char; i: integer): integer; 
+    14      -40    begin 
+    15        3    st[count] := c; 
+    16       13    count := count + 1; 
+    17       18    sideeffect := i; 
+    18       20    end; 
+    19       21 begin 
+    20       21    count := 1; 
+    21       26    st := '  '; 
+    22       29    writeln(' OUTPUT FROM TEST...6.7.1-14'); 
+    23       37    write(' ORDER OF EVALUATION OF (. A .. B .) IS '); 
+    24       44    x := [sideeffect('A',0) .. sideeffect('B',1)]; 
+    25       57    writeln( st ); 
+    26       65    writeln(' IMPLEMENTATION DEPENDENT...6.7.1-14') 
+    27       71 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.1-14
+ ORDER OF EVALUATION OF (. A .. B .) IS AB
+ IMPLEMENTATION DEPENDENT...6.7.1-14
+
+program complete
+
+Compiling and running t6p7p2p3d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.3-3, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 4} 
+     2      -32  
+     3      -32 {: This program determines if a boolean-expression is partially 
+     4      -32    or completely evaluated when the value of the expression is 
+     5      -32    determined before the expression is fully evaluated. } 
+     6      -32 {V3.1: Reclassified from IMPLEMENTATIONDEFINED. } 
+     7      -32  
+     8      -32 program t6p7p2p3d3(output); 
+     9      -32 var 
+    10      -32    a:boolean; 
+    11      -32    k,l:integer; 
+    12      -32  
+    13      -32 function sideeffect(var i:integer; b:boolean):boolean; 
+    14      -40 begin 
+    15        3    i:=i+1; 
+    16       11    sideeffect:=b 
+    17       11 end; 
+    18       15  
+    19       15 begin 
+    20       15    writeln(' OUTPUT FROM TEST...6.7.2.3-3'); 
+    21       25    writeln(' TEST OF SHORT CIRCUIT EVALUATION OF (A AND B)'); 
+    22       33    k:=0; 
+    23       35    l:=0; 
+    24       37    a:=sideeffect(k,false) and sideeffect(l,false); 
+    25       50    if (k=0) and (l=1) then 
+    26       58       writeln(' ONLY SECOND EXPRESSION EVALUATED') 
+    27       64    else 
+    28       67       if (k=1) and (l=0) then 
+    29       75          writeln(' ONLY FIRST EXPRESSION EVALUATED') 
+    30       81       else 
+    31       84          if(k=1) and (l=1) then 
+    32       92             writeln(' BOTH EXPRESSIONS EVALUATED') 
+    33       98          else 
+    34      101             writeln(' INEXPLICABLE RESULT'); 
+    35      109    writeln(' IMPLEMENTATION DEPENDENT...6.7.2.3-3') 
+    36      115 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.2.3-3
+ TEST OF SHORT CIRCUIT EVALUATION OF (A AND B)
+ BOTH EXPRESSIONS EVALUATED
+ IMPLEMENTATION DEPENDENT...6.7.2.3-3
+
+program complete
+
+Compiling and running t6p7p2p3d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.3-4, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 4} 
+     2      -32  
+     3      -32 {: This program determines if a boolean-expression is partially 
+     4      -32    or completely evaluated when the value of the expression is 
+     5      -32    determined before the expression is fully evaluated. } 
+     6      -32 {V3.1: Reclassified from IMPLEMENTATIONDEFINED. } 
+     7      -32  
+     8      -32 program t6p7p2p3d4(output); 
+     9      -32 var 
+    10      -32    a:boolean; 
+    11      -32    k,l:integer; 
+    12      -32  
+    13      -32 function sideeffect(var i:integer; b:boolean):boolean; 
+    14      -40 begin 
+    15        3    i:=i+1; 
+    16       11    sideeffect:=b 
+    17       11 end; 
+    18       15  
+    19       15 begin 
+    20       15    writeln(' OUTPUT FROM TEST...6.7.2.3-4'); 
+    21       25    writeln(' TEST OF SHORT CIRCUIT EVALUATION OF (A OR B)'); 
+    22       33    k:=0; 
+    23       35    l:=0; 
+    24       37    a:=sideeffect(k,true) or sideeffect(l,true); 
+    25       50    if (k=0) and (l=1) then 
+    26       58       writeln(' ONLY SECOND EXPRESSION EVALUATED') 
+    27       64    else 
+    28       67       if (k=1) and (l=0) then 
+    29       75          writeln(' ONLY FIRST EXPRESSION EVALUATED') 
+    30       81       else 
+    31       84          if(k=1) and (l=1) then 
+    32       92             writeln(' BOTH EXPRESSIONS EVALUATED') 
+    33       98          else 
+    34      101             writeln(' INEXPLICABLE RESULT'); 
+    35      109    writeln(' IMPLEMENTATION DEPENDENT...6.7.2.3-4') 
+    36      115 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.2.3-4
+ TEST OF SHORT CIRCUIT EVALUATION OF (A OR B)
+ BOTH EXPRESSIONS EVALUATED
+ IMPLEMENTATION DEPENDENT...6.7.2.3-4
+
+program complete
+
+Compiling and running t6p7p3d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.3-2, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 5} 
+     2      -32  
+     3      -32 {: This program determines the order of evaluation of the 
+     4      -32    actual parameters of a function-designator. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p7p3d2(output); 
+     8      -32 var 
+     9      -32    st: packed array [ 1 .. 4 ] of char; 
+    10      -32    count: 1 .. 5; 
+    11      -32    x: integer; 
+    12      -32  
+    13      -32 function sideeffect(c: char; i: integer): integer; 
+    14      -40    begin 
+    15        3    st[count] := c; 
+    16       13    count := count + 1; 
+    17       18    sideeffect := i; 
+    18       20    end; 
+    19       21 function f(i, j: integer): integer; 
+    20       21    begin 
+    21       21    f := i + j 
+    22       24    end; 
+    23       28 begin 
+    24       28    count := 1; 
+    25       33    st := '    '; 
+    26       36    writeln(' OUTPUT FROM TEST...6.7.3-2'); 
+    27       44    write(' ORDER OF EVALUATION OF F(F(A,B),F(C,D)) IS '); 
+    28       51    x := f(f(sideeffect('A',0),sideeffect('B',1)), 
+    29       64           f(sideeffect('C',0),sideeffect('D',1))); 
+    30       78    writeln( st ); 
+    31       86    writeln(' IMPLEMENTATION DEPENDENT...6.7.3-2') 
+    32       92 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.7.3-2
+ ORDER OF EVALUATION OF F(F(A,B),F(C,D)) IS ABCD
+ IMPLEMENTATION DEPENDENT...6.7.3-2
+
+program complete
+
+Compiling and running t6p8p2p2d1
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.2.2-1, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 6} 
+     2      -32  
+     3      -32 {: This program determines whether selection of a variable involving 
+     4      -32    the indexing of an array occurs before or after the evaluation 
+     5      -32    of the expression in an assignment-statement. } 
+     6      -32 {V3.1: Reclassified from IMPLEMENTATIONDEFINED. } 
+     7      -32  
+     8      -32 program t6p8p2p2d1(output); 
+     9      -32 var 
+    10      -32    i : integer; 
+    11      -32    a : array[1..3] of integer; 
+    12      -32 function sideeffect(var i:integer) : integer; 
+    13      -36 begin 
+    14        3    i:=i+1; 
+    15       11    sideeffect:=i 
+    16       11 end; 
+    17       15  
+    18       15 begin 
+    19       15    writeln(' OUTPUT FROM TEST...6.8.2.2-1'); 
+    20       25    writeln(' TEST OF BINDING ORDER (A[I] := EXPRESSION)'); 
+    21       33    i:=1; 
+    22       35    a[1]:=0; 
+    23       42    a[2]:=0; 
+    24       49    a[i]:=sideeffect(i); 
+    25       58    if a[1]=2 then 
+    26       67       writeln(' SELECTION THEN EVALUATION') 
+    27       73    else 
+    28       76       if a[2]=2 then 
+    29       85          writeln(' EVALUATION THEN SELECTION'); 
+    30       93    writeln(' IMPLEMENTATION DEPENDENT...6.8.2.2-1') 
+    31       99 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.8.2.2-1
+ TEST OF BINDING ORDER (A[I] := EXPRESSION)
+ SELECTION THEN EVALUATION
+ IMPLEMENTATION DEPENDENT...6.8.2.2-1
+
+program complete
+
+Compiling and running t6p8p2p2d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.2.2-2, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 6} 
+     2      -32  
+     3      -32 {: This program determines whether selection of a variable involving 
+     4      -32    the dereferencing of a pointer occurs before or after the 
+     5      -32    evaluation of the expression in an assignment-statement. } 
+     6      -32 {V3.1: Reclassified from IMPLEMENTATIONDEFINED. } 
+     7      -32  
+     8      -32 program t6p8p2p2d2(output); 
+     9      -32 type 
+    10      -32    poynter = ^rekord; 
+    11      -32    rekord=record 
+    12      -32             a : integer; 
+    13      -32             b : boolean; 
+    14      -32             link : poynter 
+    15      -32          end; 
+    16      -32 var 
+    17      -32    temp, ptr : poynter; 
+    18      -32 function sideeffect(var p : poynter) : integer; 
+    19      -36 begin 
+    20        3    p:=p^.link; 
+    21       12    sideeffect:=2 
+    22       12 end; 
+    23       15  
+    24       15 begin 
+    25       15    writeln(' OUTPUT FROM TEST...6.8.2.2-2'); 
+    26       25    writeln(' TEST OF BINDING ORDER (P^ := EXPRESSION)'); 
+    27       33    new(ptr); 
+    28       36    ptr^.a:=1; 
+    29       40    ptr^.b:=true; 
+    30       46    new(temp); 
+    31       49    ptr^.link:=temp; 
+    32       55    temp^.a:=0; 
+    33       59    temp^.b:=false; 
+    34       65    temp:=ptr; 
+    35       68    ptr^.a:=sideeffect(ptr); 
+    36       74    if temp^.a=2 then 
+    37       80       writeln(' SELECTION THEN EVALUATION') 
+    38       86    else 
+    39       89       if temp^.link^.a=2 then 
+    40       97          writeln(' EVALUATION THEN SELECTION'); 
+    41      105    writeln(' IMPLEMENTATION DEPENDENT...6.8.2.2-2') 
+    42      111 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.8.2.2-2
+ TEST OF BINDING ORDER (P^ := EXPRESSION)
+ SELECTION THEN EVALUATION
+ IMPLEMENTATION DEPENDENT...6.8.2.2-2
+
+program complete
+
+Compiling and running t6p8p2p3d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.2.3-2, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 7} 
+     2      -32  
+     3      -32 {: This program determines the order of evaluation of the actual 
+     4      -32    parameters in a procedure statement. } 
+     5      -32 {V3.1: Reclassified from IMPLEMENTATIONDEFINED. } 
+     6      -32  
+     7      -32 program t6p8p2p3d2(output); 
+     8      -32 var 
+     9      -32    string : packed array[1..3] of char; 
+    10      -32    i      : integer; 
+    11      -32 function sideeffect(c : char) : integer; 
+    12      -36 begin 
+    13        3    string[i] := c; 
+    14       13    i := i + 1; 
+    15       17    sideeffect := i 
+    16       17 end; 
+    17       20 procedure order(p,q,r : integer); 
+    18       20 begin 
+    19       20    if string = 'ABC' then 
+    20       26       writeln(' ACTUAL PARAMETERS EVALUATED IN FORWARD ORDER') 
+    21       32    else 
+    22       35       if string = 'CBA' then 
+    23       39          writeln(' ACTUAL PARAMETERS EVALUATED IN REVERSE ORDER') 
+    24       45       else 
+    25       48          writeln(' ORDER OF ACTUAL PARAMETER EVALUATION UNKNOWN') 
+    26       54 end; 
+r          unreferenced
+q          unreferenced
+p          unreferenced
+
+    27       57 begin 
+    28       57    writeln(' OUTPUT FROM TEST...6.8.2.3-2'); 
+    29       67    i := 1; 
+    30       69    order(sideeffect('A'),sideeffect('B'),sideeffect('C')); 
+    31       83    writeln(' IMPLEMENTATION DEPENDENT...6.8.2.3-2') 
+    32       89 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.8.2.3-2
+ ACTUAL PARAMETERS EVALUATED IN FORWARD ORDER
+ IMPLEMENTATION DEPENDENT...6.8.2.3-2
+
+program complete
+
+Compiling and running t6p9p5d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.5-3, CLASS=IMPLEMENTATIONDEPENDENT, NUMBER= 8} 
+     2      -32  
+     3      -32 {: This program determines the sequence of characters used 
+     4      -32    to represent the effect of page on a textfile. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p9p5d3(output); 
+     8      -32 var 
+     9      -32    f: text; 
+    10      -32    c: char; 
+    11      -32    endline: boolean; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    write(f, '.'); 
+    15       12    page(f); 
+    16       14    writeln(f, '.'); 
+    17       20    reset(f); 
+    18       22    repeat 
+    19       22       read(f, c); 
+    20       28    until (c = '.'); 
+    21       32    writeln(' OUTPUT FROM TEST...6.9.5-3'); 
+    22       40    writeln(' SEQUENCE CORRESPONDING TO PAGE'); 
+    23       48    repeat 
+    24       48       endline := eoln(f); 
+    25       52       read(f, c); 
+    26       58       if c <> '.' then 
+    27       62          begin 
+    28       62          if endline then 
+    29       64             writeln( 'EOLN') 
+    30       70          else 
+    31       73             writeln(' CHAR, ORD(C)= ', ord(c) ) 
+    32       83          end; 
+    33       85    until (c = '.'); 
+    34       89    writeln(' IMPLEMENTATION DEPENDENT...6.9.5-3') 
+    35       95 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.9.5-3
+ SEQUENCE CORRESPONDING TO PAGE
+ CHAR, ORD(C)=          12
+ IMPLEMENTATION DEPENDENT...6.9.5-3
+
+program complete

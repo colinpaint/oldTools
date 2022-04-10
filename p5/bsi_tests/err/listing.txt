@@ -1,0 +1,2629 @@
+
+Compiling and running t6p6p5p2d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-10, CLASS=ERRORHANDLING, NUMBER= 13} 
+     2      -32  
+     3      -32 {: This test causes an error by applying 'reset' to an 
+     4      -32    undefined file. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d10(output); 
+     8      -32 var 
+     9      -32    f : file of integer; 
+    10      -32 begin 
+    11        3    reset(f); 
+    12        7    writeln(' ERROR...6.6.5.2-10'); 
+    13       15    writeln(' ERROR NOT DETECTED') 
+    14       21 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [11]: Cannot reset closed file 
+
+program complete
+
+Compiling and running t6p6p5p2d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-11, CLASS=ERRORHANDLING, NUMBER= 15} 
+     2      -32  
+     3      -32 {: This test causes an error by using 'get' on an undefined file. } 
+     4      -32 {V3.1: New test. } 
+     5      -32  
+     6      -32 program t6p6p5p2d11(output); 
+     7      -32 var 
+     8      -32    f : file of char; 
+     9      -32 begin 
+    10        3    get(f); 
+    11        8    writeln(' ERROR...6.6.5.2-11'); 
+    12       16    writeln(' ERROR NOT DETECTED') 
+    13       22 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [10]: File not in read mode    
+
+program complete
+
+Compiling and running t6p6p5p2d12
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-12, CLASS=ERRORHANDLING, NUMBER= 17} 
+     2      -32  
+     3      -32 {: This program is in error since the value of the buffer-variable 
+     4      -32    is not assignment-compatible with the variable-access, 
+     5      -32    as a result of a call of read.} 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p2d12(output); 
+     9      -32 type 
+    10      -32    digits = (one,two,three,four); 
+    11      -32    subrange = one..two; 
+    12      -32 var 
+    13      -32    f : file of digits; 
+    14      -32    sub : subrange; 
+    15      -32 begin 
+    16        3    rewrite(f); 
+    17        7    write(f,three); 
+    18       12    reset(f); 
+    19       14    read(f,sub);      { error } 
+    20       21    writeln(' ERROR...6.6.5.2-12'); 
+    21       29    writeln(' ERROR NOT DETECTED') 
+    22       35 end. 
+four       unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: Value read out of range  
+
+program complete
+
+Compiling and running t6p6p5p2d13
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-13, CLASS=ERRORHANDLING, NUMBER= 17} 
+     2      -32  
+     3      -32 {: This program is in error since the value of the buffer-variable 
+     4      -32    is not assignment-compatible with the variable-access, 
+     5      -32    as a result of a use of get. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p2d13(output); 
+     9      -32 type 
+    10      -32    digits = (one,two,three,four); 
+    11      -32    subrange = one..two; 
+    12      -32 var 
+    13      -32    f : file of digits; 
+    14      -32    sub : subrange; 
+    15      -32 begin 
+    16        3    rewrite(f); 
+    17        7    f^ := three; 
+    18       14    put(f); 
+    19       17    reset(f); 
+    20       19    sub := f^;        { error } 
+    21       26    get(f); 
+    22       29    writeln(' ERROR...6.6.5.2-13'); 
+    23       37    writeln(' ERROR NOT DETECTED') 
+    24       43 end. 
+four       unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [20]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p5p2d14
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-14, CLASS=ERRORHANDLING, NUMBER= 18} 
+     2      -32  
+     3      -32 {: This test causes an error by writing an expression which is 
+     4      -32    not assignment-compatible with the buffer-variable, 
+     5      -32    as a result of a call of write. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p2d14(output); 
+     9      -32 type 
+    10      -32    subrange = 1..10; 
+    11      -32 var 
+    12      -32    f : file of subrange; 
+    13      -32    int : integer; 
+    14      -32 begin 
+    15        3    int := 4; 
+    16        7    rewrite(f); 
+    17        9    write(f,int*int);      { error } 
+    18       16    writeln(' ERROR...6.6.5.2-14'); 
+    19       24    writeln(' ERROR NOT DETECTED') 
+    20       30 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p5p2d15
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-15, CLASS=ERRORHANDLING, NUMBER= 18} 
+     2      -32  
+     3      -32 {: This test causes an error by writing an expression which is 
+     4      -32    not assignment-compatible with the buffer-variable, 
+     5      -32    as a result of the use of put. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p2d15(output); 
+     9      -32 type 
+    10      -32    subrange = 1..10; 
+    11      -32 var 
+    12      -32    f : file of subrange; 
+    13      -32    int : integer; 
+    14      -32 begin 
+    15        3    int := 4; 
+    16        7    rewrite(f); 
+    17        9    f^ := int*int;         { error } 
+    18       18    put(f); 
+    19       21    writeln(' ERROR...6.6.5.2-15'); 
+    20       29    writeln(' ERROR NOT DETECTED') 
+    21       35 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p5p2d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-4, CLASS=ERRORHANDLING, NUMBER=11} 
+     2      -32  
+     3      -32 {: This program causes an error to occur, as eof(fyle) does 
+     4      -32    not yield true prior to execution of a put on the file. } 
+     5      -32 {  The error should be detected at run-time or earlier. } 
+     6      -32 {V3.1: Comment in program changed. } 
+     7      -32  
+     8      -32 program t6p6p5p2d4(output); 
+     9      -32 var 
+    10      -32    fyle : text; 
+    11      -32 begin 
+    12        3    rewrite(fyle); 
+    13        7    writeln(fyle,'ABC'); 
+    14       14    reset(fyle);      { eof is false and fyle^='A' } 
+    15       16    put(fyle);        { causes an error } 
+    16       18    writeln(' ERROR...6.6.5.2-4'); 
+    17       26    writeln(' ERROR NOT DETECTED') 
+    18       32 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: File not in write mode   
+
+program complete
+
+Compiling and running t6p6p5p2d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-5, CLASS=ERRORHANDLING, NUMBER=16} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as eof(fyle) does 
+     4      -32    not yield false prior to execution of a get on the file. } 
+     5      -32 {  The error should be detected at run-time or earlier. } 
+     6      -32 {V3.1: Program comments deleted. } 
+     7      -32  
+     8      -32 program t6p6p5p2d5(output); 
+     9      -32 var 
+    10      -32    fyle : text; 
+    11      -32 begin 
+    12        3    rewrite(fyle); 
+    13        7    writeln(fyle,'ABC'); 
+    14       14    reset(fyle); 
+    15       16    get(fyle); 
+    16       18    get(fyle); 
+    17       20    get(fyle); 
+    18       22    get(fyle); 
+    19       24    get(fyle);           { error since eof is true } 
+    20       26    writeln(' ERROR...6.6.5.2-5'); 
+    21       34    writeln(' ERROR NOT DETECTED') 
+    22       40 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: End of file              
+
+program complete
+
+Compiling and running t6p6p5p2d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-6, CLASS=ERRORHANDLING, NUMBER= 14} 
+     2      -32  
+     3      -32 {: This program checks for detection of the error of doing a get 
+     4      -32    on a file immediately following a rewrite. } 
+     5      -32 {V3.0: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d6(output); 
+     8      -32 var 
+     9      -32    fyle : text; 
+    10      -32 begin 
+    11        3    rewrite(fyle); 
+    12        7    writeln(fyle,'ABC'); 
+    13       14    rewrite(fyle); 
+    14       16    get(fyle);          {causes an error} 
+    15       18    writeln(' ERROR...6.6.5.2-6'); 
+    16       26    writeln(' ERROR NOT DETECTED') 
+    17       32 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: File not in read mode    
+
+program complete
+
+Compiling and running t6p6p5p2d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-7, CLASS=ERRORHANDLING, NUMBER= 9} 
+     2      -32  
+     3      -32 {: This test causes an error by using put when the file mode 
+     4      -32    is not generation. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d7(output); 
+     8      -32 type 
+     9      -32    fyle = file of integer; 
+    10      -32 var 
+    11      -32    f : fyle; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    f^ := 1234; 
+    15       13    put(f); 
+    16       16    reset(f); 
+    17       18    put(f); 
+    18       21    writeln(' ERROR...6.6.5.2-7'); 
+    19       29    writeln(' ERROR NOT DETECTED') 
+    20       35 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: File not in write mode   
+
+program complete
+
+Compiling and running t6p6p5p2d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-8, CLASS=ERRORHANDLING, NUMBER= 10} 
+     2      -32  
+     3      -32 {: This test causes an error by applying 'page' to a text file 
+     4      -32    whose value is undefined. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d8(output); 
+     8      -32 var 
+     9      -32    f : text; 
+    10      -32 begin 
+    11        3    page(f); 
+    12        7    writeln(' ERROR...6.6.5.2-8'); 
+    13       15    writeln(' ERROR NOT DETECTED') 
+    14       21 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [11]: File not in write mode   
+
+program complete
+
+Compiling and running t6p6p5p2d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.2-9, CLASS=ERRORHANDLING, NUMBER= 12} 
+     2      -32  
+     3      -32 {: This test causes an error by applying 'put' to an undefined 
+     4      -32    buffer-variable. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p2d9(output); 
+     8      -32 type 
+     9      -32    fyle = file of char; 
+    10      -32 var 
+    11      -32    f : fyle; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    f^ := 'Z'; 
+    15       14    put(f); 
+    16       17    put(f); 
+    17       20    writeln(' ERROR...6.6.5.2-9'); 
+    18       28    writeln(' ERROR NOT DETECTED') 
+    19       34 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: File buffer undefined    
+
+program complete
+
+Compiling and running t6p6p5p3d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-10, CLASS=ERRORHANDLING, NUMBER=25} 
+     2      -32  
+     3      -32 {: This program causes an error to occur, as a variable 
+     4      -32    created by the long form of new is used as 
+     5      -32    an actual parameter. } 
+     6      -32 {  Similar to 6.6.5.3-8. } 
+     7      -32 {V3.1: Tag-field assignment added. } 
+     8      -32  
+     9      -32 program t6p6p5p3d10(output); 
+    10      -32 type 
+    11      -32    two      = (a,b); 
+    12      -32    rekord   = record 
+    13      -32                case tagfield:two of 
+    14      -32                   a : (m : boolean); 
+    15      -32                   b : (n : char) 
+    16      -32               end; 
+    17      -32 var 
+    18      -32    ptr : ^rekord; 
+    19      -32 procedure error(c : rekord); 
+    20      -44    begin 
+    21        3       writeln(' ERROR...6.6.5.3-10'); 
+    22       16       writeln(' ERROR NOT DETECTED') 
+    23       22    end; 
+c          unreferenced
+
+    24       25 begin 
+    25       25    new(ptr,a); 
+    26       32    ptr^.tagfield := a; 
+    27       38    ptr^.m:=true; 
+    28       49    error(ptr^) 
+    29       53 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [28]: Access tag allocated rec 
+
+program complete
+
+Compiling and running t6p6p5p3d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {$p} 
+     2      -32 {TEST 6.6.5.3-11, CLASS=ERRORHANDLING, NUMBER=43} 
+     3      -32  
+     4      -32 {: This program is illegal since it uses the value of a pointer after 
+     5      -32    a call of dispose. } 
+     6      -32 {V3.0: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p3d11(output); 
+     9      -32 type 
+    10      -32    pointer = ^integer; 
+    11      -32 var 
+    12      -32    p : pointer; 
+    13      -32 begin 
+    14        3    new(p); 
+    15        8    p^ := 10; 
+    16       12    dispose(p); 
+    17       15    if p = nil then 
+    18       19       writeln(' POINTER = NIL') 
+    19       25    else 
+    20       28       if p^ = 10 then 
+    21       34          writeln(' POINTER STILL USABLE') 
+    22       40       else 
+    23       43          writeln(' POINTER VALUE UNKNOWN'); 
+    24       51    writeln(' ERROR...6.6.5.3-11'); 
+    25       59    writeln(' ERROR NOT DETECTED') 
+    26       65 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [20]: Ptr used after dispose op
+
+program complete
+
+Compiling and running t6p6p5p3d13
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-13, CLASS=ERRORHANDLING, NUMBER= 19} 
+     2      -32  
+     3      -32 {: This test causes an error by activating a variant which is 
+     4      -32    different from those specified by new(p,c1, ,cn). } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p5p3d13(output); 
+     8      -32 type 
+     9      -32    rec = record 
+    10      -32            case tag : boolean of 
+    11      -32               true  : (b1,b2 : boolean); 
+    12      -32               false : (i1,i2 : integer) 
+    13      -32          end; 
+    14      -32 var 
+    15      -32    ptr : ^rec; 
+    16      -32 begin 
+    17        3    new(ptr,true); 
+    18       10    ptr^.tag := false;      { error } 
+    19       16    writeln(' ERROR...6.6.5.3-13'); 
+    20       24    writeln(' ERROR NOT DETECTED') 
+    21       30 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Change to alloc tagfield 
+
+program complete
+
+Compiling and running t6p6p5p3d14
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-14, CLASS=ERRORHANDLING, NUMBER= 20} 
+     2      -32  
+     3      -32 {: This test causes an error since an identifying-value which had 
+     4      -32    been created using the form new(p,c1, ,cn) is consequently 
+     5      -32    removed by applying dispose(p). } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p3d14(output); 
+     9      -32 type 
+    10      -32    rec = record 
+    11      -32             case tag : boolean of 
+    12      -32                true  : (b1,b2 : 1..10); 
+    13      -32                false : (b3 : 11..20) 
+    14      -32          end; 
+    15      -32 var 
+    16      -32    ptr : ^rec; 
+    17      -32 begin 
+    18        3    new(ptr,true); 
+    19       10    dispose(ptr);      { error } 
+    20       14    writeln(' ERROR...6.6.5.3-14'); 
+    21       22    writeln(' ERROR NOT DETECTED') 
+    22       28 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: New/dispose tags mismatch
+
+program complete
+
+Compiling and running t6p6p5p3d16
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-16, CLASS=ERRORHANDLING, NUMBER= 21} 
+     2      -32  
+     3      -32 {: This test causes an error by calling dispose(q,k1, ,km) with 
+     4      -32    an incorrect number of parameters. } 
+     5      -32 {  If a variable is created using the form new(p,c1, ,cn) and is 
+     6      -32    then removed using dispose(q,k1, ,km), it is an error if m is 
+     7      -32    not equal to n. } 
+     8      -32 {V3.1: New test. } 
+     9      -32  
+    10      -32 program t6p6p5p3d16(output); 
+    11      -32 type 
+    12      -32    tagtype1 = boolean; 
+    13      -32    tagtype2 = 1..2; 
+    14      -32    tagtype3 = 3..4; 
+    15      -32    rec = record 
+    16      -32             case tag1 : tagtype1 of 
+    17      -32             false : (q : integer); 
+    18      -32             true  : (case tag2 : tagtype2 of 
+    19      -32                      1 : (b1,b2 : boolean); 
+    20      -32                      2 : (case tag3 : tagtype3 of 
+    21      -32                           3 : (r : boolean); 
+    22      -32                           4 : (s,t : integer))) 
+    23      -32          end; 
+    24      -32 var 
+    25      -32    ptr : ^rec; 
+    26      -32 begin 
+    27        3    new(ptr,true,2,4); 
+    28       12    dispose(ptr,true,2);      { error } 
+    29       18    writeln(' ERROR...6.6.5.3-16'); 
+    30       26    writeln(' ERROR NOT DETECTED') 
+    31       32 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [28]: New/dispose tags mismatch
+
+program complete
+
+Compiling and running t6p6p5p3d17
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-17, CLASS=ERRORHANDLING, NUMBER= 22} 
+     2      -32  
+     3      -32 {: This test causes an error by calling dispose(q,k1, ,km) when 
+     4      -32    the variants in the variable identified by the pointer q, are 
+     5      -32    different from those specified by the case-constants k1, ,km. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p3d17(output); 
+     9      -32 type 
+    10      -32    tagtype1 = boolean; 
+    11      -32    tagtype2 = 1..2; 
+    12      -32    tagtype3 = 3..4; 
+    13      -32    rec = record 
+    14      -32             case tag1 : tagtype1 of 
+    15      -32             false : (q : integer); 
+    16      -32             true  : (case tag2 : tagtype2 of 
+    17      -32                      1 : (b1,b2 : boolean); 
+    18      -32                      2 : (case tag3 : tagtype3 of 
+    19      -32                           3 : (r : boolean); 
+    20      -32                           4 : (s,t : integer))) 
+    21      -32          end; 
+    22      -32 var 
+    23      -32    ptr : ^ rec; 
+    24      -32 begin 
+    25        3    new(ptr); 
+    26        9    with ptr^ do 
+    27       13       begin 
+    28       13       tag1 := true; 
+    29       18       tag2 := 2; 
+    30       24       tag3 := 3; 
+    31       30       end; 
+    32       31    dispose(ptr,true,2,4); 
+    33       38    writeln(' ERROR...6.6.5.3-17'); 
+    34       46    writeln(' ERROR NOT DETECTED') 
+    35       52 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [32]: New/dispose tags mismatch
+
+program complete
+
+Compiling and running t6p6p5p3d21
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-21, CLASS=ERRORHANDLING, NUMBER=43} 
+     2      -32  
+     3      -32 {: This test causes an error by dereferencing a dangling pointer. } 
+     4      -32 {  If q=p then DISPOSE(p) acts on q also. } 
+     5      -32 {V3.1: New test from BNI. } 
+     6      -32  
+     7      -32 program t6p6p5p3d21(output); 
+     8      -32 var 
+     9      -32    p,q:^integer; 
+    10      -32 begin 
+    11        3    new(p); 
+    12        8    p^:=5; 
+    13       12    q:=p; 
+    14       15    dispose(p); 
+    15       18    q^:=q^-1; 
+    16       26    writeln(' ERROR...6.6.5.3-21'); 
+    17       34    writeln(' ERROR NOT DETECTED') 
+    18       40 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: Bad pointer value        
+
+program complete
+
+Compiling and running t6p6p5p3d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-4, CLASS=ERRORHANDLING, NUMBER=23} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the pointer 
+     4      -32    parameter of dispose is nil. } 
+     5      -32 {  The error should be detected at run-time or earlier. } 
+     6      -32 {V3.0: Writes revised. Was previously 6.6.5.3-3. } 
+     7      -32  
+     8      -32 program t6p6p5p3d4(output); 
+     9      -32 type 
+    10      -32    rekord = record 
+    11      -32             a : integer; 
+    12      -32             b : boolean 
+    13      -32            end; 
+    14      -32 var 
+    15      -32    ptr : ^rekord; 
+    16      -32 begin 
+    17        3    ptr:=nil; 
+    18        8    dispose(ptr); 
+    19       11    writeln(' ERROR...6.6.5.3-4'); 
+    20       19    writeln(' ERROR NOT DETECTED') 
+    21       25 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Dispose nil pointer      
+
+program complete
+
+Compiling and running t6p6p5p3d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-5, CLASS=ERRORHANDLING, NUMBER=24} 
+     2      -32  
+     3      -32 {: In this test an error is caused by the 
+     4      -32    pointer variable of dispose being undefined. } 
+     5      -32 {  The error should be detected at run-time or earlier. } 
+     6      -32 {V3.0: Writes revised. Was previously 6.6.5.3-4. } 
+     7      -32  
+     8      -32 program t6p6p5p3d5(output); 
+     9      -32 type 
+    10      -32    rekord = record 
+    11      -32              a : integer; 
+    12      -32              b : boolean 
+    13      -32             end; 
+    14      -32 var 
+    15      -32    ptr : ^rekord; 
+    16      -32 begin 
+    17        3    dispose(ptr); 
+    18        8    writeln(' ERROR...6.6.5.3-5'); 
+    19       16    writeln(' ERROR NOT DETECTED') 
+    20       22 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Undefined location access
+
+program complete
+
+Compiling and running t6p6p5p3d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {$i} 
+     2      -32 {TEST 6.6.5.3-6, CLASS=ERRORHANDLING, NUMBER= 5} 
+     3      -32  
+     4      -32 {: This program causes an error to occur as a variable 
+     5      -32    which is currently an actual variable parameter is 
+     6      -32    referred to by the pointer parameter of dispose. } 
+     7      -32 {  The error should be detected at run-time or earlier. } 
+     8      -32 {V3.0: Writes revised. Procedure heading corrected by inserting 'var'. 
+     9      -32    Was previously 6.6.5.3-5. } 
+    10      -32  
+    11      -32 program t6p6p5p3d6(output); 
+    12      -32 var 
+    13      -32    ptr : ^integer; 
+    14      -32 procedure error(var a:integer); 
+    15      -36    var 
+    16      -36       x : integer; 
+    17      -40    begin 
+    18        3       x:=a*2; 
+    19       12       dispose(ptr) 
+    20       15    end; 
+    21       17 begin 
+    22       17    new(ptr); 
+    23       22    ptr^:=6; 
+    24       26    error(ptr^); 
+    25       30    writeln(' ERROR...6.6.5.3-6'); 
+    26       38    writeln(' ERROR NOT DETECTED') 
+    27       44 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: Dispose of VAR ref block 
+
+program complete
+
+Compiling and running t6p6p5p3d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-7, CLASS=ERRORHANDLING, NUMBER= 5} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as a variable which 
+     4      -32    is an element of the record-variable-list of a 
+     5      -32    with-statement is referred to by the pointer parameter of 
+     6      -32    dispose. } 
+     7      -32 {V3.0: Writes revised. Was previously 6.6.5.3-6. } 
+     8      -32  
+     9      -32 program t6p6p5p3d7(output); 
+    10      -32 type 
+    11      -32    subrange = 0..9999; 
+    12      -32    rekord   = record 
+    13      -32                name : packed array[1..15] of char; 
+    14      -32                employeeno : subrange 
+    15      -32               end; 
+    16      -32 var 
+    17      -32    ptr : ^rekord; 
+    18      -32 begin 
+    19        3    new(ptr); 
+    20        8    with ptr^ do 
+    21       12    begin 
+    22       12       name:='HARRY M. MULLER'; 
+    23       15       employeeno:=9998; 
+    24       20       dispose(ptr) 
+    25       23    end; 
+    26       24    writeln(' ERROR...6.6.5.3-7'); 
+    27       32    writeln(' ERROR NOT DETECTED') 
+    28       38 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [24]: Dispose of with ref block
+
+program complete
+
+Compiling and running t6p6p5p3d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-8, CLASS=ERRORHANDLING, NUMBER=25} 
+     2      -32  
+     3      -32 {: This program causes an error to occur, as a variable 
+     4      -32    created by the use of the long form of new is used 
+     5      -32    as an operand in an expression. } 
+     6      -32 {  The error should be detected at run-time or earlier. } 
+     7      -32 {V3.1: Tag-field assignment added. } 
+     8      -32  
+     9      -32 program t6p6p5p3d8(output); 
+    10      -32 type 
+    11      -32    two      = (a,b); 
+    12      -32    rekord   = record 
+    13      -32                case tagfield:two of 
+    14      -32                   a : (m : boolean); 
+    15      -32                   b : (n : char) 
+    16      -32               end; 
+    17      -32 var 
+    18      -32    ptr      : ^rekord; 
+    19      -32    r        : rekord; 
+    20      -32 begin 
+    21        3    new(ptr,a); 
+    22       10    ptr^.tagfield := a; 
+    23       16    ptr^.m:=true; 
+    24       27    r:=ptr^; 
+    25       32    writeln(' ERROR...6.6.5.3-8'); 
+    26       40    writeln(' ERROR NOT DETECTED') 
+    27       46 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [24]: Access tag allocated rec 
+
+program complete
+
+Compiling and running t6p6p5p3d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.3-9, CLASS=ERRORHANDLING, NUMBER=25} 
+     2      -32  
+     3      -32 {: This program causes an error to occur, as a variable 
+     4      -32    created by the long form of new is used as the variable 
+     5      -32    in an assignment-statement. } 
+     6      -32 {  Similar to 6.6.5.3-8. } 
+     7      -32 {V3.0: Writes revised. Was previously 6.6.5.3-8. } 
+     8      -32  
+     9      -32 program t6p6p5p3d9(output); 
+    10      -32 type 
+    11      -32    two      = (a,b); 
+    12      -32    rekord   = record 
+    13      -32                case tagfield:two of 
+    14      -32                   a : (m : boolean); 
+    15      -32                   b : (n : char) 
+    16      -32               end; 
+    17      -32 var 
+    18      -32    ptr : ^rekord; 
+    19      -32    r   : rekord; 
+    20      -32 begin 
+    21        3    new(ptr,b); 
+    22       10    r.tagfield:=b; 
+    23       14    r.n:='A'; 
+    24       21    ptr^:=r; 
+    25       26    writeln(' ERROR...6.6.5.3-9'); 
+    26       34    writeln(' ERROR NOT DETECTED') 
+    27       40 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [24]: Access tag allocated rec 
+
+program complete
+
+Compiling and running t6p6p5p4d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-2, CLASS=ERRORHANDLING, NUMBER=26} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by use of the 
+     4      -32    procedure pack such that the parameter of ordinal-type 
+     5      -32    is not assignment compatible with the index-type of the 
+     6      -32    unpacked array parameter. } 
+     7      -32 {V3.1: New test. } 
+     8      -32  
+     9      -32 program t6p6p5p4d2(output); 
+    10      -32 type 
+    11      -32    pak = packed array [ 0 .. 15 ] of boolean; 
+    12      -32 var 
+    13      -32    a: array [ 1 .. 16 ] of boolean; 
+    14      -32    z: pak; 
+    15      -32    i: 1 .. 16; 
+    16      -32 begin 
+    17        3    for i := 1 to 16 do 
+    18       16       a[i] := true; 
+    19       35    pack(a, 0, z); 
+    20       44    writeln(' ERROR...6.6.5.4-2'); 
+    21       52    writeln(' ERROR NOT DETECTED') 
+    22       58 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p5p4d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-3, CLASS=ERRORHANDLING, NUMBER=27} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by the call of 
+     4      -32    the procedure pack when a component of the unpacked array is 
+     5      -32    both undefined and accessed.  } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p4d3(output); 
+     9      -32 type 
+    10      -32    unpk = array [ 1 .. 2 ] of char; 
+    11      -32 var 
+    12      -32    a: unpk; 
+    13      -32    z: packed array [ 1 .. 2 ] of char; 
+    14      -32 begin 
+    15        3    pack(a, 1, z); 
+    16       14    writeln(' ERROR...6.6.5.4-3'); 
+    17       22    writeln(' ERROR NOT DETECTED') 
+    18       28 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: Undefined location access
+
+program complete
+
+Compiling and running t6p6p5p4d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-4, CLASS=ERRORHANDLING, NUMBER=28} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by the call 
+     4      -32    of the procedure pack such that the index-type of the 
+     5      -32    unpacked array is exceeded.  } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p4d4(output); 
+     9      -32 type 
+    10      -32    bit = 0 .. 1; 
+    11      -32    unpk = array [ 0 .. 3 ] of bit; 
+    12      -32    pk = packed array [ 1 .. 4 ] of bit; 
+    13      -32 var 
+    14      -32    a: unpk; 
+    15      -32    z: pk; 
+    16      -32    i: 0 .. 3; 
+    17      -32 begin 
+    18        3    for i := 0 to 3 do 
+    19       16       a[i] := 0; 
+    20       34    pack(a, 1, z); 
+    21       43    writeln(' ERROR...6.6.5.4-4'); 
+    22       51    writeln(' ERROR NOT DETECTED') 
+    23       57 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [20]: Pack elements out of bnds
+
+program complete
+
+Compiling and running t6p6p5p4d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-5, CLASS=ERRORHANDLING, NUMBER=29} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by use of the 
+     4      -32    procedure unpack such that the parameter of ordinal-type 
+     5      -32    is not assignment compatible with the index-type of the 
+     6      -32    unpacked array parameter. } 
+     7      -32 {V3.1: New test. } 
+     8      -32  
+     9      -32 program t6p6p5p4d5(output); 
+    10      -32 type 
+    11      -32    pak = packed array [ 0 .. 15 ] of boolean; 
+    12      -32 var 
+    13      -32    a: array [ 1 .. 16 ] of boolean; 
+    14      -32    z: pak; 
+    15      -32    i: 0 .. 15; 
+    16      -32 begin 
+    17        3    for i := 0 to 15 do 
+    18       16       z[i] := true; 
+    19       34    unpack(z, a, 0); 
+    20       43    writeln(' ERROR...6.6.5.4-5'); 
+    21       51    writeln(' ERROR NOT DETECTED') 
+    22       57 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [19]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p5p4d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-6, CLASS=ERRORHANDLING, NUMBER=30} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by the call of 
+     4      -32    the procedure unpack when a component of the packed array is 
+     5      -32    both undefined and accessed.  } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p4d6(output); 
+     9      -32 type 
+    10      -32    unpk = array [ 1 .. 2 ] of char; 
+    11      -32 var 
+    12      -32    a: unpk; 
+    13      -32    z: packed array [ 1 .. 2 ] of char; 
+    14      -32 begin 
+    15        3    unpack(z, a, 1); 
+    16       14    writeln(' ERROR...6.6.5.4-6'); 
+    17       22    writeln(' ERROR NOT DETECTED') 
+    18       28 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: Undefined location access
+
+program complete
+
+Compiling and running t6p6p5p4d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.5.4-7, CLASS=ERRORHANDLING, NUMBER=31} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by the call 
+     4      -32    of the procedure unpack such that the index-type of the 
+     5      -32    unpacked array is exceeded.  } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p6p5p4d7(output); 
+     9      -32 type 
+    10      -32    bit = 0 .. 1; 
+    11      -32    unpk = array [ 0 .. 3 ] of bit; 
+    12      -32    pk = packed array [ 1 .. 4 ] of bit; 
+    13      -32 var 
+    14      -32    a: unpk; 
+    15      -32    z: pk; 
+    16      -32    i: 1 .. 4; 
+    17      -32 begin 
+    18        3    for i := 1 to 4 do 
+    19       16       z[i] := 0; 
+    20       35    unpack(z, a, 1); 
+    21       44    writeln(' ERROR...6.6.5.4-7'); 
+    22       52    writeln(' ERROR NOT DETECTED') 
+    23       58 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [20]: Unpack elem out of bnds  
+
+program complete
+
+Compiling and running t6p6p6p2d12
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.2-12, CLASS=ERRORHANDLING, NUMBER=32} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by a call 
+     4      -32    of the function sqr such that the resulting value does 
+     5      -32    not exist with a real parameter.  } 
+     6      -32 {  Repeatedly squaring a number > 1.0 should either overflow 
+     7      -32    or give an 'infinite' result. } 
+     8      -32 {V3.1: New test. } 
+     9      -32  
+    10      -32 program t6p6p6p2d12(output); 
+    11      -32 var 
+    12      -32    x: real; 
+    13      -32 begin 
+    14        3    x := 2.0; 
+    15        7    while x < sqr(x) do 
+    16       12       x := sqr(x); 
+    17       16    if x <> sqr(x) then 
+    18       21       begin 
+    19       21       writeln(' ERROR...6.6.6.2-12'); 
+    20       29       writeln(' ERROR NOT DETECTED') 
+    21       35       end 
+    22       37    else 
+    23       38       begin 
+    24       38       writeln(' ERROR...6.6.6.2-12'); 
+    25       46       writeln(' TEST NOT RELEVANT, INFINITY') 
+    26       52       end; 
+    27       54 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ ERROR...6.6.6.2-12
+ TEST NOT RELEVANT, INFINITY
+
+program complete
+
+Compiling and running t6p6p6p2d13
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.2-13, CLASS=ERRORHANDLING, NUMBER=32} 
+     2      -32  
+     3      -32 {: This program causes an error to occur by a call 
+     4      -32    of the function sqr such that the resulting value does 
+     5      -32    not exist with an integer parameter.  } 
+     6      -32 {  Repeatedly squaring a number > 1 should either overflow 
+     7      -32    or give an 'infinite' result. } 
+     8      -32 {V3.1: New test. } 
+     9      -32  
+    10      -32 program t6p6p6p2d13(output); 
+    11      -32 var 
+    12      -32    x, last: integer; 
+    13      -32 begin 
+    14        3    x := 2;  last := 1; 
+    15        9    while (x < maxint) and (last < x) do 
+    16       17       begin 
+    17       17       last := x; 
+    18       19       x := sqr(x); 
+    19       22       end; 
+    20       23    if last*last <> x then 
+    21       29       begin 
+    22       29       writeln(' ERROR...6.6.6.2-13'); 
+    23       37       writeln(' ERROR NOT DETECTED') 
+    24       43       end 
+    25       45    else 
+    26       46       begin 
+    27       46       writeln(' ERROR...6.6.6.2-13'); 
+    28       54       writeln(' TEST NOT RELEVANT, VALUE MORE THAN MAXINT') 
+    29       60       end; 
+    30       62 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Arithmetic overflow      
+
+program complete
+
+Compiling and running t6p6p6p2d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.2-4, CLASS=ERRORHANDLING, NUMBER=33} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as an expression 
+     4      -32    with a negative value is used as an argument for the 
+     5      -32    arithmetic function ln. } 
+     6      -32 {V3.0: Writes revised. } 
+     7      -32  
+     8      -32 program t6p6p6p2d4(output); 
+     9      -32 var 
+    10      -32    m : real; 
+    11      -32 begin 
+    12        3    m:=-2.71828; 
+    13        8    m:=ln(m*2); 
+    14       14    writeln(' ERROR...6.6.6.2-4'); 
+    15       22    writeln(' ERROR NOT DETECTED') 
+    16       28 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [13]: Cannot find ln <= 0      
+
+program complete
+
+Compiling and running t6p6p6p2d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.2-5, CLASS=ERRORHANDLING, NUMBER=34} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as a negative 
+     4      -32    argument is used for the sqrt function. } 
+     5      -32 {  The error should be detected at run-time. } 
+     6      -32 {V3.0: Writes revised. } 
+     7      -32  
+     8      -32 program t6p6p6p2d5(output); 
+     9      -32 var 
+    10      -32    m    : real; 
+    11      -32    i, j : integer; 
+    12      -32 begin 
+    13        3    i:=256; 
+    14        7    j:=i*2; 
+    15       11    j:=j-257; 
+    16       15    m:=sqrt(j-i); 
+    17       21    writeln(' ERROR...6.6.6.2-5'); 
+    18       29    writeln(' ERROR NOT DETECTED') 
+    19       35 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: Cannot find sqrt < 0     
+
+program complete
+
+Compiling and running t6p6p6p3d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.3-3, CLASS=ERRORHANDLING, NUMBER=35} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the result 
+     4      -32    returned by the trunc function exceeds maxint. } 
+     5      -32 {  The error should be detected at run-time. } 
+     6      -32 {V3.0: Altered test so that the loop is not needed. 
+     7      -32    Also altered comment. 
+     8      -32    Writes revised. Was previously 6.6.6.3-2. } 
+     9      -32  
+    10      -32 program t6p6p6p3d3(output); 
+    11      -32 var 
+    12      -32    reel : real; 
+    13      -32    i    : integer; 
+    14      -32 begin 
+    15        3    reel := maxint; 
+    16        8    i := trunc(reel*1.5); 
+    17       13    writeln(' ERROR...6.6.6.3-3'); 
+    18       21    writeln(' ERROR NOT DETECTED') 
+    19       27 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: Real argument to large   
+
+program complete
+
+Compiling and running t6p6p6p3d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.3-4, CLASS=ERRORHANDLING, NUMBER=36} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the result 
+     4      -32    returned by the round function exceeds maxint. } 
+     5      -32 {  The error should be detected at run-time. } 
+     6      -32 {V3.0: Altered comment, and altered test so that loop is 
+     7      -32   not needed. 
+     8      -32   Writes revised. Also, test corrected so that it uses 
+     9      -32   the round function and not the trunc function. 
+    10      -32   Was previously 6.6.6.3-3. } 
+    11      -32  
+    12      -32 program t6p6p6p3d4(output); 
+    13      -32 var 
+    14      -32    reel : real; 
+    15      -32    i    : integer; 
+    16      -32 begin 
+    17        3    reel := maxint; 
+    18        8    i := round(reel*1.5); 
+    19       13    writeln(' ERROR...6.6.6.3-4'); 
+    20       21    writeln(' ERROR NOT DETECTED') 
+    21       27 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Real argument to large   
+
+program complete
+
+Compiling and running t6p6p6p4d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.4-5, CLASS=ERRORHANDLING, NUMBER=38} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the 
+     4      -32    function succ is applied to the last value 
+     5      -32    of an ordinal-type. } 
+     6      -32 {  The error should be detected at run-time or earlier. } 
+     7      -32 {V3.1: Assignment added and test changed. } 
+     8      -32  
+     9      -32 program t6p6p6p4d5(output); 
+    10      -32 type 
+    11      -32    enumerated = (first,second,third,last); 
+    12      -32 var 
+    13      -32    ordinal : enumerated; 
+    14      -32 begin 
+    15        3    ordinal:= last; 
+    16        8    ordinal:=pred(succ(ordinal)); 
+    17       15    writeln(' ERROR...6.6.6.4-5'); 
+    18       23    writeln(' ERROR NOT DETECTED') 
+    19       29 end. 
+third      unreferenced
+second     unreferenced
+first      unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p6p4d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.4-6, CLASS=ERRORHANDLING, NUMBER=39} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the function pred 
+     4      -32    is applied to the first value of an ordinal-type. } 
+     5      -32 {  The error should be detected at run-time or earlier. } 
+     6      -32 {V3.0: Writes revised. Was previously 6.6.6.4-5. } 
+     7      -32  
+     8      -32 program t6p6p6p4d6(output); 
+     9      -32 type 
+    10      -32    enumerated = (first,second,third,fourth,last); 
+    11      -32 var 
+    12      -32    ordinal : enumerated; 
+    13      -32 begin 
+    14        3    ordinal:=first; 
+    15        8    if pred(ordinal) < first then ; 
+    16       14    writeln(' ERROR...6.6.6.4-6'); 
+    17       22    writeln(' ERROR NOT DETECTED') 
+    18       28 end. 
+last       unreferenced
+fourth     unreferenced
+third      unreferenced
+second     unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p6p4d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.4-7, CLASS=ERRORHANDLING, NUMBER=37} 
+     2      -32  
+     3      -32 {: This test evokes an error by pushing chr past the 
+     4      -32    limits of the char-type. It assumes that no char-type has more 
+     5      -32    than 1000 + ord('0') values. } 
+     6      -32 {V3.0: Made upper limit for i < 1024. 
+     7      -32    Writes revised. } 
+     8      -32  
+     9      -32 program t6p6p6p4d7(output); 
+    10      -32 var 
+    11      -32    i:0..1000; 
+    12      -32    c:char; 
+    13      -32 begin 
+    14        3    for i:=0 to 1000 do 
+    15       16       c:=chr(i+ord('0')); 
+    16       34    writeln(' ERROR...6.6.6.4-7'); 
+    17       42    writeln(' ERROR NOT DETECTED') 
+    18       48 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [15]: Value out of range       
+
+program complete
+
+Compiling and running t6p6p6p5d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.5-6, CLASS=ERRORHANDLING, NUMBER=40} 
+     2      -32  
+     3      -32 {: This test checks for the error of the parameter to the eof 
+     4      -32    function being undefined. } 
+     5      -32 {V3.0: New test. } 
+     6      -32  
+     7      -32 program t6p6p6p5d6(output); 
+     8      -32 var 
+     9      -32    fyle    : text; 
+    10      -32    endfyle : boolean; 
+    11      -32 begin 
+    12        3    endfyle:=eof(fyle);     {error} 
+    13        9    writeln(' ERROR...6.6.6.5-6'); 
+    14       17    writeln(' ERROR NOT DETECTED') 
+    15       23 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [12]: File is not open         
+
+program complete
+
+Compiling and running t6p6p6p5d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.5-7, CLASS=ERRORHANDLING, NUMBER=42} 
+     2      -32  
+     3      -32 {: This test causes an error by applying the eoln function 
+     4      -32    to a file f while eof(f) is true. } 
+     5      -32 {V3.0: New test. } 
+     6      -32  
+     7      -32 program t6p6p6p5d7(output); 
+     8      -32 var 
+     9      -32    f       : text; 
+    10      -32    a,b,c,d : char; 
+    11      -32 begin 
+    12        3    rewrite(f); 
+    13        7    writeln(f,'ABC'); 
+    14       14    reset(f); 
+    15       16    read(f,a,b,c); 
+    16       30    readln(f); 
+    17       33    if not eoln(f) then     {illegal} 
+    18       37       read(f,d); 
+    19       43    writeln(' ERROR...6.6.6.5-7'); 
+    20       51    writeln(' ERROR NOT DETECTED') 
+    21       57 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Eof on file              
+
+program complete
+
+Compiling and running t6p6p6p5d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.6.6.5-8, CLASS=ERRORHANDLING, NUMBER= 41} 
+     2      -32  
+     3      -32 {: This test causes an error by applying eoln(f) while f is 
+     4      -32    undefined. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p6p6p5d8(output); 
+     8      -32 var 
+     9      -32    f : text; 
+    10      -32    endline : boolean; 
+    11      -32 begin 
+    12        3    endline := eoln(f); 
+    13        9    writeln(' ERROR...6.6.6.5-8'); 
+    14       17    writeln(' ERROR NOT DETECTED') 
+    15       23 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [12]: File not in read mode    
+
+program complete
+
+Compiling and running t6p7p2p2d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-10, CLASS=ERRORHANDLING, NUMBER=47} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the result of a dyadic 
+     4      -32    integer operation is less than -maxint. } 
+     5      -32 {V3.0: Comment and writes revised. Was previously 6.7.2.2-7. } 
+     6      -32  
+     7      -32 program t6p7p2p2d10(output); 
+     8      -32 var 
+     9      -32    i : integer; 
+    10      -32 begin 
+    11        3    i:=(-maxint-(-maxint div 2))*2-2; 
+    12       17    writeln(' ERROR...6.7.2.2-10'); 
+    13       25    if (odd(-maxint) and (i-(-maxint) = -3)) or 
+    14       36       (not odd(-maxint) and (i-(-maxint) = -2)) then 
+    15       50       writeln(' TEST NOT RELEVANT') 
+    16       56    else 
+    17       59       writeln(' ERROR NOT DETECTED') 
+    18       65 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [11]: Arithmetic overflow      
+
+program complete
+
+Compiling and running t6p7p2p2d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-11, CLASS=ERRORHANDLING, NUMBER=46} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the second operand 
+     4      -32    of the mod operator is 0. } 
+     5      -32 {V3.0: Writes revised. Was previously 6.7.2.2-8. } 
+     6      -32  
+     7      -32 program t6p7p2p2d11(output); 
+     8      -32 var 
+     9      -32    i, j, k : integer; 
+    10      -32 begin 
+    11        3    i:=6; 
+    12        7    j:=0; 
+    13        9    k:=i mod j;       { an error as j=0 } 
+    14       13    writeln(' ERROR...6.7.2.2-11'); 
+    15       21    writeln(' ERROR NOT DETECTED') 
+    16       27 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [13]: Invalid divisor in mod   
+
+program complete
+
+Compiling and running t6p7p2p2d12
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-12, CLASS=ERRORHANDLING, NUMBER=47} 
+     2      -32  
+     3      -32 {: This program attempts to output a value which overflows. } 
+     4      -32 {  It is possible for a conforming processor to output a value 
+     5      -32    greater than maxint correctly. This must be checked by 
+     6      -32    examination of the output if the error is undetected. } 
+     7      -32 {V3.1: Comment changed. } 
+     8      -32  
+     9      -32 program t6p7p2p2d12(output); 
+    10      -32 var 
+    11      -32    i: integer; 
+    12      -32 begin 
+    13        3    i := 100; 
+    14        7    writeln(' MAXINT + 100 = ',maxint+i); 
+    15       20    writeln(' ERROR...6.7.2.2-12'); 
+    16       28    writeln(' ERROR NOT DETECTED') 
+    17       34 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ MAXINT + 100 = 
+*** Runtime error [14]: Arithmetic overflow      
+
+program complete
+
+Compiling and running t6p7p2p2d13
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-13, CLASS=ERRORHANDLING, NUMBER=45} 
+     2      -32  
+     3      -32 {: This program incorporates the error of j being negative in 
+     4      -32    the expression i div j. } 
+     5      -32 {V3.0: New test. } 
+     6      -32  
+     7      -32 program t6p7p2p2d13(output); 
+     8      -32 var 
+     9      -32    i, j, l : integer; 
+    10      -32 begin 
+    11        3    for i := -10 to 10 do 
+    12       16       for j := 2 downto -2 do 
+    13       27          if j = 0 then 
+    14       31             l := i div j; 
+    15       55    writeln(' ERROR...6.7.2.2-13'); 
+    16       63    writeln(' ERROR NOT DETECTED') 
+    17       69 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: Zero divide              
+
+program complete
+
+Compiling and running t6p7p2p2d16
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-16, CLASS=ERRORHANDLING, NUMBER= 44} 
+     2      -32  
+     3      -32 {: This test causes an error since in the expression x/y 
+     4      -32    y has the value zero. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p7p2p2d16(output); 
+     8      -32 var 
+     9      -32    x,y : integer; 
+    10      -32    z : real; 
+    11      -32 begin 
+    12        3    x := 4; 
+    13        7    y := x*x - (x+12); 
+    14       15    z := x/y;      { error  since y = 0 } 
+    15       21    writeln(' ERROR...6.7.2.2-16'); 
+    16       29    writeln(' ERROR NOT DETECTED') 
+    17       35 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: Zero divide              
+
+program complete
+
+Compiling and running t6p7p2p2d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-8, CLASS=ERRORHANDLING, NUMBER=45} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the second operand 
+     4      -32    of the div operator is 0. } 
+     5      -32 {  The error should be detected at run-time. } 
+     6      -32 {V3.0: Writes revised. Was previously 6.7.2.2-3. } 
+     7      -32  
+     8      -32 program t6p7p2p2d8(output); 
+     9      -32 var 
+    10      -32    i, j, k : integer; 
+    11      -32 begin 
+    12        3    i:=6; 
+    13        7    j:=0; 
+    14        9    k:=i div j;       { an error as j=0 } 
+    15       13    writeln(' ERROR...6.7.2.2-8'); 
+    16       21    writeln(' ERROR NOT DETECTED') 
+    17       27 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: Zero divide              
+
+program complete
+
+Compiling and running t6p7p2p2d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.2-9, CLASS=ERRORHANDLING, NUMBER=47} 
+     2      -32  
+     3      -32 {: This program causes an error to occur as the result of a dyadic 
+     4      -32    integer operation is greater than maxint. } 
+     5      -32 {V3.0: Comment and writes revised. Was previously 6.7.2.2-6. } 
+     6      -32  
+     7      -32 program t6p7p2p2d9(output); 
+     8      -32 var 
+     9      -32    i : integer; 
+    10      -32 begin 
+    11        3    i:=(maxint-(maxint div 2))*2+2; 
+    12       15    writeln(' ERROR...6.7.2.2-9'); 
+    13       23    if (odd(maxint) and (i-maxint = 3)) or 
+    14       31       (not odd(maxint) and (i-maxint = 2)) then 
+    15       42       writeln(' TEST NOT RELEVANT') 
+    16       48    else 
+    17       51       writeln(' ERROR NOT DETECTED') 
+    18       57 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [11]: Arithmetic overflow      
+
+program complete
+
+Compiling and running t6p7p2p4d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.7.2.4-4, CLASS=ERRORHANDLING, NUMBER=50} 
+     2      -32  
+     3      -32 {: This test checks that operations on overlapping sets are 
+     4      -32    detected. } 
+     5      -32 {V3.0: Writes revised. Was previously 6.7.2.4-1. } 
+     6      -32  
+     7      -32 program t6p7p2p4d4(output); 
+     8      -32 var 
+     9      -32    a,d : set of 0..10; 
+    10      -32    b,c : set of 5..15; 
+    11      -32 begin 
+    12        3    b:=[5,10]; 
+    13        8    a:=[0,5,10]; 
+    14       11    d:=a+b;   {ok} 
+    15       16    b:=[5,10,15]; 
+    16       19    c:=a+b;   {should be an error} 
+    17       24    writeln(' ERROR...6.7.2.4-4'); 
+    18       32    writeln(' ERROR NOT DETECTED') 
+    19       38 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: Set element out of range 
+
+program complete
+
+Compiling and running t6p8p3p5d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.5-10, CLASS=ERRORHANDLING, NUMBER=51} 
+     2      -32  
+     3      -32 {: This test checks the type of error produced when the 
+     4      -32    case-statement does not contain a constant of the selected value. } 
+     5      -32 {V3.0: Writes revised. Was previously 6.8.3.5-5. } 
+     6      -32  
+     7      -32 program t6p8p3p5d10(output); 
+     8      -32 var 
+     9      -32    i:integer; 
+    10      -32 begin 
+    11        3    i:=0; 
+    12        7    case i of 
+    13        9    -3,3: writeln(' THIS LINE SHOULD NOT GET WRITTEN') 
+    14       15    end; 
+    15       29    writeln(' ERROR...6.8.3.5-10'); 
+    16       37    writeln(' ERROR NOT DETECTED') 
+    17       43 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: Case - error             
+
+program complete
+
+Compiling and running t6p8p3p5d11
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.5-11, CLASS=ERRORHANDLING, NUMBER=51} 
+     2      -32  
+     3      -32 {: This test is in error since the case-statement 
+     4      -32    is given without a case-constant of the selected value. } 
+     5      -32 {  This time the value is a long way outside the case. An 
+     6      -32    error should  be produced at execution time. } 
+     7      -32 {V3.0: Writes revised. Was previously 6.8.3.5-6. } 
+     8      -32  
+     9      -32 program t6p8p3p5d11(output); 
+    10      -32 var 
+    11      -32    i:integer; 
+    12      -32 begin 
+    13        3    i:=1000; 
+    14        7    case i of 
+    15        9    -3,3: writeln(' THIS LINE SHOULD NOT GET WRITTEN') 
+    16       15    end; 
+    17       29    writeln(' ERROR...6.8.3.5-11'); 
+    18       37    writeln(' ERROR NOT DETECTED') 
+    19       43 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [16]: Value out of range       
+
+program complete
+
+Compiling and running t6p8p3p5d16
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.5-16, CLASS=EXTENSION, SUBCLASS=CONFORMANCE} 
+     2      -32  
+     3      -32 {: This test checks whether an otherwise clause in a case-statement 
+     4      -32    is accepted. } 
+     5      -32 {  The convention is that adopted at the UCSD Pascal 
+     6      -32    workshop in July 1978. The extension is accepted if the program 
+     7      -32    prints PASS. } 
+     8      -32 {V3.0: Value check made more complete. Variable 'counter' not needed. 
+     9      -32    Was previously 6.8.3.5-14. } 
+    10      -32  
+    11      -32 program t6p8p3p5d16(output); 
+    12      -32 var 
+    13      -32    i,j,k:integer; 
+    14      -32 begin 
+    15        3    j:=0; k:=0; 
+    16        9    for i:=0 to 10 do 
+    17       19       case i of 
+    18       21       1,3,5,7,9: 
+    19       21          j:=j+1 
+    20       22       otherwise 
+    20   ****                 ^6,104
+    21       22          k:=k+1 
+    21   ****            ^59
+    22       22       end; 
+    23       47    if (j=5) and (k=6) then 
+    24       55       writeln(' PASS...6.8.3.5-16') 
+    25       61    else 
+    26       64       writeln(' FAIL...6.8.3.5-16, OTHERWISE') 
+    27       70 end. 
+
+Errors in program: 3
+
+Error numbers in listing:
+-------------------------
+  6  Illegal symbol
+ 59  Error in variable
+104  Identifier not declared
+
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+
+*** Source program contains errors: 3
+
+program complete
+
+Compiling and running t6p8p3p9d19
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.9-19, CLASS=ERRORHANDLING, NUMBER=43} 
+     2      -32  
+     3      -32 {: This test uses an undefined for-statement control-variable. } 
+     4      -32 {  This test checks that the undefined state of a for-statement 
+     5      -32    control-variable when the loop is left has one or both of 
+     6      -32    the following properties: 
+     7      -32    (a) Range checks are not omitted on these variables in the 
+     8      -32    supposition that its value is permissible, or 
+     9      -32    (b) The value of the variable is in range of its type (in 
+    10      -32    this specific implementation). } 
+    11      -32 {V3.1: Comment changed. } 
+    12      -32  
+    13      -32 program t6p8p3p9d19(output); 
+    14      -32 type 
+    15      -32    t=(red,green,blue,pink); 
+    16      -32 var 
+    17      -32    i,j,k:t; 
+    18      -32    m:integer; 
+    19      -32 begin 
+    20        3    { i is a finite scalar. } 
+    21        3    i:=green; 
+    22        8    j:=red; 
+    23       11    k:=pink; 
+    24       14    m:=0; 
+    25       16    for i:=j to k do 
+    26       29       m:=m+1; 
+    27       45    writeln(' THE UNDEFINED ORDINAL VALUE OF I IS ',ord(i)); 
+    28       57    writeln(' ERROR NOT DETECTED'); 
+    29       65    write(' ITS SYMBOLIC VALUE IS '); 
+    30       72  
+    31       72    { A possible omission of the range check on the case-statement 
+    32       72      may be disastrous if a wild jump occurs. } 
+    33       72  
+    34       72    case i of 
+    35       75    red: writeln(' RED'); 
+    36       84    green: writeln(' GREEN'); 
+    37       93    blue: writeln(' BLUE'); 
+    38      102    pink: writeln(' PINK') 
+    39      108    end; 
+    40      119    writeln;  { Just in case the range isn't checked. } 
+    41      122    writeln(' ERROR...6.8.3.9-19'); 
+    42      130    writeln(' ERROR NOT DETECTED') 
+    43      136 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ THE UNDEFINED ORDINAL VALUE OF I IS 
+*** Runtime error [27]: Undefined location access
+
+program complete
+
+Compiling and running t6p8p3p9d21
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.9-21, CLASS=ERRORHANDLING, NUMBER= 43} 
+     2      -32  
+     3      -32 {: This test causes an error by examining the value of a 
+     4      -32    control-variable after execution of a for-statement. } 
+     5      -32 {  The control-variable in this test is undefined after execution 
+     6      -32    of the for-statement. 
+     7      -32    If the error is not detected it explores the nature of the value 
+     8      -32    of the control-variable which has been preserved. } 
+     9      -32 {V3.1: Reclassified from DEVIANCE and comment changed. 
+    10      -32    Renumbered from 6.8.3.9-8. } 
+    11      -32  
+    12      -32 program t6p8p3p9d21(output); 
+    13      -32 var 
+    14      -32    i,j,k,m:integer; 
+    15      -32 begin 
+    16        3    i:=100; 
+    17        7    j:=1; 
+    18        9    k:=10; 
+    19       11    m:=0; 
+    20       13    for i:=j to k do 
+    21       23       m:=m+1; 
+    22       37    if i=k+1 then 
+    23       43       writeln(' CONTROL VARIABLE VALUE = FINAL VALUE + 1') 
+    24       49    else 
+    25       52       if i=k then 
+    26       56          writeln(' CONTROL VARIABLE VALUE = FINAL VALUE') 
+    27       62       else 
+    28       65          if i=j then 
+    29       69             writeln(' CONTROL VARIABLE VALUE = INITIAL VALUE') 
+    30       75          else 
+    31       78             writeln(' CONTROL VARIABLE DEFINED BUT VALUE UNKNOWN'); 
+    32       86    writeln(' ERROR NOT DETECTED'); 
+    33       94    writeln(' ERROR...6.8.3.9-21') 
+    34      100 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [22]: Undefined location access
+
+program complete
+
+Compiling and running t6p8p3p9d22
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.9-22, CLASS=ERRORHANDLING, NUMBER= 43} 
+     2      -32  
+     3      -32 {: This test causes an error by using a control-variable after 
+     4      -32    an unexecuted for-statement. } 
+     5      -32 {  A control-variable is undefined after a for-statement even if 
+     6      -32    the statement controlled by the for-statement is not executed. 
+     7      -32    If the error is not detected it explores the nature of the value 
+     8      -32    of the control-variable which has been preserved. } 
+     9      -32 {V3.1: Reclassified from DEVIANCE and comment changed. 
+    10      -32    Renumbered from 6.8.3.9-9. } 
+    11      -32  
+    12      -32 program t6p8p3p9d22(output); 
+    13      -32 var 
+    14      -32    i,j,k,m:integer; 
+    15      -32 begin 
+    16        3    i:=100; 
+    17        7    k:=1; 
+    18        9    m:=0; 
+    19       11    j:=10; 
+    20       13    for i:=j to k do 
+    21       23       m:=m+1; 
+    22       37    if i=k+1 then 
+    23       43       writeln(' CONTROL VARIABLE VALUE = FINAL VALUE + 1') 
+    24       49    else 
+    25       52       if i=k then 
+    26       56          writeln(' CONTROL VARIABLE VALUE = FINAL VALUE') 
+    27       62       else 
+    28       65          if i=j then 
+    29       69             writeln(' CONTROL VARIABLE VALUE = INITIAL VALUE') 
+    30       75          else 
+    31       78             writeln(' CONTROL VARIABLE DEFINED BUT VALUE UNKNOWN'); 
+    32       86    writeln(' ERROR NOT DETECTED'); 
+    33       94    writeln(' ERROR...6.8.3.9-22') 
+    34      100 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [22]: Undefined location access
+
+program complete
+
+Compiling and running t6p8p3p9d8
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.9-8, CLASS=ERRORHANDLING, NUMBER= 52} 
+     2      -32  
+     3      -32 {: This test causes an error since the initial-value of the 
+     4      -32    for-statement violates the assignment-compatibility rules. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p8p3p9d8(output); 
+     8      -32 type 
+     9      -32    colour = (red,blue,green,yellow); 
+    10      -32    subcolour = blue..yellow; 
+    11      -32 var 
+    12      -32    col1 : colour; 
+    13      -32    col2 : subcolour; 
+    14      -32    i : integer; 
+    15      -32 begin 
+    16        3    i := 0; 
+    17        7    col1 := blue; 
+    18       10    for col2 := pred(col1) to yellow do 
+    19       25       i := succ(i); 
+    20       40    writeln(' ERROR...6.8.3.9-8'); 
+    21       48    writeln(' ERROR NOT DETECTED') 
+    22       54 end. 
+green      unreferenced
+red        unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Value out of range       
+
+program complete
+
+Compiling and running t6p8p3p9d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.8.3.9-9, CLASS=ERRORHANDLING, NUMBER= 53} 
+     2      -32  
+     3      -32 {: This test causes an error since the final-value of the 
+     4      -32    for-statement violates the assignment-compatibility rules. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p8p3p9d9(output); 
+     8      -32 type 
+     9      -32    subrange = 1..4; 
+    10      -32 var 
+    11      -32    sub : subrange; 
+    12      -32    i,j : integer; 
+    13      -32 begin 
+    14        3    j := 0; 
+    15        7    i := 3; 
+    16        9    for sub := 1 to i*i do 
+    17       22       j := succ(j); 
+    18       36    writeln(' ERROR...6.8.3.9-9'); 
+    19       44    writeln(' ERROR NOT DETECTED') 
+    20       50 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Value out of range       
+
+program complete
+
+Compiling and running t6p9p1d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.1-10, CLASS=ERRORHANDLING, NUMBER= 55} 
+     2      -32  
+     3      -32 {: This test causes an error by reading an integer whose value is 
+     4      -32    not assignment-compatible with the type possessed by the 
+     5      -32    variable-access. } 
+     6      -32 {V3.1: New test. } 
+     7      -32  
+     8      -32 program t6p9p1d10(output); 
+     9      -32 type 
+    10      -32    subrange = 1..10; 
+    11      -32 var 
+    12      -32    sub : subrange; 
+    13      -32    f : text; 
+    14      -32 begin 
+    15        3    rewrite(f); 
+    16        7    writeln(f,'1234'); 
+    17       14    reset(f); 
+    18       16    read(f,sub); 
+    19       22    writeln(' ERROR...6.9.1-10'); 
+    20       30    writeln(' ERROR NOT DETECTED') 
+    21       36 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [18]: Value read out of range  
+
+program complete
+
+Compiling and running t6p9p1d4
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.1-4, CLASS=ERRORHANDLING, NUMBER=54} 
+     2      -32  
+     3      -32 {: This test checks that an error is produced when an attempt 
+     4      -32    is made to read an integer but the sequence of characters 
+     5      -32    on the input file does not form a valid signed integer. } 
+     6      -32 {V3.0: Test renumbered (was 6.9.2-4) to correspond with DP7185. 
+     7      -32    Writes standardised. } 
+     8      -32  
+     9      -32 program t6p9p1d4(output); 
+    10      -32 var 
+    11      -32    f:text; 
+    12      -32    i:integer; 
+    13      -32 begin 
+    14        3    rewrite(f); 
+    15        7    writeln(f,'ABC123'); 
+    16       14    reset(f); 
+    17       16    read(f,i);      {should cause an error} 
+    18       22    writeln(' ERROR...6.9.1-4'); 
+    19       30    writeln(' ERROR NOT DETECTED') 
+    20       36 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Invalid integer format   
+
+program complete
+
+Compiling and running t6p9p1d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.1-5, CLASS=ERRORHANDLING, NUMBER=56} 
+     2      -32  
+     3      -32 {: This test checks that an error is produced when an attempt 
+     4      -32    is made to read a real but the sequence of characters 
+     5      -32    on the input file does not form a valid real. } 
+     6      -32 {V3.0: Test renumbered (was 6.9.2-5) to correspond with DP7185. 
+     7      -32    Writes standardised. } 
+     8      -32  
+     9      -32 program t6p9p1d5(output); 
+    10      -32 var 
+    11      -32    f:text; 
+    12      -32    r:real; 
+    13      -32 begin 
+    14        3    rewrite(f); 
+    15        7    writeln(f,'ABC123.456'); 
+    16       14    reset(f); 
+    17       16    read(f,r);      {should cause an error} 
+    18       20    writeln(' ERROR...6.9.1-5'); 
+    19       28    writeln(' ERROR NOT DETECTED') 
+    20       34 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Invalid real format      
+
+program complete
+
+Compiling and running t6p9p1d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.1-9, CLASS=ERRORHANDLING, NUMBER= 57} 
+     2      -32  
+     3      -32 {: This test causes an error by reading from a textfile when 
+     4      -32    the buffer-variable is undefined, by a call of read. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p9p1d9(output); 
+     8      -32 var 
+     9      -32    ch : char; 
+    10      -32    f : text; 
+    11      -32 begin 
+    12        3    rewrite(f); 
+    13        7    writeln(f,'ONE LINE'); 
+    14       14    reset (f); 
+    15       16    while not eof(f) do 
+    16       20       read(f,ch); 
+    17       27    read(f,ch);      { error since f^ is undefined } 
+    18       33    writeln(' ERROR...6.9.1-9'); 
+    19       41    writeln(' ERROR NOT DETECTED') 
+    20       47 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: End of file              
+
+program complete
+
+Compiling and running t6p9p3p1d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {$s} 
+     2      -32 {TEST 6.9.3.1-2, CLASS=ERRORHANDLING, NUMBER=58} 
+     3      -32  
+     4      -32 {: This test attempts to output characters whose field width 
+     5      -32    parameters are non-positive. } 
+     6      -32 {V3.1: Was 6.9.3.2-3, rewrite added, character output. } 
+     7      -32  
+     8      -32 program t6p9p3p1d2(output); 
+     9      -32 var 
+    10      -32    f:text; 
+    11      -32    i:integer; 
+    12      -32 begin  rewrite (f); 
+    13        7    for i:=10 downto -1 do 
+    14       18       write(f,' ','.':i, 'REP=',i); 
+    15       43    writeln(' ERROR...6.9.3.1-2'); 
+    16       51    writeln(' ERROR NOT DETECTED') 
+    17       57 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [14]: Width cannot be < 1      
+
+program complete
+
+Compiling and running t6p9p3p1d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.1-3, CLASS=ERRORHANDLING, NUMBER=58} 
+     2      -32  
+     3      -32 {: This program contains the error of FracDigits being less than 
+     4      -32    one. } 
+     5      -32 {  It should preferably be detected before run-time. } 
+     6      -32 {V3.1: Renumbered from 6.9.3.2-4. } 
+     7      -32  
+     8      -32 program t6p9p3p1d3(output); 
+     9      -32 var 
+    10      -32    f:text; 
+    11      -32    r,s,t:real; 
+    12      -32 begin 
+    13        3    rewrite(f); 
+    14        7    r:=0.9; 
+    15        9    s:=1.0; 
+    16       11    t:=1.1; 
+    17       13    write(f,r,s:10:0,t); 
+    18       25    writeln(' ERROR...6.9.3.1-3'); 
+    19       33    writeln(' ERROR NOT DETECTED') 
+    20       39 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [17]: Fraction cannot be < 1   
+
+program complete
+
+Compiling and running t6p9p3p2d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.3.2-3, CLASS=ERRORHANDLING, NUMBER=58} 
+     2      -32  
+     3      -32 {: This program contains the error of FracDigits being less than 
+     4      -32    one. } 
+     5      -32 {  This test is similar to 6.9.3.2-4, except that FracDigits is 
+     6      -32    a variable. The error should therefore be detected at run time. } 
+     7      -32 {V3.1: Renumbered from 6.9.3.2-5. } 
+     8      -32  
+     9      -32 program t6p9p3p2d3(output); 
+    10      -32 var 
+    11      -32    f:text; 
+    12      -32    r,s,t:real; 
+    13      -32    fd:integer; 
+    14      -32 begin 
+    15        3    rewrite(f); 
+    16        7    r:=0.9; 
+    17        9    s:=0.0; 
+    18       11    t:=1.1; 
+    19       13    fd:=pred(1); 
+    20       16    write(f,r,s:10:fd,t); 
+    21       28    writeln(' ERROR...6.9.3.2-3'); 
+    22       36    writeln(' ERROR NOT DETECTED') 
+    23       42 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+*** Runtime error [20]: Fraction cannot be < 1   
+
+program complete

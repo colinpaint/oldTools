@@ -1,0 +1,726 @@
+Mime-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Date: Mon, 23 Oct 1995 16:34:11 -0100
+From: iay@threel.co.uk (Ian A Young)
+Subject: release note for C40 Parallel C V2.0 in case you want it...
+
+
+                Parallel C V2.0.2
+
+                  Release Note
+
+                     3L Ltd.
+
+                September 1, 1995
+
+
+1   Main Changes
+
+The main changes from V1.1.1 of Parallel C are:
+
+   - New Virtual Channel Router (VCR) software lets multiple log-
+     ical channels share the same physical C40 comport, as well as
+     allowing channels to be created between tasks which are not on
+     immediately neighbouring network nodes. Messages are auto-
+     matically routed through any number of intermediate proces-
+     sors.
+
+   - The package now includes V4.60 of the Texas Instruments C
+     compiler. This new version runs more robustly in a Windows
+     DOS box and implements additional optimisation techniques.
+
+   - The TMS320C44 processor (C44) is now supported.  Paral-
+     lel C supports the C44 extensions to Texas Instruments' TIM
+     standard.
+
+   - The configurer now provides a way to guarantee that nothing
+     will be loaded into the C40's on-chip RAM blocks, leaving them
+     free for application data.
+
+   - A new library function, bmalloc, allocates aligned memory
+     blocks for circular and bit-reversed addressing.
+
+   - Two new library functions, thread_setpri and thread_seturg,
+     allow dynamic control over thread priorities.
+
+   - The way the server handles application shutdown has changed.
+     In V1.1, the server would stop as soon as any task linked with
+     the full run-time library called exit or returned from main.
+     Now the server waits until all tasks linked with the full run-
+     time library have terminated before it stops. This eliminates
+     a whole class of hard-to-debug errors. A new library function,
+     _server_terminate_now, still allows an individual task to force
+     the server to stop immediately.
+
+   - A new utility program, timdiag, tests the compatibility of
+     TIM-40 ID ROMs with Parallel C.
+
+   - New run-time library functions convert between TI and 64-bit
+     IEEE floating point numbers, and on PC hosts provide non-
+     echoed keyboard input and 8/16-bit I/O port access compati-
+     ble with Microsoft C.
+
+   - A number of bug fixes and smaller enhancements have been im-
+     plemented, including support for several new C40 boards and
+     TIM module types. Some of these changes had already been
+     released as supplements to V1.1.1, but are now fully integrated
+     into the main V2.0.2 release.
+
+The rest of this note discusses the changes in more detail, starting
+with virtual channels and the new TI C compiler, then moving on
+to the smaller changes.
+
+
+2   Virtual Channel Routing
+
+2.1  Multiple Virtual Channels Per Comport
+
+In previous versions of Parallel C, each physical C40 comport link
+(WIRE) could only carry a single logical channel (CONNECT) in each
+direction, so an example like the one below required two free comport
+links:
+
+
+         <figure omitted in text version of document>
+
+
+If not enough comports were available, either because of hardware
+constraints or because they were needed for other purposes, then the
+user had to recode the program. In Parallel C V2.0 this is unnec-
+essary and the example above can be coded directly using just one
+WIRE:
+
+
+      processor root    !cpu_a
+      processor cpu_b
+
+      wire ? root[0] cpu_b[3]
+
+      task X outs=2
+      task Y ins=1 data=50k
+      task Z ins=1 data=70k
+
+      place X root
+      place Y cpu_b
+      place Z cpu_b
+
+      connect ? x[0] y[0]     !both connections share
+      connect ? x[1] z[0]     !a single WIRE
+
+
+Parallel C V2.0 transparently shares the available comport links be-
+tween any number of user channels.
+
+The same problem could also occur in disguise, if a task on some
+node other than the root of the network required access to host
+I/O services.  The example below could not be implemented with
+a single WIRE in previous versions of Parallel C if task Y required
+host I/O services (say, a call to fread). That was because the run-
+time support for fread involves an invisible system task called GFS
+("Global File Services") which carries I/O requests back to the host
+computer via the root node of the network, and in previous versions
+of Parallel C the GFS task required a dedicated WIRE for its own use.
+
+
+         <figure omitted in text version of document>
+
+
+So, in previous versions of Parallel C, the example above required
+two WIREs: one for the explicit channel connecting X and Y, and
+another to handle the GFS traffic.
+
+Again, this restriction is removed in Parallel C V2.0.  The above
+example can now be implemented with only one WIRE: Parallel C
+will automatically share the single available comport link between
+user messages transmitted by the chan_in/out functions and GFS
+messages generated behind the scenes.
+
+
+      processor root    !cpu_a
+      processor cpu_b
+      wire ? root[0] cpu_b[3]
+
+      task X outs=1
+      task Y ins=1      !requires host I/O
+
+      place X root
+      place Y cpu_b
+
+      connect ? x[0] y[0]
+
+
+
+2.2  Long-Range Routing
+
+The second main restriction on the use of channels in earlier versions
+of Parallel C was the requirement that they could only be used to
+connect tasks on immediately neighbouring processors. The connec-
+tion between tasks X and Z in the example below could only be made
+if there were a hardware comport link running directly from CPU_A
+to CPU_C.
+
+
+         <figure omitted in text version of document>
+
+
+It was not possible to route messages via the intermediate node
+CPU_B (thus saving a hardware link) without writing a significant
+amount of user-level routing code to read and buffer messages and
+pass them on to the intended destination.
+
+
+V2.0 of Parallel C permits channels to be created between any num-
+ber of tasks on any number of processors, regardless of the hardware
+links available. This greatly simplifies the design of larger systems
+and eliminates a lot of fiddling with cables in smaller ones. An ex-
+ample like the one above can now be coded directly, using only two
+physical comport connections: one from CPU_A to CPU_B, and one
+from CPU_B to CPU_C:
+
+
+      processor root    !cpu_a
+      processor cpu_b
+      processor cpu_c
+
+      wire ? root[0]  cpu_b[3]
+      wire ? cpu_b[0] cpu_c[3]
+
+      task X outs=2
+      task Y ins=1 outs=1
+      task Z ins=2
+
+      place X root
+      place Y cpu_b
+      place Z cpu_c
+
+      connect ? x[0] y[0]
+      connect ? y[0] z[0]
+      connect ? x[1] z[1]  !through-routed via B
+
+
+Messages transmitted by chan_in/out calls over the channel created
+by the final CONNECT statement will be automatically routed through
+CPU_B by Parallel C.
+
+
+2.3  Functional Summary
+
+In short, Parallel C V2.0 allows you to place tasks anywhere on a C40
+network, connected by any number of channels, without worrying
+about the physical connectivity of the target hardware.
+
+
+2.4  Performance Questions
+
+The flexibility of virtual channels must clearly come at a price. More
+software overhead is required to implement a virtual channel than a
+simple physical one.
+
+Initial measurements indicate that the throughput of a virtual chan-
+nel can be up to 50% of a physical channel for very long messages
+sent to a neighbouring node.  Performance drops for shorter mes-
+sages, down to about 25% of a physical channel for messages of 1000
+words and below 10% for very short messages of fewer than 100
+words. Performance also drops when messages must be forwarded
+through intermediate nodes. Note that these overheads are to a large
+extent inherent in any software message-routing system.
+
+The intention is that you should develop software using virtual chan-
+nels to start with, and then, where necessary to meet performance
+objectives, force particularly important channels to become physi-
+cal channels using the tuning tools described in the next section.
+Because of this, the configurer makes all connections virtual unless
+told otherwise, although a command-line switch is provided which
+retains the behaviour of previous versions of Parallel C by making
+all connections physical by default.
+
+
+2.5  Controlling Virtual Channels
+
+2.5.1  Default Behaviour
+
+By default in Parallel C V2.0, every CONNECT statement in a config-
+uration file becomes a virtual channel. A connection is only imple-
+mented as a physical channel requiring its own dedicated WIRE if any
+of the following conditions is true:
+
+
+   - Either end of the channel is located on a processor type (trans-
+     puter, Alpha) which only supports physical channels.
+
+   - Either of the tasks being connected was built using a version of
+     Parallel C prior to V2.0 and therefore does not support virtual
+     channels.
+
+   - The connection is explicitly forced to be physical in one of the
+     ways discussed below.
+
+
+2.5.2  Changing the Default
+
+There are several ways to force connections to use dedicated physical
+links.
+
+A configurer command-line switch can be used to make all connec-
+tions physical by default:
+
+
+    config /p    (DOS)
+
+    config -p    (Unix)
+
+
+The same effect can be achieved by putting the following line any-
+where in the configuration file:
+
+
+    DEFAULT CONNECT PHYSICAL
+
+
+Alternatively, you can do the opposite and explicitly specify that all
+connections should be virtual by default, using:
+
+
+    DEFAULT CONNECT VIRTUAL
+
+
+The configurer will report any clashes among these different ways of
+specifying its default behaviour.
+
+
+2.5.3  Controlling Individual Connections
+
+You can override these default virtual or physical setting for individ-
+ual connections using an extended form of the CONNECT statement:
+
+
+    CONNECT ? X[0] Y[1] PHYSICAL    or
+    CONNECT ? P[0] Q[4] VIRTUAL
+
+
+The configurer will warn if you explicitly request a VIRTUAL channel
+in this way when only a physical connection is possible_when, for
+instance, one end is a transputer or an old, pre-V2.0 task image.
+
+If you use /p, -p or DEFAULT CONNECT PHYSICAL then the way in
+which the configurer treats connections is the same as in previous
+versions of Parallel C, except for channels which are explicitly made
+virtual using the new CONNECT VIRTUAL statement.
+
+
+2.6  Run-Time Errors
+
+In Parallel C the size of each message sent using the chan_in/out
+calls must exactly match the size expected by the receiver. Failure to
+follow this rule for internal or physical channels usually results in the
+application hanging up or crashing. One benefit of virtual channels
+not mentioned previously is that VCR is able to check for this type
+of error. When a mismatch occurs, the host server will report the
+error as a "software exception" like this:
+
+
+      *** Software exception: 00001102 00000004 00000024
+          Processor=0 Severity=error
+      *** Software exception: 00001202 00000024 00000004
+          Processor=1 Severity=error
+
+
+Two errors may be reported, one from each end of the virtual chan-
+nel. Error 1102 is from the sending end; 1202 comes from the
+receiver. In each case, the first hex number following the error code
+is the message size which was expected at that end of the channel,
+in octets, i.e., 8-bit bytes, not 32-bit words.
+
+To find out which named processors in your configuration file corre-
+spond to the processor numbers given in these error messages, you
+need to use the configurer's "map" option:
+
+
+      config /m    (DOS)
+      config -m    (Unix)
+
+
+The output looks like this (the processor names are those assigned
+in your configuration file):
+
+
+      UPR node 0 is processor "root"
+      UPR node 1 is processor "second"
+
+
+This output tells us that in the example above, the communication
+error arose because a task on the "root" processor tried to send a
+one-word (four octet) message to a task on the "second" processor
+which was expecting to receive nine words (36 octets, 2416).
+
+
+2.7  Further Reading
+
+Virtual channels are more fully described in the User Guide. See the
+following sections:
+
+      Restrictions on channels              5.3.4.1
+      Tuning virtual channel performance    12.5.4.2, 12.5.8
+      How virtual channels work             18.2.3
+
+
+3   TI C Compiler V4.60
+
+V4.60 is the latest release of the Texas Instruments C compiler. The
+main changes in the compiler are:
+
+
+   - The PC compiler now operates more robustly when run in a
+     Windows DOS box.
+
+
+   - The PC compiler now always runs in protected mode. There-
+     fore:
+
+       - it now requires a 386 or better PC; 286 systems are no
+         longer supported;
+
+       - the C_MODE environmental variable has been abolished.
+
+
+   - The Sun compiler supports both SunOS 4.1.x and 5.x (So-
+     laris 2.x). It is now dynamically linked to take advantage of
+     shared libraries.
+
+   - There are further improvements to the optimiser, including
+
+       - better bit-field, loop and file-level optimisations and
+
+       - improved use of C4x-specific instructions.
+
+
+4   Other Changes
+
+4.1  Run-Time Library
+
+
+See chapter 10 of the new User Guide for full descriptions of most
+of the functions mentioned in this section.
+
+
+4.1.1  Low-Level DOS I/O: <conio.h>
+
+A new header file, <conio.h>, has been added.  It contains some
+new functions based on corresponding functions in Microsoft C. All
+of these functions are DOS-specific and are therefore not supported
+on Sun hosts.
+
+
+    inp    read a value from one of the PC's 8-bit input ports
+    outp   write a value to one of the PC's 8-bit output ports
+    inpw   read a value from one of the PC's 16-bit input ports
+    outpw  write a value to one of the PC's 16-bit output ports
+    getch  read a character from the keyboard with no echo
+    kbhit  check for outstanding keyboard input
+
+
+inp and outp were previously included in V1.1 as part of the <dos.h>
+header. The declarations there have been retained for compatibility.
+
+
+4.1.2  Double-Precision IEEE Conversions
+
+The proprietary Texas Instruments 32-bit floating point format used
+by the C40 for floating-point data is incompatible with the IEEE for-
+mat used by PC and Sun host computers. Parallel C V1.1 provided a
+group of functions (declared in the <ieee.h> header file) for convert-
+ing between the Texas Instruments and IEEE 32-bit single-precision
+formats. These functions would normally be used to convert binary
+floating-point data generated by a host computer into the C40 na-
+tive format for processing, and back. The binary data might be read
+from a file or transmitted over a comport.
+
+V2.0 of Parallel C adds the following functions to <ieee.h> for con-
+verting between the double-precision 64-bit IEEE format and the
+Texas Instruments 32-bit format_only 32 bits because the C40 has
+no native double-precision operations. See section 11.6 of the new
+User Guide for more details.
+
+
+    ieee_double_to_double        64-bit IEEE to TI
+    ieee_double_from_double      TI to 64-bit IEEE
+    ieee_double_to_double_vec    array of 64-bit IEEE to TI
+    ieee_double_from_double_vec  array of TI to 64-bit IEEE
+
+
+4.1.3  Other Library Changes
+
+The new bmalloc function allocates a block of memory aligned to
+an address that is an integer multiple of the smallest power of 2
+large enough to hold the requested block size. This allows assembly-
+language functions to use the C40's circular buffer and bit-reversed
+addressing features.
+
+A new function, thread_setpri, allows any thread to change its
+priority. Another new function, thread_seturg, allows a thread to
+become temporarily urgent (highest priority).
+
+A new function, _server_terminate_now, allows an individual task
+to force immediate termination of the server. This function is pro-
+vided because the server now waits until all tasks linked with the
+full run-time library have terminated before it stops. Sometimes it
+is convenient to force early termination of the whole application from
+a single task.
+
+fgetc now conforms to the ANSI C standard by returning an
+unsigned char converted to int, rather than a plain char as pre-
+viously.
+
+Previously, the channel timeout functions would wake up every
+100ms and check to see if the requested communication had com-
+pleted yet, or should be timed out. The default polling interval has
+been reduced to 7ms.
+
+The definition of the macro CLOCKS_PER_SEC, defined in the <time.h>
+header, was wrong. It has been corrected, along with the documen-
+tation for the clock function.
+
+A bug in the register-model version of the timer_wait function has
+been fixed. The bug caused the function to ignore its argument and
+wait for an unpredictable length of time.
+
+A missing #endif at the end of the <c40int.h> header file has been
+corrected.
+
+
+4.2  System Tasks
+
+The UPR and GFS system tasks are now compiled as register rather
+than stack model code, using maximum optimisation. Their memory
+allocation has also been improved. The tasks are therefore now faster
+and smaller.
+
+An initialisation error in UPR has been fixed, which would pre-
+viously cause software exception 000005B2 to be reported when
+through-routed traffic became heavy in an affected network.  The
+fault was caused by UPR only ever setting up one through-routing
+buffer at run time, irrespective of how many buffers the configurer
+had previously computed would be required.
+
+An error in UPR that made it unable to handle processors with
+more than six links has been corrected. This problem only affected
+hardware such as the C40 TRAM modules available from some man-
+ufacturers. These modules have four transputer links as well as the
+six C40 comports.
+
+A spurious software exception 00000432 that was sometimes gen-
+erated by the UPR task has been fixed.
+
+A race condition that affected software exception messages queued
+by the UPR task has been fixed.
+
+
+
+4.3  The Configurer
+
+It was previously impossible to ensure that the C40's on-chip RAM
+would be left unused by the configurer. It is now possible to guaran-
+tee that the on-chip RAM will be left free for use by an application,
+by using the new AVOID attribute of the PROCESSOR statement:
+
+
+    processor root avoid=ramblk0 avoid=ramblk1
+
+
+See sections 5.6.2 and 12.5.1.6 of the new User Guide for more details
+about AVOID.
+
+Two new processor types are now accepted by the configurer in
+PROCESSOR statements: TMS320C44 and C44.
+
+The following new statement types have been added to the configu-
+ration language to allow the user to tune the performance of virtual
+channel communications. See section 12.5.8 of the new User Guide
+for more details.
+
+    UPR MAX=n      change UPR maximum packet size
+    UPR BUFFERS=n  change UPR buffering depth
+
+An optional NOBOOT attribute has been added to the WIRE statement:
+
+    wire ? p1[0] p2[3] noboot
+
+The NOBOOT attribute specifies that this WIRE is not to be used for
+booting the network, but may otherwise be used as normal.
+
+A bug in the Sun version of the configurer which caused host I/O
+from network nodes other than the root to fail has been fixed.
+
+A bug has been fixed that caused the DOS version of the configurer
+to crash if the size of the COFF symbol table in any task exceeded
+64K bytes. This could happen if the compiler's -g option was used
+indiscriminately.
+
+A coding error which occasionally caused the configurer to crash or
+hang as a result of the same block of storage being returned to the
+heap twice has been corrected.
+
+A problem which affected customers who use both C40s and trans-
+puters has been resolved. Transputer application image files gener-
+ated by V2.3 of the configurer, as included with V1.1 of Parallel C
+for the C40, could not always be successfully booted, because they
+sometimes contained a new type of loader command not supported
+by the older network-loading software in use on transputer systems.
+The configurer no longer generates the offending command in con-
+texts which might cause problems for the transputer loader.
+
+
+4.4  Processor Farm Applications
+
+Long work messages (more than one packet) and long replies from
+worker tasks were not handled correctly by previous releases of the
+flood router. This has now been corrected.
+
+An error in the flood-fill run-time support software which caused
+the message-broadcasting feature to hang in some circumstances has
+been corrected.
+
+
+4.5  Kernel and Loader
+
+An enhanced TIM-40 kernel now allows Parallel C programs to run
+on TIM-40 modules with memory built from EDRAM chips. Unlike
+SRAM and DRAM, EDRAM chips must be initialised by software:
+two read accesses from different memory pages are required before
+the memory can be used normally. The Parallel C bootstrap code
+has been modified to read from the first and last location of every
+memory bank described in the TIM-40 ID ROM, regardless of the
+type of memory hardware actually in use.
+
+Another change to the bootstrap has been made to improve the way
+hardware with two contiguous banks of external memory is treated.
+Previously, the bootstrap might decide to load the kernel at the end
+of the first bank; i.e., right in the middle of the available RAM.
+This meant that the largest amount of contiguous memory which
+could then be allocated to a user program was only half the size of
+the physically-available contiguous memory.  This situation is now
+avoided.
+
+A bug has been fixed which previously caused Parallel C's timer_now
+function to lose one tick if two or more threads were scheduled
+to wake at exactly the same moment (by calls to timer_delay or
+timer_wait). This could appear to make the clock run slow.
+
+Sometimes an application file would fail to load if the configuration
+contained processors that had no tasks placed on them. This bug
+has been fixed.
+
+The TIM-40 bootstrap now resets the ID ROM before accessing it,
+since the TIM-40 standard can be interpreted as requiring this.
+
+The TIM-40 bootstrap now only accesses external memory after
+interpreting the autoinitialisation data optionally contained in a
+TIM-40 ID ROM.  This supports hardware vendors who use the
+ID ROM autoinitialisation feature to initialise external EDRAM by
+writing to the C40's DMA control registers.
+
+Another problem that affected EDRAM TIM modules of this design
+has also been fixed. Previously, the kernel initialised the DMA con-
+trol registers after the bootstrap phase by writing known values to
+them.  However, writing to a DMA control register does not clear
+the TCINT FLAG bit, which was being left set by EDRAM autoini-
+tialisation during booting.  This caused the kernel to crash if the
+first operation on the comport controlled by this DMA channel was
+a read, since the kernel operates the comports in split mode and so
+the spurious TCINT FLAG bit appeared to signal completion of an
+output request too.  This caused a non-existent output process to
+be "restarted" from an arbitrary address, resulting in a crash. Note
+that if by chance the DMA channel used for autoinitialisation cor-
+responded to the boot link then loading would always fail, because
+the first operation on the boot link is always a read.
+
+Several new types of boards and TIM-40 modules are now supported.
+
+
+4.6  Host Server
+
+tis now downloads large applications from PC hosts up to 50%
+faster, due to an increase in the size of its file buffer from 20 to
+60KB.  The buffer used on Sun hosts has also been enlarged, to
+128KB.
+
+The server now waits until all tasks linked with the full run-time
+library have returned from their main functions or called exit before
+it stops. It is no longer necessary for tasks that do standard I/O to
+call thread_stop or wait for other I/O tasks to complete before they
+exit.
+
+Several new types of boards and TIM-40 modules are now supported.
+
+Several new options have been added to tis which output the com-
+ponent parts of the (now large) listing produced by -:i. The new
+switches are:
+
+
+          -:iv  display server version number only
+          -:il  display list of link (board) drivers
+          -:ic  list function cluster drivers
+          -:ip  list presentation layer drivers
+
+
+These can be combined. For example, -:ivl will display the server's
+version number and the list of supported board drivers. -:i remains
+available and has the effect of all of these switches used together.
+
+Another new option switch, -:n, tells the server not to download
+the standard Parallel C run-time kernel to the target system. This
+option should not normally be used, except with the timdiag utility
+described below.
+
+Internally, the DOS server now uses large rather than compact-model
+code. This allows enhancements made using the separate 3L Server
+Extension Kit product to increase the total code size of the server
+beyond 64KB if necessary.
+
+
+4.7  c40worm Utility
+
+c40worm now recognises a wider range of boards and TIM-40 module
+types. It now also identifies the type of processor found: C40 or C44.
+
+
+4.8  timdiag Utility
+
+A new utility program called timdiag is included with Parallel C
+V2.0. It is intended to help 3L technical support people troubleshoot
+customer problems caused when the ID ROM in a TIM-40 system
+deviates from the TIM-40 standard in a way which makes the hard-
+ware incompatible with Parallel C. A normal user should therefore
+not need to use timdiag.  The program only works on TIM-40-
+compatible C40 systems booted from a comport. See chapter 16 of
+the new User Guide for details.
+
+
+4.9  Installation
+
+A completely new installation procedure using the standard pkgadd
+utility is provided for Solaris 2 users.
+
+The SunOS 4.1.x installation script has been tidied up:
+
+   - A missing endif has been fixed. The mistake caused an un-
+     sightly error message to be generated when installing the run-
+     time libraries, even though the installation was in fact per-
+     formed correctly.
+
+   - Another script error which showed up if the user replied "no"
+     when asked if the chosen installation directory was OK has
+     been corrected.
+
+   - Prompts contained in the script have been updated to reflect
+     the use of bar rather than tar for installation.
+
+   - The user is no longer asked to confirm the name of the in-
+     stallation directory after installation of the software has been
+     completed.
+
+An explicit #!/bin/csh prefix has been added to the shell scripts
+(c40c, c40clink, etc.) used with the Sun-hosted version of Paral-
+lel C, to make them work properly when a shell other than the C
+shell is in use.
+

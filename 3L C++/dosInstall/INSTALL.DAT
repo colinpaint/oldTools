@@ -1,0 +1,231 @@
+@DefineProject
+	@Name 		= "Parallel C" 	/* Product Textual Name:  */
+	@Version	= "2.2.4"
+	@Subdir 	= "\\TC2V2\\"
+	@OutDrive 	= C
+        @Requires	@HardDisk
+@EndProject
+
+@Display
+	@Cls
+
+    This program will install @Name Version @Version on your 
+    computer system and verify the integrity of the distribution files.
+    You may press the [Esc] key at any time to abort the installation.
+
+	@Pause
+@EndDisplay
+
+
+@GetOutDrive
+	@CLS
+
+	On which disk drive do you wish to install @Name:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	Use the [Up Arrow], [Down Arrow], [Pg Up], & [Pg Dn] keys to 
+	move the bar to the disk drive you wish to install to and then 
+	press the [Enter] key.
+@EndOutDrive
+
+@GetSubdir
+      @Cls
+      Now you need to specify the disk destination subdirectory.  The
+      subdirectory is the location on your disk where the @Name
+      system will be installed.
+
+      If you are using a subdirectory subsystem, and the DOS PATH command,
+      and you install @Name in the @Subdir subdirectory, you will
+      probably want to modify the PATH command so that it includes the
+      subdirectory @Subdir in addition to the current subdirectories.
+
+      @Prompt = "Which subdirectory ([Enter] = @Subdir) ?"
+@EndSubdir
+
+@DefineDisk
+	@Label = "Parallel C Disk 1"
+
+	@BeginLib TC.LIF
+		@File          TC.B4
+	@EndLib
+
+	@BeginLib DRIVER.LIF
+                @File      DRIVER.EXE   @Out TC.EXE
+		@File      DRIVER.EXE   @Out T2C.EXE
+		@File      DRIVER.EXE   @Out T4C.EXE
+		@File      DRIVER.EXE   @Out T8C.EXE
+		@File      DRIVER.EXE   @Out LINKT.EXE
+                @File      DRIVER.EXE   @Out CONFIG.EXE
+                @File      DRIVER.EXE   @Out FCONFIG.EXE
+                @File      DRIVER.EXE   @Out TNM.EXE
+                @File      DRIVER.EXE   @Out TUNLIB.EXE
+                @File      DRIVER.EXE   @Out DECODE.EXE
+                @File      DRIVER.EXE   @Out WORM.EXE
+                @File      DRIVER.EXE   @Out MEMPATCH.EXE
+	@EndLib
+
+	@BeginLib LINKT.LIF
+		@File       LINKT.B4
+	@EndLib
+
+        @BeginLib AFSERVER.LIF
+	    @If (@Host == 2)      /* NEC PC */
+		@File    NECSERVE.EXE @OUT AFSERVER.EXE
+            @Else                 /* IBM PC */
+		@File    AFSERVER.EXE
+            @EndIf
+	@EndLib
+
+	@BeginLib CEXAMPLE.LIF
+		@File       HELLO.C    @Out examples\HELLO.C
+		@File         UPC.C    @Out examples\UPC.C
+		@File      DRIVER.C    @Out examples\DRIVER.C
+		@File         UPC.CFG  @Out examples\UPC.CFG
+		@File       UPCT4.BAT  @Out examples\UPCT4.BAT
+		@File       UPCT8.BAT  @Out examples\UPCT8.BAT
+		@File      MANDEL.H    @Out examples\MANDEL.H
+		@File     MANDELM.C    @Out examples\MANDELM.C
+		@File     MANDELW.C    @Out examples\MANDELW.C
+		@File    MANDELT4.BAT  @Out examples\MANDELT4.BAT
+		@File    MANDELT8.BAT  @Out examples\MANDELT8.BAT
+		@File      MANDEL.CFG  @Out examples\MANDEL.CFG
+		@File     FMANDEL.CFG  @Out examples\FMANDEL.CFG
+		@File         CGA.C    @Out examples\CGA.C
+		@File         CGA.H    @Out examples\CGA.H
+	@EndLib
+
+	@BeginLib CHEADERS.LIF
+		@File         ALT.H
+		@File       ASCII.H
+		@File      ASSERT.H
+		@File        BOOT.H
+		@File        CHAN.H
+		@File      CHANIO.H
+		@File       CTYPE.H
+		@File         DOS.H
+		@File       ERRNO.H
+		@File       FLOAT.H
+		@File      LIMITS.H
+		@File      LOCALE.H
+		@File        MATH.H
+		@File         NET.H
+		@File         PAR.H
+		@File        SEMA.H
+		@File        SERV.H
+		@File      SETJMP.H
+		@File      SIGNAL.H
+		@File      STDARG.H
+		@File      STDDEF.H
+		@File       STDIO.H
+		@File      STDLIB.H
+		@File      STRING.H
+		@File      THREAD.H
+		@File        TIME.H
+		@File       TIMER.H
+		@File     VARARGS.H
+	@EndLib
+
+	@BeginLib T2CLIBS.LIF
+		@File    SACRTLT2.BIN
+	@EndLib
+
+	@BeginLib T4CLIBS.LIF
+		@File      CRTLT4.BIN
+		@File    SACRTLT4.BIN
+		@File      T4HARN.BIN
+		@File    TASKHARN.T4
+		@File     OCCHARN.T4
+	@EndLib
+
+	@BeginLib T8CLIBS.LIF
+		@File      CRTLT8.BIN
+		@File    SACRTLT8.BIN
+		@File      T8HARN.BIN
+		@File    TASKHARN.T8
+		@File     OCCHARN.T8
+	@EndLib
+
+	@BeginLib GCONFIG.LIF
+		@File      CONFIG.B4
+		@File     GLOADER.B4
+	@EndLib
+
+	@BeginLib FCONFIG.LIF
+		@File     FCONFIG.B4
+		@File     FLOADER.B4
+		@File     FROUTER.B4
+	@EndLib
+
+	@BeginLib DECODE.LIF
+		@File      DECODE.B4
+	@EndLib
+
+	@BeginLib MEMPATCH.LIF
+		@File    MEMPATCH.B4
+	@EndLib
+
+	@BeginLib TNM.LIF
+		@File         TNM.B4
+	@EndLib
+
+	@BeginLib TUNLIB.LIF
+		@File      TUNLIB.B4
+	@EndLib
+
+	@BeginLib WORM.LIF
+		@File        WORM.B4
+	@EndLib
+
+    	@BeginLib TASKLIB.LIF
+                @File        STUB.B4
+                @File     FILEMUX.B4
+                @File      FILTER.B4
+	@EndLib
+
+@EndDisk
+
+/*
+** In order to create the tailored batch files, we create two variables
+** which are used as a shorthand later to prevent the line getting too
+** long.
+*/
+@DefineVars
+   /* linker string for non-T2 systems */
+   @Qstring @EL = "echo linkt %1 %2 %3 %4 %5 %6 %7 %8 %9"
+   /* linker string for T2 systems has default memory specification */
+   @Qstring @EM = "echo linkt/M64K %1 %2 %3 %4 %5 %6 %7 %8 %9"
+   @Qstring @OD = "@OutDrive:@SubDir"
+@EndVars
+         
+@Finish
+   @Cls
+
+   Creating tailored linker batch files...
+   t2clink...  @system "@EM @OD\\sacrtlt2 >@OD\\t2clink.bat"
+   t4cstask... @system "@EL @OD\\sacrtlt4 @OD\\taskharn.t4 >@OD\\t4cstask.bat"
+   t8cstask... @system "@EL @OD\\sacrtlt8 @OD\\taskharn.t8 >@OD\\t8cstask.bat"
+   t4ctask...  @system "@EL @OD\\crtlt4 @OD\\taskharn.t4 >@OD\\t4ctask.bat"
+   t8ctask...  @system "@EL @OD\\crtlt8 @OD\\taskharn.t8 >@OD\\t8ctask.bat"
+   t4clink...  @system "@EL @OD\\crtlt4 @OD\\t4harn >@OD\\t4clink.bat"
+   t8clink...  @system "@EL @OD\\crtlt8 @OD\\t8harn >@OD\\t8clink.bat"
+   Tailored batch files created.
+   
+   Installation of @Name version @Version complete.
+
+   @Pause
+
+@EndFinish

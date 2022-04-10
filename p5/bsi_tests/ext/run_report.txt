@@ -1,0 +1,14 @@
+ERR report file 
+ 
+Examine file for files with zero errors or that have "FAILS" at 
+the end. 
+ 
+Run for program t6p1p9d7.pas 
+program complete
+ 
+Run for program t6p1p9d8.pas 
+program complete
+ 
+Run for program t6p8p3p5d16.pas 
+program complete
+ 

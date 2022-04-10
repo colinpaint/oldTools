@@ -1,0 +1,57 @@
+IDEF report file 
+ 
+Examine file for files with zero errors or that have "FAILS" at 
+the end. 
+ 
+Run for program t6p1p7d15.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p1p9d5.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p4p2p2d10.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p4p2p2d11.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p4p2p2d12.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p6p6p2d11.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p7p2p2d17.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p2d4.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p2d5.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p2d6.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p4p1d1.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p4p1d2.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p3p5d1.pas 
+Errors in program: 0
+program complete
+ 

@@ -1,0 +1,333 @@
+ERR report file 
+ 
+Examine file for files with zero errors or that have "DEVIATES" at 
+the end. 
+ 
+Run for program t6p6p5p2d10.pas 
+Errors in program: 0
+program complete
+*** Runtime error [11]: Cannot reset closed file 
+ 
+Run for program t6p6p5p2d11.pas 
+Errors in program: 0
+program complete
+*** Runtime error [10]: File not in read mode    
+ 
+Run for program t6p6p5p2d12.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: Value read out of range  
+ 
+Run for program t6p6p5p2d13.pas 
+Errors in program: 0
+program complete
+*** Runtime error [20]: Value out of range       
+ 
+Run for program t6p6p5p2d14.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Value out of range       
+ 
+Run for program t6p6p5p2d15.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Value out of range       
+ 
+Run for program t6p6p5p2d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: File not in write mode   
+ 
+Run for program t6p6p5p2d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: End of file              
+ 
+Run for program t6p6p5p2d6.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: File not in read mode    
+ 
+Run for program t6p6p5p2d7.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: File not in write mode   
+ 
+Run for program t6p6p5p2d8.pas 
+Errors in program: 0
+program complete
+*** Runtime error [11]: File not in write mode   
+ 
+Run for program t6p6p5p2d9.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: File buffer undefined    
+ 
+Run for program t6p6p5p3d10.pas 
+Errors in program: 0
+program complete
+*** Runtime error [28]: Access tag allocated rec 
+ 
+Run for program t6p6p5p3d11.pas 
+Errors in program: 0
+program complete
+*** Runtime error [20]: Ptr used after dispose op
+ 
+Run for program t6p6p5p3d13.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Change to alloc tagfield 
+ 
+Run for program t6p6p5p3d14.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: New/dispose tags mismatch
+ 
+Run for program t6p6p5p3d16.pas 
+Errors in program: 0
+program complete
+*** Runtime error [28]: New/dispose tags mismatch
+ 
+Run for program t6p6p5p3d17.pas 
+Errors in program: 0
+program complete
+*** Runtime error [32]: New/dispose tags mismatch
+ 
+Run for program t6p6p5p3d21.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: Bad pointer value        
+ 
+Run for program t6p6p5p3d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Dispose nil pointer      
+ 
+Run for program t6p6p5p3d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Undefined location access
+ 
+Run for program t6p6p5p3d6.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: Dispose of VAR ref block 
+ 
+Run for program t6p6p5p3d7.pas 
+Errors in program: 0
+program complete
+*** Runtime error [24]: Dispose of with ref block
+ 
+Run for program t6p6p5p3d8.pas 
+Errors in program: 0
+program complete
+*** Runtime error [24]: Access tag allocated rec 
+ 
+Run for program t6p6p5p3d9.pas 
+Errors in program: 0
+program complete
+*** Runtime error [24]: Access tag allocated rec 
+ 
+Run for program t6p6p5p4d2.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: Value out of range       
+ 
+Run for program t6p6p5p4d3.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: Undefined location access
+ 
+Run for program t6p6p5p4d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [20]: Pack elements out of bnds
+ 
+Run for program t6p6p5p4d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [19]: Value out of range       
+ 
+Run for program t6p6p5p4d6.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: Undefined location access
+ 
+Run for program t6p6p5p4d7.pas 
+Errors in program: 0
+program complete
+*** Runtime error [20]: Unpack elem out of bnds  
+ 
+Run for program t6p6p6p2d12.pas 
+Errors in program: 0
+program complete
+ ERROR...6.6.6.2-12
+ 
+Run for program t6p6p6p2d13.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Arithmetic overflow      
+ 
+Run for program t6p6p6p2d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [13]: Cannot find ln <= 0      
+ 
+Run for program t6p6p6p2d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: Cannot find sqrt < 0     
+ 
+Run for program t6p6p6p3d3.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: Real argument to large   
+ 
+Run for program t6p6p6p3d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Real argument to large   
+ 
+Run for program t6p6p6p4d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: Value out of range       
+ 
+Run for program t6p6p6p4d6.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: Value out of range       
+ 
+Run for program t6p6p6p4d7.pas 
+Errors in program: 0
+program complete
+*** Runtime error [15]: Value out of range       
+ 
+Run for program t6p6p6p5d6.pas 
+Errors in program: 0
+program complete
+*** Runtime error [12]: File is not open         
+ 
+Run for program t6p6p6p5d7.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Eof on file              
+ 
+Run for program t6p6p6p5d8.pas 
+Errors in program: 0
+program complete
+*** Runtime error [12]: File not in read mode    
+ 
+Run for program t6p7p2p2d10.pas 
+Errors in program: 0
+program complete
+*** Runtime error [11]: Arithmetic overflow      
+ 
+Run for program t6p7p2p2d11.pas 
+Errors in program: 0
+program complete
+*** Runtime error [13]: Invalid divisor in mod   
+ 
+Run for program t6p7p2p2d12.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Arithmetic overflow      
+ 
+Run for program t6p7p2p2d13.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Zero divide              
+ 
+Run for program t6p7p2p2d16.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Zero divide              
+ 
+Run for program t6p7p2p2d8.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Zero divide              
+ 
+Run for program t6p7p2p2d9.pas 
+Errors in program: 0
+program complete
+*** Runtime error [11]: Arithmetic overflow      
+ 
+Run for program t6p7p2p4d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: Set element out of range 
+ 
+Run for program t6p8p3p5d10.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Case - error             
+ 
+Run for program t6p8p3p5d11.pas 
+Errors in program: 0
+program complete
+*** Runtime error [16]: Value out of range       
+ 
+Run for program t6p8p3p5d16.pas 
+program complete
+ 
+Run for program t6p8p3p9d19.pas 
+Errors in program: 0
+program complete
+*** Runtime error [27]: Undefined location access
+ 
+Run for program t6p8p3p9d21.pas 
+Errors in program: 0
+program complete
+*** Runtime error [22]: Undefined location access
+ 
+Run for program t6p8p3p9d22.pas 
+Errors in program: 0
+program complete
+*** Runtime error [22]: Undefined location access
+ 
+Run for program t6p8p3p9d8.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Value out of range       
+ 
+Run for program t6p8p3p9d9.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Value out of range       
+ 
+Run for program t6p9p1d10.pas 
+Errors in program: 0
+program complete
+*** Runtime error [18]: Value read out of range  
+ 
+Run for program t6p9p1d4.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Invalid integer format   
+ 
+Run for program t6p9p1d5.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Invalid real format      
+ 
+Run for program t6p9p1d9.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: End of file              
+ 
+Run for program t6p9p3p1d2.pas 
+Errors in program: 0
+program complete
+*** Runtime error [14]: Width cannot be < 1      
+ 
+Run for program t6p9p3p1d3.pas 
+Errors in program: 0
+program complete
+*** Runtime error [17]: Fraction cannot be < 1   
+ 
+Run for program t6p9p3p2d3.pas 
+Errors in program: 0
+program complete
+*** Runtime error [20]: Fraction cannot be < 1   
+ 

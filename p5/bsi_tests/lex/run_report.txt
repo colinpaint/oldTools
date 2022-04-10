@@ -1,0 +1,42 @@
+LEX report file 
+ 
+Examine file for files with errors or "DEVIATES" or "QUALITY"
+the end. 
+ 
+Run for program t6p10d2.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p10d5.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p1p2d10.pas 
+Errors in program: 2
+program complete
+ 
+Run for program t6p1p2d7.pas 
+Errors in program: 2
+program complete
+ 
+Run for program t6p1p2d9.pas 
+Errors in program: 2
+program complete
+ 
+Run for program t6p1p8d6.pas 
+Errors in program: 0
+program complete
+ QUALITY...6.1.8-6
+ 
+Run for program t6p1p9d6.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p2p1d3.pas 
+Errors in program: 0
+program complete
+ 
+Run for program t6p9p5d1.pas 
+Errors in program: 0
+program complete
+ 

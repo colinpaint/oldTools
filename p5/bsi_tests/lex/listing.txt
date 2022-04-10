@@ -1,0 +1,309 @@
+
+Compiling and running t6p10d2
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.10-2, CLASS=CONFORMANCE} 
+     2      -32  
+     3      -32 {: This test checks that a program on one line is accepted. } 
+     4      -32 {V3.0: New test. } 
+     5      -32  
+     6      -32 program t6p10d2(output);begin writeln(' PASS...6.10-2')end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ PASS...6.10-2
+
+program complete
+
+Compiling and running t6p10d5
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.10-5, CLASS=CONFORMANCE} 
+     2      -32  
+     3      -32 {: This test checks that a comment is permitted between the 
+     4      -32    final end and the '.'. } 
+     5      -32 {V3.1: New test. } 
+     6      -32  
+     7      -32 program t6p10d5(output); 
+     8      -32 begin 
+     9        3    writeln(' PASS...6.10-5') 
+    10       11 end{comment here, next test without comments}. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ PASS...6.10-5
+
+program complete
+
+Compiling and running t6p1p2d10
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.2-10, CLASS=DEVIANCE} 
+     2      -32  
+     3      -32 {: This test deviates since the character | is not a token 
+     4      -32    of Pascal. } 
+     5      -32 {  This test is not  relevant to processors that do not admit 
+     6      -32    the | character in their character set. } 
+     7      -32 {V3.1: Test moved. } 
+     8      -32  
+     9      -32 program t6p1p2d10(output); 
+    10      -32 var 
+    11      -32    i:integer; 
+    12      -32 begin 
+    13        3    i:=77; 
+    14        7    if (i<35) | (i>56) then i:=0; 
+    14   ****               ^25^6
+    15       16    writeln(' DEVIATES...6.1.2-10') 
+    16       22 end. 
+
+Errors in program: 2
+
+Error numbers in listing:
+-------------------------
+  6  Illegal symbol
+ 25  Illegal source character
+
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+
+*** Source program contains errors: 2
+
+program complete
+
+Compiling and running t6p1p2d7
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.2-7, CLASS=DEVIANCE} 
+     2      -32  
+     3      -32 {: This test deviates since the character % is not a token 
+     4      -32    of Pascal. } 
+     5      -32 {  This test is not  relevant to processors that do not admit 
+     6      -32    the % character in their character set. } 
+     7      -32 {V3.1: Test moved. } 
+     8      -32  
+     9      -32 program t6p1p2d7(output); 
+    10      -32 var 
+    11      -32    i: integer; 
+    12      -32 begin 
+    13        3 i := 1 % 2; 
+    13   ****         ^25^6
+    14        7 writeln(' DEVIATES...6.1.2-7') 
+    15       13 end. 
+
+Errors in program: 2
+
+Error numbers in listing:
+-------------------------
+  6  Illegal symbol
+ 25  Illegal source character
+
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+
+*** Source program contains errors: 2
+
+program complete
+
+Compiling and running t6p1p2d9
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.2-9, CLASS=DEVIANCE} 
+     2      -32  
+     3      -32 {: This test deviates since the character & is not a token 
+     4      -32    of Pascal. } 
+     5      -32 {  This test is not  relevant to processors that do 
+     6      -32    not admit the & character in their character set. } 
+     7      -32 {V3.1: Test moved. } 
+     8      -32  
+     9      -32 program t6p1p2d9(output); 
+    10      -32 var 
+    11      -32    i:integer; 
+    12      -32 begin 
+    13        3    i:=7; 
+    14        7    if (i>4) & (i<9) then i:=0; 
+    14   ****              ^25^6
+    15       16    writeln(' DEVIATES...6.1.2-9') 
+    16       22 end. 
+
+Errors in program: 2
+
+Error numbers in listing:
+-------------------------
+  6  Illegal symbol
+ 25  Illegal source character
+
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+
+*** Source program contains errors: 2
+
+program complete
+
+Compiling and running t6p1p8d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.8-6, CLASS=QUALITY} 
+     2      -32  
+     3      -32 {: This test determines whether the processor helps the programmer 
+     4      -32    to detect unclosed comments. } 
+     5      -32 {  Hard to trace run-time errors may occur if a comment 
+     6      -32    accidentally encloses 1 or more statements. } 
+     7      -32 {V3.0: Writeln added at end of program. Was previously 6.1.8-4. } 
+     8      -32  
+     9      -32 program t6p1p8d6(output); 
+    10      -32 var 
+    11      -32    i : integer; 
+    12      -32 begin 
+    13        3    i:=10; 
+    14        7    { Now write out the value of i. 
+    15        7    writeln(' THE VALUE OF I IS:', i); 
+    16        7    { The value of i will not be printed because of the unclosed 
+    17        7      previous comment. } 
+    18        7    write  (' PROCESSOR SHOULD ISSUE A WARNING FOR A POSSIBLE'); 
+    19       14    writeln(' UNCLOSED COMMENT'); 
+    20       22    writeln(' QUALITY...6.1.8-6'); 
+    21       30 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ PROCESSOR SHOULD ISSUE A WARNING FOR A POSSIBLE UNCLOSED COMMENT
+ QUALITY...6.1.8-6
+
+program complete
+
+Compiling and running t6p1p9d6
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.1.9-6, CLASS=IMPLEMENTATIONDEFINED, NUMBER=16} 
+     2      -32  
+     3      -32 {: This program checks whether the equivalent symbol can be used for 
+     4      -32    the reference representation of up-arrow. } 
+     5      -32 {  It will not be possible to convert this program if the commercial 
+     6      -32    at character is not available. } 
+     7      -32 {V3.1: Test of square brackets moved to 6.1.9-5, comment changed. } 
+     8      -32  
+     9      -32 program t6p1p9d6(output); 
+    10      -32 type 
+    11      -32    rec = record 
+    12      -32            a,b:integer 
+    13      -32          end; 
+    14      -32    ptr1=@rec;  {If @ is not implemented, this will give bad syntax. } 
+    15      -32    ptr2=^rec; 
+    16      -32 begin 
+    17        3    writeln(' OUTPUT FROM TEST...6.1.9-6' ); 
+    18       13    writeln(' EQUIVALENT SYMBOL TO UP-ARROW IS IMPLEMENTED'); 
+    19       21    writeln(' IMPLEMENTATION DEFINED...6.1.9-6') 
+    20       27 end. 
+ptr2       unreferenced
+ptr1       unreferenced
+
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ OUTPUT FROM TEST...6.1.9-6
+ EQUIVALENT SYMBOL TO UP-ARROW IS IMPLEMENTED
+ IMPLEMENTATION DEFINED...6.1.9-6
+
+program complete
+
+Compiling and running t6p2p1d3
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.2.1-3, CLASS=CONFORMANCE} 
+     2      -32  
+     3      -32 {: This is the minimal program. } 
+     4      -32 {V3.0: Was previously 6.2.1-6. } 
+     5      -32  
+     6      -32 program t6p2p1d3; 
+     7      -32 begin 
+     8        3 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+
+program complete
+
+Compiling and running t6p9p5d1
+
+P5 Pascal compiler vs. 1.4.x
+Pascal-P5 complies with the requirements of level 0 of ISO/IEC 7185.
+
+
+     1      -32 {TEST 6.9.5-1, CLASS=CONFORMANCE} 
+     2      -32  
+     3      -32 {: This program checks that the procedure page is implemented. } 
+     4      -32 {  This conformance test is unable to determine whether the 
+     5      -32    processor  passes or fails - the user must check that a page 
+     6      -32    has been generated. } 
+     7      -32 {V3.0: Test renumbered (was 6.9.6-1) to correspond with DP7185. 
+     8      -32    First writeln changed to a write so that it can be 
+     9      -32    determined, if desired, whether page performed an implicit 
+    10      -32    writeln as it should. } 
+    11      -32  
+    12      -32 program t6p9p5d1(output); 
+    13      -32 begin 
+    14        3    write(' PAGE GENERATION TEST'); 
+    15       12    page(output); 
+    16       14    writeln(' IF THIS LINE IS PRINTED ON THE TOP OF A NEW PAGE'); 
+    17       22    writeln(' THEN PASS...6.9.5-1'); 
+    18       30    writeln(' ELSE FAIL...6.9.5-1') 
+    19       36 end. 
+
+Errors in program: 0
+P5 Pascal interpreter vs. 1.4.x
+
+Assembling/loading program
+Running program
+
+ PAGE GENERATION TEST IF THIS LINE IS PRINTED ON THE TOP OF A NEW PAGE
+ THEN PASS...6.9.5-1
+ ELSE FAIL...6.9.5-1
+
+program complete

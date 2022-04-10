@@ -1,0 +1,479 @@
+DEV report file 
+ 
+Examine file for files with zero errors or that have "DEVIATES" at 
+the end. 
+ 
+Run for program t6p10d1.pas 
+program complete
+ 
+Run for program t6p10d4.pas 
+program complete
+ 
+Run for program t6p1p2d4.pas 
+program complete
+ 
+Run for program t6p1p2d5.pas 
+program complete
+ 
+Run for program t6p1p2d6.pas 
+program complete
+ 
+Run for program t6p1p2d8.pas 
+program complete
+ 
+Run for program t6p1p5d13.pas 
+program complete
+ 
+Run for program t6p1p5d3.pas 
+program complete
+ 
+Run for program t6p1p5d4.pas 
+program complete
+ 
+Run for program t6p1p5d5.pas 
+program complete
+ 
+Run for program t6p1p5d6.pas 
+program complete
+ 
+Run for program t6p1p5d7.pas 
+program complete
+ 
+Run for program t6p1p6d4.pas 
+program complete
+ 
+Run for program t6p1p6d5.pas 
+program complete
+ 
+Run for program t6p1p6d6.pas 
+program complete
+ 
+Run for program t6p1p7d10.pas 
+program complete
+ 
+Run for program t6p1p7d11.pas 
+program complete
+ 
+Run for program t6p1p7d12.pas 
+program complete
+ 
+Run for program t6p1p7d13.pas 
+program complete
+ 
+Run for program t6p1p7d4.pas 
+program complete
+ 
+Run for program t6p1p7d5.pas 
+program complete
+ 
+Run for program t6p1p7d6.pas 
+program complete
+ 
+Run for program t6p1p7d7.pas 
+program complete
+ 
+Run for program t6p1p7d8.pas 
+program complete
+ 
+Run for program t6p1p7d9.pas 
+program complete
+ 
+Run for program t6p1p8d3.pas 
+program complete
+ 
+Run for program t6p1p8d4.pas 
+program complete
+ 
+Run for program t6p1p8d5.pas 
+program complete
+ 
+Run for program t6p1p9d4.pas 
+program complete
+ 
+Run for program t6p2p1d10.pas 
+program complete
+ 
+Run for program t6p2p1d4.pas 
+program complete
+ 
+Run for program t6p2p1d5.pas 
+program complete
+ 
+Run for program t6p2p1d6.pas 
+program complete
+ 
+Run for program t6p2p1d7.pas 
+program complete
+ 
+Run for program t6p2p1d8.pas 
+program complete
+ 
+Run for program t6p2p1d9.pas 
+program complete
+ 
+Run for program t6p2p2d10.pas 
+program complete
+ 
+Run for program t6p2p2d8.pas 
+program complete
+ 
+Run for program t6p2p2d9.pas 
+program complete
+ 
+Run for program t6p3d2.pas 
+program complete
+ 
+Run for program t6p3d3.pas 
+program complete
+ 
+Run for program t6p3d4.pas 
+program complete
+ 
+Run for program t6p3d5.pas 
+program complete
+ 
+Run for program t6p3d6.pas 
+program complete
+ 
+Run for program t6p3d7.pas 
+program complete
+ 
+Run for program t6p3d8.pas 
+program complete
+ 
+Run for program t6p3d9.pas 
+program complete
+ 
+Run for program t6p4p1d2.pas 
+program complete
+ 
+Run for program t6p4p1d3.pas 
+program complete
+ 
+Run for program t6p4p1d4.pas 
+program complete
+ 
+Run for program t6p4p2p2d9.pas 
+program complete
+ 
+Run for program t6p4p2p3d5.pas 
+program complete
+ 
+Run for program t6p4p2p3d6.pas 
+program complete
+ 
+Run for program t6p4p2p3d7.pas 
+program complete
+ 
+Run for program t6p4p2p4d3.pas 
+program complete
+ 
+Run for program t6p4p2p4d4.pas 
+program complete
+ 
+Run for program t6p4p2p4d5.pas 
+program complete
+ 
+Run for program t6p4p2p4d6.pas 
+program complete
+ 
+Run for program t6p4p3p1d3.pas 
+program complete
+ 
+Run for program t6p4p3p1d4.pas 
+program complete
+ 
+Run for program t6p4p3p1d5.pas 
+program complete
+ 
+Run for program t6p4p3p2d4.pas 
+program complete
+ 
+Run for program t6p4p3p2d5.pas 
+program complete
+ 
+Run for program t6p4p3p2d6.pas 
+program complete
+ 
+Run for program t6p4p3p2d9.pas 
+program complete
+ 
+Run for program t6p4p3p3d18.pas 
+program complete
+ 
+Run for program t6p4p3p3d19.pas 
+program complete
+ 
+Run for program t6p4p3p3d20.pas 
+program complete
+ 
+Run for program t6p4p3p3d8.pas 
+program complete
+ 
+Run for program t6p4p3p3d9.pas 
+program complete
+ 
+Run for program t6p4p3p4d3.pas 
+program complete
+ 
+Run for program t6p4p3p4d5.pas 
+program complete
+ 
+Run for program t6p4p3p4d6.pas 
+program complete
+ 
+Run for program t6p4p3p4d7.pas 
+program complete
+ 
+Run for program t6p4p4d2.pas 
+program complete
+ 
+Run for program t6p4p4d3.pas 
+program complete
+ 
+Run for program t6p4p5d10.pas 
+program complete
+ 
+Run for program t6p4p5d11.pas 
+program complete
+ 
+Run for program t6p4p5d12.pas 
+program complete
+ 
+Run for program t6p4p5d13.pas 
+program complete
+ 
+Run for program t6p4p5d14.pas 
+program complete
+ 
+Run for program t6p4p5d16.pas 
+program complete
+ 
+Run for program t6p4p5d7.pas 
+program complete
+ 
+Run for program t6p4p5d8.pas 
+program complete
+ 
+Run for program t6p4p5d9.pas 
+program complete
+ 
+Run for program t6p4p6d4.pas 
+program complete
+ 
+Run for program t6p4p6d5.pas 
+program complete
+ 
+Run for program t6p4p6d6.pas 
+program complete
+ 
+Run for program t6p4p6d7.pas 
+program complete
+ 
+Run for program t6p4p6d8.pas 
+program complete
+ 
+Run for program t6p6p1d3.pas 
+program complete
+ 
+Run for program t6p6p1d4.pas 
+program complete
+ 
+Run for program t6p6p1d5.pas 
+program complete
+ 
+Run for program t6p6p1d6.pas 
+program complete
+ 
+Run for program t6p6p1d7.pas 
+program complete
+ 
+Run for program t6p6p2d5.pas 
+program complete
+ 
+Run for program t6p6p2d6.pas 
+program complete
+ 
+Run for program t6p6p2d8.pas 
+program complete
+ 
+Run for program t6p6p3p1d5.pas 
+program complete
+ 
+Run for program t6p6p3p2d1.pas 
+program complete
+ 
+Run for program t6p6p3p2d2.pas 
+program complete
+ 
+Run for program t6p6p3p3d4.pas 
+program complete
+ 
+Run for program t6p6p3p3d5.pas 
+program complete
+ 
+Run for program t6p6p3p5d2.pas 
+program complete
+ 
+Run for program t6p6p3p6d1.pas 
+program complete
+ 
+Run for program t6p6p3p6d2.pas 
+program complete
+ 
+Run for program t6p6p3p6d3.pas 
+program complete
+ 
+Run for program t6p6p3p6d4.pas 
+program complete
+ 
+Run for program t6p6p3p6d5.pas 
+program complete
+ 
+Run for program t6p6p5p3d3.pas 
+program complete
+ 
+Run for program t6p6p6p1d1.pas 
+program complete
+ 
+Run for program t6p6p6p3d2.pas 
+program complete
+ 
+Run for program t6p6p6p4d4.pas 
+program complete
+ 
+Run for program t6p6p6p5d3.pas 
+program complete
+ 
+Run for program t6p6p6p5d4.pas 
+program complete
+ 
+Run for program t6p6p6p5d5.pas 
+program complete
+ 
+Run for program t6p6p6p5d9.pas 
+program complete
+ 
+Run for program t6p7p2p2d5.pas 
+program complete
+ 
+Run for program t6p7p2p2d6.pas 
+program complete
+ 
+Run for program t6p7p2p2d7.pas 
+program complete
+ 
+Run for program t6p7p2p3d2.pas 
+program complete
+ 
+Run for program t6p7p2p3d5.pas 
+program complete
+ 
+Run for program t6p7p2p4d3.pas 
+program complete
+ 
+Run for program t6p7p2p5d4.pas 
+program complete
+ 
+Run for program t6p7p2p5d5.pas 
+program complete
+ 
+Run for program t6p7p2p5d6.pas 
+program complete
+ 
+Run for program t6p7p2p5d7.pas 
+program complete
+ 
+Run for program t6p8p1d1.pas 
+program complete
+ 
+Run for program t6p8p1d2.pas 
+program complete
+ 
+Run for program t6p8p1d3.pas 
+program complete
+ 
+Run for program t6p8p1d4.pas 
+program complete
+ 
+Run for program t6p8p1d5.pas 
+program complete
+ 
+Run for program t6p8p2p3d1.pas 
+program complete
+ 
+Run for program t6p8p3p10d9.pas 
+program complete
+ 
+Run for program t6p8p3p5d3.pas 
+program complete
+ 
+Run for program t6p8p3p5d4.pas 
+program complete
+ 
+Run for program t6p8p3p5d5.pas 
+program complete
+ 
+Run for program t6p8p3p5d6.pas 
+program complete
+ 
+Run for program t6p8p3p5d7.pas 
+program complete
+ 
+Run for program t6p8p3p5d8.pas 
+program complete
+ 
+Run for program t6p8p3p5d9.pas 
+program complete
+ 
+Run for program t6p8p3p9d10.pas 
+program complete
+ 
+Run for program t6p8p3p9d11.pas 
+program complete
+ 
+Run for program t6p8p3p9d12.pas 
+program complete
+ 
+Run for program t6p8p3p9d13.pas 
+program complete
+ 
+Run for program t6p8p3p9d14.pas 
+program complete
+ 
+Run for program t6p8p3p9d15.pas 
+program complete
+ 
+Run for program t6p8p3p9d16.pas 
+program complete
+ 
+Run for program t6p8p3p9d17.pas 
+program complete
+ 
+Run for program t6p8p3p9d18.pas 
+program complete
+ 
+Run for program t6p8p3p9d5.pas 
+program complete
+ 
+Run for program t6p8p3p9d6.pas 
+program complete
+ 
+Run for program t6p8p3p9d7.pas 
+program complete
+ 
+Run for program t6p9p2d3.pas 
+program complete
+ 
+Run for program t6p9p3p2d1.pas 
+program complete
+ 
+Run for program t6p9p3p2d2.pas 
+program complete
+ 
+Run for program t6p9p4d3.pas 
+program complete
+ 
+Run for program t6p9p5d2.pas 
+program complete
+ 
