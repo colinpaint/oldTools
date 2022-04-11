@@ -11,21 +11,21 @@
 //{{{  types
 typedef uchar byte;
 typedef short word;
+
 typedef Char sym_name[10];
-//{{{
+
 typedef struct reference {
   sym_name rname;
   struct reference *next_ref;
-} reference;
-//}}}
-//{{{
+  } reference;
+
 typedef struct resolve {
   long res_addr, res_offset;
   struct resolve *next_res;
-} resolve;
-//}}}
+  } resolve;
+
 typedef Char string[max_len + 1];
-//{{{
+
 typedef struct symbol {
   sym_name sname, mname;
   long ssect, saddr, comsize;
@@ -33,31 +33,26 @@ typedef struct symbol {
   unsigned sdef : 1, sused : 1, sflagged : 1, shist : 1;
   reference *reflist;
   resolve *reslist;
-} symbol;
-//}}}
-//{{{
+  } symbol;
+
 typedef struct idrec {
   word rlen;
   Char rtype;
   sym_name modname;
-} idrec;
-//}}}
+  } idrec;
+
 typedef Char filename[81];
 typedef Char objrec[256];
 typedef byte block[256];
 typedef byte bblock[512];
-//{{{
+
 typedef struct milestone {
   long mill_time, int_time;
   Char time_of_day[11];
-} milestone;
-//}}}
-//{{{
-typedef enum {
-  $history_obj, $history_symbol, $history_ref
-} history_type_t;
-//}}}
-//{{{
+  } milestone;
+
+typedef enum { $history_obj, $history_symbol, $history_ref } history_type_t;
+
 typedef struct history_t {
   history_type_t history_type;
   union {
@@ -65,13 +60,12 @@ typedef struct history_t {
     struct {
       long symbol_addr;
       sym_name symbol_name;
-    } U1;
+      } U1;
     struct {
       long ref_addr, ref_offset;
-    } U2;
-  } UU;
-} history_t;
-//}}}
+      } U2;
+    } UU;
+  } history_t;
 //}}}
 //{{{  bytes
 /* --- size( history_t ) = 15;
@@ -96,15 +90,15 @@ typedef union filed_history_t {
   struct {
     long num_recs;
     history_t recs[recs_per_file_rec$];
-  } U1;
+    } U1;
   Char dummy[bytes_per_file_rec$];
-} filed_history_t;
+  } filed_history_t;
 //}}}
 //{{{
 typedef struct text_rec_t {
   FILE *f;
   struct text_rec_t *next_text;
-} text_rec_t;
+  } text_rec_t;
 //}}}
 //{{{  vars
 Static long ql_undefsym, ql_dbldefsym, ql_sizeclash, ql_fatalerr, ql_sctovrlap;
@@ -166,13 +160,13 @@ Static Char datestring[11];
 //}}}
 
 //{{{
-Static Void showmod()
-{
-  printf("in module '%.10s', from file '%s'....\n", mod_id, cur_file);
+Static Void showmod() {
+
+  printf ("in module '%.10s', from file '%s'....\n", mod_id, cur_file);
+
   if (log_)
-    fprintf(log_file, "in module '%.10s', from file '%s'....\n",
-      mod_id, cur_file);
-}  /* showmod */
+    fprintf (log_file, "in module '%.10s', from file '%s'....\n", mod_id, cur_file);
+  }
 //}}}
 //{{{
 Static boolean seq(f1, f2)
@@ -889,93 +883,86 @@ Static Void open_log_file()
 {
   Char STR1[86];
 
-/* p2c: ql.pas, line 812: Note: Ignoring option string in open [183] */
+  /* p2c: ql.pas, line 812: Note: Ignoring option string in open [183] */
   if (log_file != NULL) {
-    sprintf(STR1, "%s.log", cmdroot);
+    sprintf (STR1, "%s.log", cmdroot);
     log_file = freopen(P_trimname(STR1, 86), "r+", log_file);
-  } else {
-    sprintf(STR1, "%s.log", cmdroot);
-    log_file = fopen(P_trimname(STR1, 86), "r+");
-  }
+    } 
+  else {
+    sprintf (STR1, "%s.log", cmdroot);
+    log_file = fopen (P_trimname(STR1, 86), "r+");
+    }
+
   if (log_file == NULL) {
     sprintf(STR1, "%s.log", cmdroot);
-    log_file = fopen(P_trimname(STR1, 86), "w+");
-  }
+    log_file = fopen (P_trimname(STR1, 86), "w+");
+    }
+
   if (log_file == NULL) {
-    sprintf(STR1, "%s.log", cmdroot);
-    _EscIO2(FileNotFound, P_trimname(STR1, 86));
-  }
+    sprintf (STR1, "%s.log", cmdroot);
+    _EscIO2 (FileNotFound, P_trimname(STR1, 86));
+    }
 /* p2c: ql.pas, line 812: Warning: Expected a ')', found a ':=' [227] */
 /* p2c: ql.pas, line 813: Note: REWRITE does not specify a name [181] */
-  rewind(log_file);
-  fprintf(log_file, "Linking from %s\n", full_filename);
-}  /*open_log_file*/
+  rewind (log_file);
+  fprintf (log_file, "Linking from %s\n", full_filename);
+  }
 //}}}
 //{{{
-Static Void close_log_file()
-{
+Static Void close_log_file() {
+
   long total, i;
   Char datestring[11];
-
 
   if (english) {
     putc('\n', log_file);
     total = 0;
     if (sectbase[9] != 0) {
-      fprintf(log_file, "Size of P                 (8)  = %8ld bytes\n",
-        sectbase[9]);
+      fprintf (log_file, "Size of P                 (8)  = %8ld bytes\n", sectbase[9]);
       total += sectbase[9];
-    }
+      }
     if (sectbase[10] != 0) {
-      fprintf(log_file, "Size of HELP              (9)  = %8ld bytes\n",
-        sectbase[10]);
+      fprintf (log_file, "Size of HELP              (9)  = %8ld bytes\n", sectbase[10]);
       total += sectbase[10];
-    }
+      }
     if (sectbase[13] != 0) {
-      fprintf(log_file, "Size of error messages   (12)  = %8ld bytes\n",
-        sectbase[13]);
+      fprintf (log_file, "Size of error messages   (12)  = %8ld bytes\n", sectbase[13]);
       total += sectbase[13];
-    }
+      }
     if (sectbase[14] != 0) {
-      fprintf(log_file, "Size of code & constants (13)  = %8ld bytes\n",
-        sectbase[14]);
+      fprintf (log_file, "Size of code & constants (13)  = %8ld bytes\n", sectbase[14]);
       total += sectbase[14];
-    }
+      }
     if (sectbase[15] != 0) {
-      fprintf(log_file, "Size of diagnostic block (14)  = %8ld bytes\n",
-        sectbase[15]);
+      fprintf (log_file, "Size of diagnostic block (14)  = %8ld bytes\n", sectbase[15]);
       total += sectbase[15];
-    }
+      }
     if (sectbase[16] != 0) {
-      fprintf(log_file, "Size of global variables (15)  = %8ld bytes\n",
-        sectbase[16]);
+      fprintf (log_file, "Size of global variables (15)  = %8ld bytes\n", sectbase[16]);
       total += sectbase[16];
+      }
+    fprintf (log_file, "Total size                     = %8ld bytes\n", total);
     }
-    fprintf(log_file, "Total size                     = %8ld bytes\n", total);
-  }
 
   else {
     for (i = 1; i <= 16; i++) {
       if (sectbase[i] != 0) {
-  fprintf(log_file, "Section %2ld Start %6.6lx Length %6.6lx",
-    i - 1, baseaddr[i], sectbase[i]);
-  fprintf(log_file, " Finish  %6.6lx\n", baseaddr[i] + sectbase[i]);
+        fprintf (log_file, "Section %2ld Start %6.6lx Length %6.6lx", i - 1, baseaddr[i], sectbase[i]);
+        fprintf (log_file, " Finish  %6.6lx\n", baseaddr[i] + sectbase[i]);
+        }
       }
     }
-  }
 
   VAXdate(datestring);
-  fprintf(log_file, "\nLink started %.11s %.11s\n",
-    start_link.time_of_day, datestring);
-  fprintf(log_file, "Link ended   %.11s %.11s\n",
-    end_link.time_of_day, datestring);
-  fprintf(log_file, "total CPU time:- %7.2f\n",
-    (end_link.mill_time - start_link.mill_time) / 1000.0);
+  fprintf (log_file, "\nLink started %.11s %.11s\n", start_link.time_of_day, datestring);
+  fprintf (log_file, "Link ended   %.11s %.11s\n", end_link.time_of_day, datestring);
+  fprintf (log_file, "total CPU time:- %7.2f\n", (end_link.mill_time - start_link.mill_time) / 1000.0);
 
   if (log_file != NULL)
-    fclose(log_file);
+    fclose (log_file);
+
   log_file = NULL;
-}  /* close_log_file */
+  } 
 //}}}
 //{{{
 Static Void alloc_com()

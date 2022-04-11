@@ -191,39 +191,39 @@ typedef struct __p2c_jmp_buf {
 #define SETBITS  32
 //{{{
 #if defined(__STDC__) || defined(__TURBOC__)
-# if !defined(vms) && !defined(M_LINT)
-#  define Signed    signed
-# else
-#  define Signed
-# endif
-# define Void       void      /* Void f() = procedure */
-# ifndef Const
-#  define Const     const
-# endif
-# ifndef Volatile
-# define Volatile   volatile
-# endif
-# ifdef M_LINT
-#  define PP(x)     ()
-#  define PV()      ()
-typedef char *Anyptr;
-# else
-#  define PP(x)     x         /* function prototype */
-#  define PV()      (void)    /* null function prototype */
-typedef void *Anyptr;
-# endif
+	#if !defined(vms) && !defined(M_LINT)
+		#define Signed    signed
+	#else
+		#define Signed
+	#endif
+	#define Void       void      /* Void f() = procedure */
+	#ifndef Const
+		#define Const     const
+	#endif
+	#ifndef Volatile
+		#define Volatile   volatile
+	#endif
+	#ifdef M_LINT
+		#define PP(x)     ()
+		#define PV()      ()
+		typedef char *Anyptr;
+	#else
+		#define PP(x)     x         /* function prototype */
+		#define PV()      (void)    /* null function prototype */
+		typedef void *Anyptr;
+	#endif
 #else
-# define Signed
-# define Void       void
-# ifndef Const
-#  define Const
-# endif
-# ifndef Volatile
-#  define Volatile
-# endif
-# define PP(x)      ()
-# define PV()       ()
-typedef char *Anyptr;
+	#define Signed
+	#define Void       void
+	#ifndef Const
+		#define Const
+	#endif
+	#ifndef Volatile
+		#define Volatile
+	#endif
+	#define PP(x)      ()
+	#define PV()       ()
+	typedef char *Anyptr;
 #endif
 //}}}
 //{{{
@@ -273,8 +273,8 @@ typedef Char alfa[10];
 
 //{{{
 typedef struct {
-		Anyptr proc, link;
-} _PROCEDURE;
+	Anyptr proc, link;
+	} _PROCEDURE;
 //}}}
 
 //{{{

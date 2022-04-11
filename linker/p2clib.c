@@ -51,7 +51,7 @@ long x;
 
 //}}}
 
-//{{{
+//{{{  my_memmove
 #ifdef __STDC__
   Anyptr my_memmove(Anyptr d, Const Anyptr s, size_t n)
 #else
@@ -76,13 +76,13 @@ long x;
     return d;
 }
 //}}}
-//{{{
+//{{{  my_memcpy
 #ifdef __STDC__
-Anyptr my_memcpy(Anyptr d, Const Anyptr s, size_t n)
+  Anyptr my_memcpy(Anyptr d, Const Anyptr s, size_t n)
 #else
-Anyptr my_memcpy(d, s, n)
-Anyptr d, s;
-register int n;
+  Anyptr my_memcpy(d, s, n)
+  Anyptr d, s;
+  register int n;
 #endif
 {
     register char *ss = (char *)s, *dd = (char *)d;
@@ -91,13 +91,13 @@ register int n;
     return d;
 }
 //}}}
-//{{{
+//{{{  my_memcpy
 #ifdef __STDC__
-int my_memcmp(Const Anyptr s1, Const Anyptr s2, size_t n)
+  int my_memcpy(Const Anyptr s1, Const Anyptr s2, size_t n)
 #else
-int my_memcmp(s1, s2, n)
-Anyptr s1, s2;
-register int n;
+  int my_memcmp(s1, s2, n)
+  Anyptr s1, s2;
+  register int n;
 #endif
 {
     register char *a = (char *)s1, *b = (char *)s2;
@@ -108,14 +108,14 @@ register int n;
     return 0;
 }
 //}}}
-//{{{
+//{{{  my_memset
 #ifdef __STDC__
-Anyptr my_memset(Anyptr d, int c, size_t n)
+  Anyptr my_memset(Anyptr d, int c, size_t n)
 #else
-Anyptr my_memset(d, c, n)
-Anyptr d;
-register int c;
-register int n;
+  Anyptr my_memset(d, c, n)
+  Anyptr d;
+  register int c;
+  register int n;
 #endif
 {
     register char *dd = (char *)d;
