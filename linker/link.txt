@@ -1,1 +1,1 @@
-gcc -o link link.c p2c/src/p2clib.c
+gcc -o link link.c p2clib.c
