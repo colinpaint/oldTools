@@ -175,7 +175,7 @@ Static Void showmod()
 }  /* showmod */
 //}}}
 //{{{
-Static boolean seq(f1, f2) 
+Static boolean seq(f1, f2)
 Char *f1, *f2;
 {
   if (strlen(f1) != strlen(f2))
@@ -2430,12 +2430,16 @@ Static milestone current_time()
   /* ms.time_of_day is hh:mm:ss.cc */
   /*                   12 45 78 AB */
   V.ms.int_time = 0;
+
   temp = get_num(1L, &V);   /*hh*/
   V.ms.int_time = temp;
+
   temp = get_num(4L, &V);   /*mm*/
   V.ms.int_time = V.ms.int_time * 60 + temp;
+
   temp = get_num(7L, &V);   /*ss*/
   V.ms.int_time = V.ms.int_time * 60 + temp;
+
   temp = get_num(10L, &V);   /*cc*/
   V.ms.int_time = V.ms.int_time * 100 + temp;
 
@@ -2454,10 +2458,13 @@ milestone ms1, ms2;
 
   temp = ms1.int_time - ms2.int_time;
   cc = temp % 100;
+
   temp /= 100;
   ss = temp % 60;
+
   temp /= 60;
   mm = temp % 60;
+
   temp /= 60;
   hh = temp % 60;
 
@@ -2470,6 +2477,7 @@ milestone ms1, ms2;
     if (time_str[temp] == ' ')
       time_str[temp] = '0';
   }
+
   printf(" %s", time_str);
   printf("  %7.2f%%\n", (ms1.mill_time - ms2.mill_time) * 100.0 /
       (end_link.mill_time - start_link.mill_time));
