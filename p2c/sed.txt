@@ -1,0 +1,2 @@
+sed 's/\r$//'  file.pas > file.p
+hexdump -C file.pas
